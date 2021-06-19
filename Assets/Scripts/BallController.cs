@@ -15,50 +15,65 @@ public class BallController : MonoBehaviour
         _cam = Camera.main;
         _rb = GetComponent<Rigidbody2D>();
         _lr = GetComponent<LineRenderer>();
+
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _startPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
-            _startPoint.z = 15;
+            DragStart();
         }
 
         if (Input.GetMouseButton(0))
         {
-            _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
-            _endPoint.z = 15;
-
-            Vector2 velocity = (_startPoint - _endPoint) * power;
-            ReduceVel(ref velocity, 15);
-
-            Vector2[] trajectory = Plot(_rb, transform.position, velocity, 200);
-            _lr.positionCount = trajectory.Length;
-
-            Vector3[] positions = new Vector3[trajectory.Length];
-            for (int i = 0; i < trajectory.Length; i++)
-            {
-                positions[i] = trajectory[i];
-            }
-            _lr.SetPositions(positions);
+            Dragging();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
-            _endPoint.z = 15;
-
-            Vector2 velocity = (_startPoint - _endPoint) * power;
-            ReduceVel(ref velocity, 15);
-
-            _rb.velocity = velocity;
-            _lr.positionCount = 0;
-            Debug.Log(velocity.magnitude);
+            DragRelease();
         }
     }
 
-    public Vector2[] Plot(Rigidbody2D rb, Vector2 pos, Vector2 velocity, int steps)
+    private void DragRelease()
+    {
+        _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
+        _endPoint.z = 15;
+
+        Vector2 velocity = (_startPoint - _endPoint) * power;
+        ReduceVel(ref velocity, 15);
+
+        _rb.velocity = velocity;
+        _lr.positionCount = 0;
+    }
+
+    private void Dragging()
+    {
+        _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
+        _endPoint.z = 15;
+
+        Vector2 velocity = (_startPoint - _endPoint) * power;
+        ReduceVel(ref velocity, 15);
+
+        Vector2[] trajectory = Plot(_rb, transform.position, velocity, 200);
+        _lr.positionCount = trajectory.Length;
+
+        Vector3[] positions = new Vector3[trajectory.Length];
+        for (int i = 0; i < trajectory.Length; i++)
+        {
+            positions[i] = trajectory[i];
+        }
+        _lr.SetPositions(positions);
+    }
+
+    private void DragStart()
+    {
+        _startPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
+        _startPoint.z = 15;
+    }
+
+    private Vector2[] Plot(Rigidbody2D rb, Vector2 pos, Vector2 velocity, int steps)
     {
         Vector2[] result = new Vector2[steps];
 
