@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class Global : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
-        InvokeRepeating(nameof(SpawnPlatform), 2f, 2f);
+        ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 3, 0), Quaternion.identity);
+        ObjectPool.Instance.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity);
+        InvokeRepeating(nameof(SpawnPlatform), .1f, 1.5f);
     }
 
     private void SpawnPlatform()

@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BallController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float power = 5f;
     private Rigidbody2D _rb;
@@ -10,16 +11,35 @@ public class BallController : MonoBehaviour
     private Vector3 _startPoint;
     private Vector3 _endPoint;
 
+    // on air time limit
+    private float _timeLimit = 3f;
+    private Slider _timerSlider;
+
+    private bool _onAir = true;
+
     private void Start()
     {
         _cam = Camera.main;
         _rb = GetComponent<Rigidbody2D>();
         _lr = GetComponent<LineRenderer>();
-
+        _timerSlider = FindObjectOfType<Slider>();
+        _timerSlider.maxValue = _timeLimit;
+        _timerSlider.value = _timeLimit;
     }
 
     private void Update()
     {
+        if (_onAir)
+        {
+            _timeLimit -= Time.deltaTime;
+        }
+        _timerSlider.value = _timeLimit;
+        if (_timeLimit <= 0)
+        {
+            _lr.positionCount = 0;
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             DragStart();
@@ -105,6 +125,23 @@ public class BallController : MonoBehaviour
         {
             velocity.Normalize();
             velocity *= maxMag;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            _timeLimit = 3f;
+            _onAir = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            _onAir = true;
         }
     }
 }

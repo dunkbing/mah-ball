@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bound
   - Lava
+  - Platform
   layers:
   - Default
   - TransparentFX
