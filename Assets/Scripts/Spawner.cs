@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Global : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     private void Start()
     {
