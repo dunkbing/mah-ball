@@ -15,7 +15,7 @@ public class ObjectPool : MonoBehaviour
         public int size;
     }
 
-    public static ObjectPool Instance;
+    public static ObjectPool Instance { get; private set; }
     public List<PoolItem> poolItems;
     private IDictionary<string, Queue<GameObject>> _pools;
 
@@ -82,6 +82,14 @@ public class ObjectPool : MonoBehaviour
             {
                 go.SetActive(false);
             }
+        }
+    }
+
+    public void Retrieve(string tag)
+    {
+        foreach (var go in _pools[tag])
+        {
+            go.SetActive(false);
         }
     }
 
