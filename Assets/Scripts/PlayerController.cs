@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     private void DragRelease()
     {
         AudioManager.Instance.Play("shoot");
-        PpvUtils.Instance.NoVignette();
+        PpvUtils.Instance.ExitSlowMo();
 
         TimeManager.StopSlowMotion();
 
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     private void Dragging()
     {
         // vignette mode
-        PpvUtils.Instance.Vignette();
+        PpvUtils.Instance.EnterSlowMo();
 
         // slow down
         TimeManager.DoSlowMotion();
