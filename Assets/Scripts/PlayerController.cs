@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ISpawn
 {
     public float power = 5f;
     private Rigidbody2D _rb;
@@ -37,27 +37,30 @@ public class PlayerController : MonoBehaviour
         if (_timeLimit <= 0)
         {
             _lr.positionCount = 0;
+            TimeManager.StopSlowMotion();
             return;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
             DragStart();
-        }
-
-        if (Input.GetMouseButton(0))
+        } else if (Input.GetMouseButton(0))
         {
             Dragging();
-        }
-
-        if (Input.GetMouseButtonUp(0))
+        } else if (Input.GetMouseButtonUp(0))
         {
             DragRelease();
+        }
+        else
+        {
+            _lr.positionCount = 0;
         }
     }
 
     private void DragRelease()
     {
+        PpvUtils.Instance.NoVignette();
+
         TimeManager.StopSlowMotion();
 
         _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
@@ -74,6 +77,9 @@ public class PlayerController : MonoBehaviour
 
     private void Dragging()
     {
+        // vignette mode
+        PpvUtils.Instance.Vignette();
+
         // slow down
         TimeManager.DoSlowMotion();
 
@@ -137,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Platform"))
+        if (other.collider.CompareTag("PlatformSurface"))
         {
             _timeLimit = 6f;
             _onAir = false;
@@ -146,9 +152,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Platform"))
+        if (other.gameObject.CompareTag("PlatformSurface"))
         {
             _onAir = true;
         }
+    }
+
+    public void Spawn()
+    {
+        _timeLimit = 6f;
     }
 }
