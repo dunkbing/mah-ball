@@ -23,14 +23,20 @@ public class Spawner : MonoBehaviour
         _objectPool.RetrieveAll();
         TimeManager.StopSlowMotion();
         _objectPool.Spawn(nameof(Player), new Vector3(0, 3, 0), Quaternion.identity);
-        _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity);
+        _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
+        {
+            go.GetComponent<Platform>().firstPlatform = true;
+        });
         InvokeRepeating(nameof(SpawnPlatform), .1f, 2f);
     }
 
     private void PreStart()
     {
         _objectPool.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
-        _objectPool.Spawn(nameof(Platform), Vector3.zero, Quaternion.identity).GetComponent<Platform>().speed = 0;
+        _objectPool.Spawn(nameof(Platform), Vector3.zero, Quaternion.identity, go =>
+        {
+            go.GetComponent<Platform>().firstPlatform = true;
+        }).GetComponent<Platform>().speed = 0;
     }
 
     private void SpawnPlatform()
