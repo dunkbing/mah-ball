@@ -15,4 +15,11 @@ public class TimeManager : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
+
+    // stop time
+    [RuntimeInitializeOnLoadMethod]
+    public static void DaWarudo()
+    {
+        Time.timeScale = 0f;
+    }
 }

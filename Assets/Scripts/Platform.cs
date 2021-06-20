@@ -3,7 +3,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    private float _speed = 1.5f;
+    public float speed = 1.5f;
 
     private void Awake()
     {
@@ -12,6 +12,7 @@ public class Platform : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.MovePosition(Vector3.down * (_speed * Time.fixedDeltaTime) + transform.position);
+        if (GameStats.Paused) return;
+        _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
     }
 }
