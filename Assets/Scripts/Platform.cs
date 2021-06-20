@@ -1,9 +1,14 @@
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public class Platform : MonoBehaviour, ISpawn
 {
     private Rigidbody2D _rb;
     public float speed = 1.5f;
+
+    public void Spawn()
+    {
+        speed = 1.5f;
+    }
 
     private void Awake()
     {

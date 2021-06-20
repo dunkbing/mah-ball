@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void DragRelease()
     {
+        AudioManager.Instance.Play("shoot");
         PpvUtils.Instance.NoVignette();
 
         TimeManager.StopSlowMotion();

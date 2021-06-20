@@ -17,6 +17,7 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager.Instance.Play("tap");
         GameStats.Paused = false;
         pauseMenu.SetActive(false);
         Spawner.Instance.StartGame();

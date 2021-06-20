@@ -34,6 +34,7 @@ public class Lava : MonoBehaviour
     {
         if (other.collider.CompareTag("Player"))
         {
+            AudioManager.Instance.Play("explosion");
             StartCoroutine(Pause());
         }
     }
