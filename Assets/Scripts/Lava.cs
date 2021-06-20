@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Lava : MonoBehaviour
 {
@@ -26,5 +28,23 @@ public class Lava : MonoBehaviour
         _tempPos.y += Mathf.Sin (Time.fixedTime * Mathf.PI * frequency) * amplitude;
 
         transform.position = _floatDir ? _tempPos : -_tempPos;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Player"))
+        {
+            StartCoroutine(Pause());
+        }
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private IEnumerator Pause()
+    {
+        TimeManager.StopSlowMotion();
+        GameStats.Paused = true;
+
+        yield return new WaitForSeconds(1f);
+        PauseMenuHandler.Instance.Pause();
     }
 }

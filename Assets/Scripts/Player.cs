@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     private ObjectPool _objectPool;
+    public GameObject particle;
 
     private void Awake()
     {
@@ -13,16 +16,9 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Lava"))
         {
-            Pause();
+            Instantiate(particle, transform.position, Quaternion.identity);
+            _objectPool.Retrieve(nameof(Player));
         }
     }
 
-    private void Pause()
-    {
-        PauseMenuHandler.Instance.Pause();
-        _objectPool.Retrieve(nameof(Player));
-        // _objectPool.RetrieveAll();
-        TimeManager.StopSlowMotion();
-        GameStats.Paused = true;
-    }
 }
