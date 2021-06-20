@@ -50,7 +50,7 @@ public class ObjectPool : MonoBehaviour
         go.SetActive(true);
         go.transform.position = position;
         go.transform.rotation = rotation;
-        // go.GetComponent<ISpawn>()?.Spawn();
+        go.GetComponent<ISpawn>()?.Spawn();
 
         _pools[tag].Enqueue(go);
 
@@ -67,7 +67,7 @@ public class ObjectPool : MonoBehaviour
         var go = _pools[tag].Dequeue();
         callback?.Invoke(go);
         go.SetActive(true);
-        // go.GetComponent<ISpawn>()?.Spawn();
+        go.GetComponent<ISpawn>()?.Spawn();
 
         _pools[tag].Enqueue(go);
 
