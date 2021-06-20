@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _endPoint;
 
     // on air time limit
-    private float _timeLimit = 3f;
+    private float _timeLimit = 6f;
     private Slider _timerSlider;
 
     private bool _onAir = true;
@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = velocity;
         _lr.positionCount = 0;
+
+        _timeLimit -= 1.5f;
     }
 
     private void Dragging()
@@ -132,7 +134,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            _timeLimit = 3f;
+            _timeLimit = 6f;
             _onAir = false;
         }
     }
