@@ -23,6 +23,7 @@ public class Heart : Entity
         {
             AudioManager.Instance.Play("powerup");
             Instantiate(explosion, transform.position, Quaternion.identity);
+            other.gameObject.GetComponent<PlayerController>().ResetEnergy();
             Explode();
         }
     }

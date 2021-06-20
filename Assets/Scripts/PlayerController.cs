@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     {
         if (other.collider.CompareTag("PlatformSurface"))
         {
-            _timeLimit = 6f;
+            ResetEnergy();
             _onAir = false;
         }
     }
@@ -160,6 +160,11 @@ public class PlayerController : MonoBehaviour, ISpawn
     }
 
     public void Spawn()
+    {
+        ResetEnergy();
+    }
+
+    public void ResetEnergy()
     {
         _timeLimit = 6f;
     }
