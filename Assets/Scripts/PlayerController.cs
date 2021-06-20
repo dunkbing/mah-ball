@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     private void DragRelease()
     {
+        TimeManager.StopSlowMotion();
+
         _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
         _endPoint.z = 15;
 
@@ -72,6 +74,9 @@ public class PlayerController : MonoBehaviour
 
     private void Dragging()
     {
+        // slow down
+        TimeManager.DoSlowMotion();
+
         _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
         _endPoint.z = 15;
 
