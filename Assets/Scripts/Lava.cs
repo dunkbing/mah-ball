@@ -35,7 +35,8 @@ public class Lava : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             AudioManager.Instance.Play("explosion");
-            PauseMenuHandler.Instance.DelayPause(1f);
+            ScoreMenu.Instance.SaveScore();
+            PauseMenu.Instance.DelayPause(1f);
         }
     }
 

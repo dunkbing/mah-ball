@@ -1,4 +1,6 @@
-public static class Constants
+using UnityEngine;
+
+public class Constants : MonoBehaviour
 {
     public const float OnAirTimeLimit = 10f;
     public const float WhitePlatRegenRate = 0.03f;
@@ -10,4 +12,6 @@ public static class Constants
     public const int WhitePlatScore = 5;
     public const int GreenPlatScore = 5;
     public const int HeartScore = 20;
+    // data file path
+    public static readonly string DataFilePath = $"{Application.dataPath}/save.txt";
 }

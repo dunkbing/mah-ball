@@ -1,14 +1,36 @@
+using System;
 using System.Collections;
+using System.IO;
+using TMPro;
 using UnityEngine;
 
-public class PauseMenuHandler : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
-    public static PauseMenuHandler Instance { get; private set; }
+    public static PauseMenu Instance { get; private set; }
     public GameObject pauseMenu;
+
+    // score ui
+    public GameObject highScoreTmpGo;
+    private TextMeshProUGUI _highScoreTmp;
 
     private void Awake()
     {
         Instance = this;
+
+        _highScoreTmp = highScoreTmpGo.GetComponent<TextMeshProUGUI>();
+
+        // load high score
+        try
+        {
+            var highScoreTxt = File.ReadAllText(Constants.DataFilePath);
+            int.TryParse(highScoreTxt, out GameStats.HighScore);
+            _highScoreTmp.SetText($"High score: {highScoreTxt}");
+        }
+        catch (Exception e) when(e is FileNotFoundException || e is DirectoryNotFoundException)
+        {
+            Debug.Log(e.Message);
+        }
+
     }
 
     private void Start()
@@ -21,6 +43,7 @@ public class PauseMenuHandler : MonoBehaviour
         AudioManager.Instance.Play("tap");
         GameStats.GameIsPaused = false;
         pauseMenu.SetActive(false);
+        ScoreMenu.Instance.IncreaseScore(-GameStats.Score);
         Spawner.Instance.StartGame();
         PpvUtils.Instance.ExitSlowMo();
     }
@@ -28,6 +51,7 @@ public class PauseMenuHandler : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
+        _highScoreTmp.SetText($"High score: {GameStats.HighScore}");
         Spawner.Instance.StopSpawning();
         GameStats.GameIsPaused = true;
     }
@@ -43,6 +67,6 @@ public class PauseMenuHandler : MonoBehaviour
         GameStats.GameIsPaused = true;
 
         yield return new WaitForSeconds(time);
-        PauseMenuHandler.Instance.Pause();
+        Pause();
     }
 }

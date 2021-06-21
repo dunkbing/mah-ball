@@ -22,7 +22,7 @@ public class Virus : Entity, IFalling
         {
             Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
             other.gameObject.GetComponent<Player>().Explode();
-            PauseMenuHandler.Instance.DelayPause(1f);
+            PauseMenu.Instance.DelayPause(1f);
             Explode();
         }
     }
