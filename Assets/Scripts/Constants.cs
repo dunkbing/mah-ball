@@ -13,5 +13,5 @@ public class Constants : MonoBehaviour
     public const int GreenPlatScore = 5;
     public const int HeartScore = 20;
     // data file path
-    public static readonly string DataFilePath = $"{Application.dataPath}/save.txt";
+    public static readonly string DataFilePath = $"{Application.persistentDataPath}/save.txt";
 }

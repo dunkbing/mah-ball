@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour, ISpawn
 
         ReduceVel(ref velocity, 15);
 
-        Vector2[] trajectory = Plot(_rb, transform.position, velocity, 200);
+        Vector2[] trajectory = Plot(_rb, transform.position, velocity, 400);
         _lr.positionCount = trajectory.Length;
 
         Vector3[] positions = new Vector3[trajectory.Length];
