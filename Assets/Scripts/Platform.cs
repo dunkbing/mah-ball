@@ -12,7 +12,7 @@ public class Platform : MonoBehaviour, ISpawn
         speed = 1.5f;
 
         // spawning heart
-        if (!firstPlatform && Random.Range(0, 1f) < 0.05)
+        if (!firstPlatform && Random.Range(0, 1f) < Constants.SpawningHeartRate)
         {
             var position = transform.position;
             float x = Random.Range(position.x - 1.5f, position.x + 1.5f);

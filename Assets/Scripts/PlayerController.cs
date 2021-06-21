@@ -164,9 +164,14 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void OnCollisionStay2D(Collision2D other)
     {
+        Debug.Log(other.gameObject.tag);
         if (other.collider.CompareTag("PlatformSurface"))
         {
             Regen(Constants.WhitePlatRegenRate);
+            _onAir = false;
+        } else if (other.collider.CompareTag("GreenPlatformSurface"))
+        {
+            Regen(Constants.GreenPlatRegenRate);
             _onAir = false;
         }
     }

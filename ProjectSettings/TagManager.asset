@@ -8,8 +8,8 @@ TagManager:
   - Lava
   - Platform
   - Maze
-  - enemyBall
   - PlatformSurface
+  - GreenPlatformSurface
   layers:
   - Default
   - TransparentFX

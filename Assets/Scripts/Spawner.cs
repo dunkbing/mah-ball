@@ -41,7 +41,14 @@ public class Spawner : MonoBehaviour
 
     private void SpawnObject()
     {
-        _objectPool.Spawn(nameof(Platform), new Vector3(Random.Range(-7, 7), 6, 0), Quaternion.identity);
+        if (Random.Range(0f, 1f) < 0.2f)
+        {
+            _objectPool.Spawn("GreenPlatform", new Vector3(Random.Range(-7, 7), 6, 0), Quaternion.identity);
+        }
+        else
+        {
+            _objectPool.Spawn(nameof(Platform), new Vector3(Random.Range(-7, 7), 6, 0), Quaternion.identity);
+        }
     }
 
     public void StopSpawning()
