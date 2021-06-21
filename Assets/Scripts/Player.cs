@@ -7,9 +7,12 @@ public class Player : MonoBehaviour, ISpawn
     private ObjectPool _objectPool;
     public GameObject particle;
 
+    private PlayerController _playerController;
+
     private void Awake()
     {
         _objectPool = ObjectPool.Instance;
+        _playerController = GetComponent<PlayerController>();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -24,5 +27,6 @@ public class Player : MonoBehaviour, ISpawn
     public void Spawn()
     {
         transform.localScale = new Vector3(0.7f, 0.7f);
+        _playerController.ResetEnergy();
     }
 }
