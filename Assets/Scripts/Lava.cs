@@ -35,8 +35,16 @@ public class Lava : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             AudioManager.Instance.Play("explosion");
-            ScoreMenu.Instance.SaveScore();
-            PauseMenu.Instance.DelayPause(1f);
+            HeartCounter.Instance.DecreaseHealth();
+            if (!HeartCounter.Instance.IsEmptyLife())
+            {
+                ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
+            }
+            else
+            {
+                ScoreMenu.Instance.SaveScore();
+                PauseMenu.Instance.DelayPause(1f);
+            }
         }
     }
 

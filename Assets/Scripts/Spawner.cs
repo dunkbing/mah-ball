@@ -20,6 +20,7 @@ public class Spawner : MonoBehaviour
 
     public void StartGame()
     {
+        HeartCounter.Instance.ResetLife();
         _objectPool.RetrieveAll();
         TimeManager.StopSlowMotion();
         _objectPool.Spawn(nameof(Player), new Vector3(0, 3, 0), Quaternion.identity);

@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void Dragging()
     {
-        _chargeTime += Time.deltaTime * 5;
+        _chargeTime += Time.deltaTime * 8;
         // vignette mode
         PpvUtils.Instance.EnterSlowMo();
 

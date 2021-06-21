@@ -22,8 +22,17 @@ public class Virus : Entity, IFalling
         {
             Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
             other.gameObject.GetComponent<Player>().Explode();
-            PauseMenu.Instance.DelayPause(1f);
             Explode();
+            HeartCounter.Instance.DecreaseHealth();
+            if (!HeartCounter.Instance.IsEmptyLife())
+            {
+                ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
+            }
+            else
+            {
+                ScoreMenu.Instance.SaveScore();
+                PauseMenu.Instance.DelayPause(1f);
+            }
         }
     }
 
