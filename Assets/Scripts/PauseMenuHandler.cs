@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PauseMenuHandler : MonoBehaviour
@@ -29,5 +30,19 @@ public class PauseMenuHandler : MonoBehaviour
         pauseMenu.SetActive(true);
         Spawner.Instance.StopSpawning();
         Constants.GameIsPaused = true;
+    }
+
+    public void DelayPause(float time)
+    {
+        StartCoroutine(WaitAndPause(time));
+    }
+
+    private IEnumerator WaitAndPause(float time)
+    {
+        TimeManager.StopSlowMotion();
+        Constants.GameIsPaused = true;
+
+        yield return new WaitForSeconds(time);
+        PauseMenuHandler.Instance.Pause();
     }
 }

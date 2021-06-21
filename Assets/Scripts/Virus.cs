@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Heart : Entity, IFalling
+public class Virus : Entity, IFalling
 {
     public GameObject explosion;
     private Rigidbody2D _rb;
@@ -20,9 +20,9 @@ public class Heart : Entity, IFalling
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            AudioManager.Instance.Play("powerup");
             Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
-            other.gameObject.GetComponent<PlayerController>().ResetEnergy();
+            other.gameObject.GetComponent<Player>().Explode();
+            PauseMenuHandler.Instance.DelayPause(1f);
             Explode();
         }
     }

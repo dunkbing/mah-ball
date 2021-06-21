@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, ISpawn
+public class Player : Entity, ISpawn
 {
     private ObjectPool _objectPool;
-    public GameObject particle;
+    public GameObject explosion;
 
     private PlayerController _playerController;
 
@@ -13,14 +11,17 @@ public class Player : MonoBehaviour, ISpawn
     {
         _objectPool = ObjectPool.Instance;
         _playerController = GetComponent<PlayerController>();
+        OnExplode += (() =>
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+        });
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Lava"))
         {
-            Instantiate(particle, transform.position, Quaternion.identity);
-            _objectPool.Retrieve(nameof(Player));
+            Explode();
         }
     }
 

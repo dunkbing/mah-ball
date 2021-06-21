@@ -35,17 +35,8 @@ public class Lava : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             AudioManager.Instance.Play("explosion");
-            StartCoroutine(Pause());
+            PauseMenuHandler.Instance.DelayPause(1f);
         }
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator Pause()
-    {
-        TimeManager.StopSlowMotion();
-        Constants.GameIsPaused = true;
-
-        yield return new WaitForSeconds(1f);
-        PauseMenuHandler.Instance.Pause();
-    }
 }
