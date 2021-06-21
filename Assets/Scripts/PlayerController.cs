@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +12,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     private Vector3 _endPoint;
 
     // on air time limit
-    private const float TimeLimit = 6f;
-    private float _timeLimit = TimeLimit;
+    private float _timeLimit = Constants.OnAirTimeLimit;
     private Slider _timerSlider;
 
     private bool _onAir = true;
@@ -168,7 +166,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     {
         if (other.collider.CompareTag("PlatformSurface"))
         {
-            Regen();
+            Regen(Constants.WhitePlatRegenRate);
             _onAir = false;
         }
     }
@@ -188,17 +186,17 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     public void ResetEnergy()
     {
-        _timeLimit = TimeLimit;
+        _timeLimit = Constants.OnAirTimeLimit;
     }
 
-    public void Regen()
+    public void Regen(float amount)
     {
-        if (_timeLimit > TimeLimit)
+        if (_timeLimit > Constants.OnAirTimeLimit)
         {
-            _timeLimit = TimeLimit;
+            _timeLimit = Constants.OnAirTimeLimit;
             return;
         }
 
-        _timeLimit += 0.04f;
+        _timeLimit += amount;
     }
 }

@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
         {
             go.GetComponent<Platform>().firstPlatform = true;
         });
-        InvokeRepeating(nameof(SpawnPlatform), .1f, 2f);
+        InvokeRepeating(nameof(SpawnObject), .1f, 2f);
     }
 
     private void PreStart()
@@ -39,13 +39,13 @@ public class Spawner : MonoBehaviour
         }).GetComponent<Platform>().speed = 0;
     }
 
-    private void SpawnPlatform()
+    private void SpawnObject()
     {
         _objectPool.Spawn(nameof(Platform), new Vector3(Random.Range(-7, 7), 6, 0), Quaternion.identity);
     }
 
     public void StopSpawning()
     {
-        CancelInvoke(nameof(SpawnPlatform));
+        CancelInvoke(nameof(SpawnObject));
     }
 }
