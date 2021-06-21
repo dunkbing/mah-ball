@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     // on air time limit
     private float _timeLimit = Constants.OnAirTimeLimit;
+    private float _chargeTime;
     private Slider _timerSlider;
 
     private bool _onAir = true;
@@ -92,11 +93,13 @@ public class PlayerController : MonoBehaviour, ISpawn
         _rb.velocity = velocity;
         _lr.positionCount = 0;
 
-        _timeLimit -= 1.5f;
+        _timeLimit -= _chargeTime;
+        _chargeTime = 0;
     }
 
     private void Dragging()
     {
+        _chargeTime += Time.deltaTime * 5;
         // vignette mode
         PpvUtils.Instance.EnterSlowMo();
 
