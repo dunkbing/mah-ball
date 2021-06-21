@@ -17,12 +17,19 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private bool _onAir = true;
 
-    private void Start()
+    private Vector3 _originScale;
+
+    private void Awake()
     {
         _cam = Camera.main;
         _rb = GetComponent<Rigidbody2D>();
         _lr = GetComponent<LineRenderer>();
         _timerSlider = FindObjectOfType<Slider>();
+        _originScale = transform.localScale;
+    }
+
+    private void Start()
+    {
         _timerSlider.maxValue = _timeLimit;
         _timerSlider.value = _timeLimit;
     }
@@ -68,6 +75,10 @@ public class PlayerController : MonoBehaviour, ISpawn
         _endPoint.z = 15;
 
         Vector2 velocity = (_startPoint - _endPoint) * power;
+
+        transform.up = velocity.normalized;
+        transform.localScale = _originScale;
+
         ReduceVel(ref velocity, 15);
 
         _rb.velocity = velocity;
@@ -88,6 +99,14 @@ public class PlayerController : MonoBehaviour, ISpawn
         _endPoint.z = 15;
 
         Vector2 velocity = (_startPoint - _endPoint) * power;
+
+        // set rotation toward velocity and squeeze the ball by y
+        transform.up = velocity.normalized;
+        if (transform.localScale.y > 0.4f)
+        {
+            transform.localScale -= new Vector3(0, 0.01f);
+        }
+
         ReduceVel(ref velocity, 15);
 
         Vector2[] trajectory = Plot(_rb, transform.position, velocity, 200);
