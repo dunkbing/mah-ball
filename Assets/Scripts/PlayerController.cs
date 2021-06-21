@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void Update()
     {
-        if (Constants.GameIsPaused)
+        if (GameStats.GameIsPaused)
         {
             return;
         }

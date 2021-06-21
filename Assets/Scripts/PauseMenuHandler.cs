@@ -19,7 +19,7 @@ public class PauseMenuHandler : MonoBehaviour
     public void Resume()
     {
         AudioManager.Instance.Play("tap");
-        Constants.GameIsPaused = false;
+        GameStats.GameIsPaused = false;
         pauseMenu.SetActive(false);
         Spawner.Instance.StartGame();
         PpvUtils.Instance.ExitSlowMo();
@@ -29,7 +29,7 @@ public class PauseMenuHandler : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         Spawner.Instance.StopSpawning();
-        Constants.GameIsPaused = true;
+        GameStats.GameIsPaused = true;
     }
 
     public void DelayPause(float time)
@@ -40,7 +40,7 @@ public class PauseMenuHandler : MonoBehaviour
     private IEnumerator WaitAndPause(float time)
     {
         TimeManager.StopSlowMotion();
-        Constants.GameIsPaused = true;
+        GameStats.GameIsPaused = true;
 
         yield return new WaitForSeconds(time);
         PauseMenuHandler.Instance.Pause();

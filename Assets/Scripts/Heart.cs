@@ -29,7 +29,7 @@ public class Heart : Entity, IFalling
 
     public void Fall()
     {
-        if (Constants.GameIsPaused) return;
+        if (GameStats.GameIsPaused) return;
         _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
     }
 }
