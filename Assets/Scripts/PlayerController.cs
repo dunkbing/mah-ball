@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     {
         _timerSlider.maxValue = _timeLimit;
         _timerSlider.value = _timeLimit;
+        transform.localScale = _originScale;
     }
 
     private void Update()

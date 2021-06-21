@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISpawn
 {
     private ObjectPool _objectPool;
     public GameObject particle;
@@ -21,4 +21,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Spawn()
+    {
+        transform.localScale = new Vector3(0.7f, 0.7f);
+    }
 }

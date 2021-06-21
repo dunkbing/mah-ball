@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4781474098463699842}
   - component: {fileID: 4781474098463699843}
   - component: {fileID: 4781474098463699846}
-  - component: {fileID: 4781474098463699847}
   - component: {fileID: 5241945148306013043}
+  - component: {fileID: 4781474098463699847}
   - component: {fileID: 3876918092643846238}
   m_Layer: 0
   m_Name: Player
@@ -168,7 +168,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 0.7
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -230,19 +230,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &4781474098463699847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4781474098463699840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5183e98ccb9438478729e7e57e04c41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  power: 3
 --- !u!114 &5241945148306013043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +243,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 54159185283248016, guid: cbc2a6ac636218445941e7fe04404c60, type: 3}
+--- !u!114 &4781474098463699847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781474098463699840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5183e98ccb9438478729e7e57e04c41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 3
 --- !u!96 &3876918092643846238
 TrailRenderer:
   serializedVersion: 2

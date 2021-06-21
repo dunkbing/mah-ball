@@ -24,7 +24,7 @@ public class PpvUtils : MonoBehaviour
 
     private void Start()
     {
-        DisablePp();
+        ExitSlowMo();
     }
 
     public void EnterSlowMo()

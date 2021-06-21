@@ -21,7 +21,7 @@ public class PauseMenuHandler : MonoBehaviour
         GameStats.Paused = false;
         pauseMenu.SetActive(false);
         Spawner.Instance.StartGame();
-        PpvUtils.Instance.DisablePp();
+        PpvUtils.Instance.ExitSlowMo();
     }
 
     public void Pause()
