@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Heart : Entity
+public class Heart : Entity, IFalling
 {
     public GameObject explosion;
     private Rigidbody2D _rb;
@@ -13,8 +13,7 @@ public class Heart : Entity
 
     private void FixedUpdate()
     {
-        if (GameStats.Paused) return;
-        _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
+        Fall();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -26,5 +25,11 @@ public class Heart : Entity
             other.gameObject.GetComponent<PlayerController>().ResetEnergy();
             Explode();
         }
+    }
+
+    public void Fall()
+    {
+        if (Constants.GameIsPaused) return;
+        _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
     }
 }

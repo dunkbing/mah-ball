@@ -18,7 +18,7 @@ public class PauseMenuHandler : MonoBehaviour
     public void Resume()
     {
         AudioManager.Instance.Play("tap");
-        GameStats.Paused = false;
+        Constants.GameIsPaused = false;
         pauseMenu.SetActive(false);
         Spawner.Instance.StartGame();
         PpvUtils.Instance.ExitSlowMo();
@@ -28,6 +28,6 @@ public class PauseMenuHandler : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         Spawner.Instance.StopSpawning();
-        GameStats.Paused = true;
+        Constants.GameIsPaused = true;
     }
 }

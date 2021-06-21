@@ -43,7 +43,7 @@ public class Lava : MonoBehaviour
     private IEnumerator Pause()
     {
         TimeManager.StopSlowMotion();
-        GameStats.Paused = true;
+        Constants.GameIsPaused = true;
 
         yield return new WaitForSeconds(1f);
         PauseMenuHandler.Instance.Pause();

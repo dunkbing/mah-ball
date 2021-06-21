@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,11 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void Update()
     {
+        if (Constants.GameIsPaused)
+        {
+            return;
+        }
+
         if (_onAir)
         {
             _timeLimit -= Time.deltaTime;
@@ -164,7 +170,16 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        Debug.Log(other.gameObject.tag);
+        HandleCollision(other);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        HandleCollision(other);
+    }
+
+    private void HandleCollision(Collision2D other)
+    {
         if (other.collider.CompareTag("PlatformSurface"))
         {
             Regen(Constants.WhitePlatRegenRate);

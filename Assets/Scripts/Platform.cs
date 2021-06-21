@@ -27,7 +27,7 @@ public class Platform : MonoBehaviour, ISpawn
 
     private void FixedUpdate()
     {
-        if (GameStats.Paused) return;
+        if (Constants.GameIsPaused) return;
         _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
     }
 }
