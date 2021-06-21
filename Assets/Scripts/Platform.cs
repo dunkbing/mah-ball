@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Platform : MonoBehaviour, ISpawn
+public class Platform : Entity, ISpawn
 {
     private Rigidbody2D _rb;
     public float speed = 1.5f;
