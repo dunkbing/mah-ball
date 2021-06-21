@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
         if (random < 0.2f)
         {
             _objectPool.Spawn("GreenPlatform", new Vector3(Random.Range(-7, 7), 6, 0), Quaternion.identity);
-        } else if (random >= 0.2 && random < 0.4)
+        } else if (random >= 0.2 && random < 0.35)
         {
             _objectPool.Spawn("Virus", new Vector3(Random.Range(-7, 7), 6, 0), Quaternion.identity);
         }

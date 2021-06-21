@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +6,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     public float power = 5f;
     private Rigidbody2D _rb;
     private LineRenderer _lr;
+    private ParticleSystem _ps;
 
     private Camera _cam;
     private Vector3 _startPoint;
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour, ISpawn
         _lr = GetComponent<LineRenderer>();
         _timerSlider = FindObjectOfType<Slider>();
         _originScale = transform.localScale;
+        _ps = GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -170,7 +171,7 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        HandleCollision(other);
+        HandleCollision(other, true);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -178,14 +179,18 @@ public class PlayerController : MonoBehaviour, ISpawn
         HandleCollision(other);
     }
 
-    private void HandleCollision(Collision2D other)
+    private void HandleCollision(Collision2D other, bool stay = false)
     {
+        if (!stay && !GameStats.GameIsPaused) _ps.Play();
         if (other.collider.CompareTag("PlatformSurface"))
         {
+            if (!stay && !GameStats.GameIsPaused) ScoreMenu.Instance.IncreaseScore(Constants.WhitePlatScore);
+
             Regen(Constants.WhitePlatRegenRate);
             _onAir = false;
         } else if (other.collider.CompareTag("GreenPlatformSurface"))
         {
+            if (!stay && !GameStats.GameIsPaused) ScoreMenu.Instance.IncreaseScore(Constants.GreenPlatScore);
             Regen(Constants.GreenPlatRegenRate);
             _onAir = false;
         }

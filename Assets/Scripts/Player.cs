@@ -1,20 +1,36 @@
+using System;
 using UnityEngine;
 
 public class Player : Entity, ISpawn
 {
-    private ObjectPool _objectPool;
     public GameObject explosion;
 
     private PlayerController _playerController;
 
+    private float _score;
+
     private void Awake()
     {
-        _objectPool = ObjectPool.Instance;
         _playerController = GetComponent<PlayerController>();
         OnExplode += (() =>
         {
-            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
         });
+    }
+
+    private void Update()
+    {
+        if (GameStats.GameIsPaused) return;
+
+        if (_score < 1)
+        {
+            _score += Time.deltaTime;
+        }
+        else
+        {
+            ScoreMenu.Instance.IncreaseScore(Constants.NormalScore);
+            _score = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)

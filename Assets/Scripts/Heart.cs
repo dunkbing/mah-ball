@@ -20,6 +20,7 @@ public class Heart : Entity, IFalling
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            ScoreMenu.Instance.IncreaseScore(Constants.HeartScore);
             AudioManager.Instance.Play("powerup");
             Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
             other.gameObject.GetComponent<PlayerController>().ResetEnergy();
