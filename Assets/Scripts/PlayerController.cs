@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, ISpawn
 {
@@ -13,9 +12,8 @@ public class PlayerController : MonoBehaviour, ISpawn
     private Vector3 _endPoint;
 
     // on air time limit
-    private float _timeLimit = Constants.OnAirTimeLimit;
+    private float _energy = Constants.MaxEnergy;
     private float _chargeTime;
-    private Slider _timerSlider;
 
     private bool _onAir = true;
 
@@ -26,15 +24,14 @@ public class PlayerController : MonoBehaviour, ISpawn
         _cam = Camera.main;
         _rb = GetComponent<Rigidbody2D>();
         _lr = GetComponent<LineRenderer>();
-        _timerSlider = FindObjectOfType<Slider>();
         _originScale = transform.localScale;
         _ps = GetComponent<ParticleSystem>();
     }
 
     private void Start()
     {
-        _timerSlider.maxValue = _timeLimit;
-        _timerSlider.value = _timeLimit;
+        HUD.Instance.SetMaxEnergy(_energy);
+        HUD.Instance.SetEnergy(_energy);
         transform.localScale = _originScale;
     }
 
@@ -42,7 +39,7 @@ public class PlayerController : MonoBehaviour, ISpawn
     {
         if (_onAir)
         {
-            _timeLimit -= Time.deltaTime;
+            _energy -= Time.deltaTime;
         }
 
         if (GameStats.GameIsPaused)
@@ -50,8 +47,9 @@ public class PlayerController : MonoBehaviour, ISpawn
             return;
         }
 
-        _timerSlider.value = _timeLimit;
-        if (_timeLimit <= 0)
+        HUD.Instance.SetEnergy(_energy);
+
+        if (_energy <= 0)
         {
             _lr.positionCount = 0;
             TimeManager.StopSlowMotion();
@@ -94,7 +92,7 @@ public class PlayerController : MonoBehaviour, ISpawn
         _rb.velocity = velocity;
         _lr.positionCount = 0;
 
-        _timeLimit -= _chargeTime;
+        _energy -= _chargeTime;
         _chargeTime = 0;
     }
 
@@ -188,13 +186,13 @@ public class PlayerController : MonoBehaviour, ISpawn
         if (!stay && !GameStats.GameIsPaused) _ps.Play();
         if (other.collider.CompareTag("PlatformSurface"))
         {
-            if (!stay && !GameStats.GameIsPaused) ScoreMenu.Instance.IncreaseScore(Constants.WhitePlatScore);
+            if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.WhitePlatScore);
 
             Regen(Constants.WhitePlatRegenRate);
             _onAir = false;
         } else if (other.collider.CompareTag("GreenPlatformSurface"))
         {
-            if (!stay && !GameStats.GameIsPaused) ScoreMenu.Instance.IncreaseScore(Constants.GreenPlatScore);
+            if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.GreenPlatScore);
             Regen(Constants.GreenPlatRegenRate);
             _onAir = false;
         }
@@ -215,17 +213,17 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     public void ResetEnergy()
     {
-        _timeLimit = Constants.OnAirTimeLimit;
+        _energy = Constants.MaxEnergy;
     }
 
     public void Regen(float amount)
     {
-        if (_timeLimit > Constants.OnAirTimeLimit)
+        if (_energy > Constants.MaxEnergy)
         {
-            _timeLimit = Constants.OnAirTimeLimit;
+            _energy = Constants.MaxEnergy;
             return;
         }
 
-        _timeLimit += amount;
+        _energy += amount;
     }
 }

@@ -41,8 +41,8 @@ public class Lava : MonoBehaviour
             }
             else
             {
-                ScoreMenu.Instance.SaveScore();
-                PauseMenu.Instance.DelayPause(1f);
+                HUD.Instance.SaveScore();
+                PauseMenu.Instance.Pause();
             }
         }
     }

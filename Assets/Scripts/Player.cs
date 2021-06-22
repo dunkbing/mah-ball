@@ -28,7 +28,7 @@ public class Player : Entity, ISpawn
         }
         else
         {
-            ScoreMenu.Instance.IncreaseScore(Constants.NormalScore);
+            HUD.Instance.IncreaseScore(Constants.NormalScore);
             _score = 0;
         }
     }

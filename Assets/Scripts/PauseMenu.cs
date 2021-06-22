@@ -4,10 +4,11 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : Menu
 {
-    public static PauseMenu Instance { get; private set; }
     public GameObject pauseMenu;
+
+    public static PauseMenu Instance { get; private set; }
 
     // score ui
     public GameObject highScoreTmpGo;
@@ -18,6 +19,11 @@ public class PauseMenu : MonoBehaviour
         Instance = this;
 
         _highScoreTmp = highScoreTmpGo.GetComponent<TextMeshProUGUI>();
+    }
+
+    private void Start()
+    {
+        pauseMenu.SetActive(false);
 
         // load high score
         try
@@ -30,30 +36,19 @@ public class PauseMenu : MonoBehaviour
         {
             Debug.Log(e.Message);
         }
-
     }
 
-    private void Start()
+    public override void Pause()
     {
-        pauseMenu.SetActive(true);
-    }
-
-    public void Resume()
-    {
-        AudioManager.Instance.Play("tap");
-        GameStats.GameIsPaused = false;
-        pauseMenu.SetActive(false);
-        ScoreMenu.Instance.IncreaseScore(-GameStats.Score);
-        Spawner.Instance.StartGame();
-        PpvUtils.Instance.ExitSlowMo();
-    }
-
-    public void Pause()
-    {
+        base.Pause();
         pauseMenu.SetActive(true);
         _highScoreTmp.SetText($"High score: {GameStats.HighScore}");
-        Spawner.Instance.StopSpawning();
-        GameStats.GameIsPaused = true;
+    }
+
+    public void Play()
+    {
+        base.Resume();
+        pauseMenu.SetActive(false);
     }
 
     public void DelayPause(float time)

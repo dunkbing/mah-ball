@@ -57,6 +57,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void StopSpawning()
     {
         CancelInvoke(nameof(SpawnObject));

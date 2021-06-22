@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Constants : MonoBehaviour
 {
-    public const float OnAirTimeLimit = 10f;
+    public const float MaxEnergy = 10f;
     public const float WhitePlatRegenRate = 0.03f;
     public const float GreenPlatRegenRate = 0.08f;
     public const float SpawningHeartRate = 0.6f;

@@ -19,7 +19,7 @@ public class Heart : Entity, IFalling
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            ScoreMenu.Instance.IncreaseScore(Constants.HeartScore);
+            HUD.Instance.IncreaseScore(Constants.HeartScore);
             HeartCounter.Instance.IncreaseHealth();
             AudioManager.Instance.Play("powerup");
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 6, ForceMode2D.Impulse);
