@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class FPSDisplay : MonoBehaviour
@@ -23,8 +22,8 @@ public class FPSDisplay : MonoBehaviour
 
 		var rect = new Rect(0, 0, w, h * 2f / 100);
 		style.alignment = TextAnchor.UpperRight;
-		style.fontSize = h * 2 / 100;
-		style.normal.textColor = Color.green;
+		style.fontSize = h * 3 / 100;
+		style.normal.textColor = Color.red;
 		var msec = _deltaTime * 1000.0f;
 		var fps = 1.0f / _deltaTime;
 		var text = $"{msec:0.0} ms ({fps:0.} fps)";

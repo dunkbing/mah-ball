@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Player : Entity, ISpawn
 {
-    public GameObject explosion;
-
     private PlayerController _playerController;
 
     private float _score;
@@ -13,7 +11,10 @@ public class Player : Entity, ISpawn
         _playerController = GetComponent<PlayerController>();
         OnExplode += (() =>
         {
-            Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
+            ObjectPool.Instance.Spawn("PlayerExplosion", transform.position, Quaternion.identity, go =>
+            {
+                go.GetComponent<ParticleSystem>().Play();
+            });
         });
     }
 

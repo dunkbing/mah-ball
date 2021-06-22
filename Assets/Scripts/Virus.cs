@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Virus : Entity, IFalling
 {
-    public GameObject explosion;
     private Rigidbody2D _rb;
     public float speed = 1.5f;
 
@@ -20,7 +19,10 @@ public class Virus : Entity, IFalling
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
+            ObjectPool.Instance.Spawn("VirusExplosion", transform.position, Quaternion.identity, go =>
+            {
+                go.GetComponent<ParticleSystem>().Play();
+            });
             other.gameObject.GetComponent<Player>().Explode();
             Explode();
             HeartCounter.Instance.DecreaseHealth();

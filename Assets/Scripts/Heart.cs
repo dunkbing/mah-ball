@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Heart : Entity, IFalling
 {
-    public GameObject explosion;
     private Rigidbody2D _rb;
     public float speed = 1.5f;
 
@@ -24,7 +23,10 @@ public class Heart : Entity, IFalling
             HeartCounter.Instance.IncreaseHealth();
             AudioManager.Instance.Play("powerup");
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 6, ForceMode2D.Impulse);
-            Destroy(Instantiate(explosion, transform.position, Quaternion.identity), Constants.ExplosionLifeTime);
+            ObjectPool.Instance.Spawn("HeartExplosion", transform.position, Quaternion.identity, go =>
+            {
+                go.GetComponent<ParticleSystem>().Play();
+            });
             other.gameObject.GetComponent<PlayerController>().ResetEnergy();
             Explode();
         }
