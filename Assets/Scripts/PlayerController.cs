@@ -40,15 +40,16 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void Update()
     {
+        if (_onAir)
+        {
+            _timeLimit -= Time.deltaTime;
+        }
+
         if (GameStats.GameIsPaused)
         {
             return;
         }
 
-        if (_onAir)
-        {
-            _timeLimit -= Time.deltaTime;
-        }
         _timerSlider.value = _timeLimit;
         if (_timeLimit <= 0)
         {
@@ -201,7 +202,7 @@ public class PlayerController : MonoBehaviour, ISpawn
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("PlatformSurface"))
+        if (other.gameObject.CompareTag("PlatformSurface") || other.gameObject.CompareTag("GreenPlatformSurface"))
         {
             _onAir = true;
         }

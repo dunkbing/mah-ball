@@ -19,6 +19,7 @@ public class Virus : Entity, IFalling
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            AudioManager.Instance.Play("explosion");
             ObjectPool.Instance.Spawn("VirusExplosion", transform.position, Quaternion.identity, go =>
             {
                 go.GetComponent<ParticleSystem>().Play();
