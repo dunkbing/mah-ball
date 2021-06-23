@@ -32,7 +32,7 @@ namespace Entities
                 {
                     go.GetComponent<ParticleSystem>().Play();
                 });
-                other.gameObject.GetComponent<PlayerController>().ResetEnergy();
+                other.gameObject.GetComponent<Player>().ResetEnergy();
                 Explode();
             }
         }
