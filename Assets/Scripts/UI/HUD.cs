@@ -73,7 +73,6 @@ namespace UI
             GameStats.Score += score;
             if (score > Constants.NormalScore)
             {
-                Debug.Log(scoreAnim);
                 scoreAnim.Play("Score");
             }
             scoreTmp.SetText($"${GameStats.Score}");

@@ -11,18 +11,16 @@ namespace UI
     public class PauseMenu : Menu
     {
         public GameObject pauseMenu;
+        public GameObject startMenu;
 
         public static PauseMenu Instance { get; private set; }
 
         // score ui
-        public GameObject highScoreTmpGo;
-        private TextMeshProUGUI _highScoreTmp;
+        public TextMeshProUGUI highScoreTmp;
 
         private void Awake()
         {
             Instance = this;
-
-            _highScoreTmp = highScoreTmpGo.GetComponent<TextMeshProUGUI>();
         }
 
         private void Start()
@@ -34,7 +32,7 @@ namespace UI
             {
                 var highScoreTxt = File.ReadAllText(Constants.DataFilePath);
                 int.TryParse(highScoreTxt, out GameStats.HighScore);
-                _highScoreTmp.SetText($"High score: {highScoreTxt}");
+                highScoreTmp.SetText($"High score: {highScoreTxt}");
             }
             catch (Exception e) when(e is FileNotFoundException || e is DirectoryNotFoundException)
             {
@@ -46,13 +44,19 @@ namespace UI
         {
             base.Pause();
             pauseMenu.SetActive(true);
-            _highScoreTmp.SetText($"High score: {GameStats.HighScore}");
+            highScoreTmp.SetText($"High score: {GameStats.HighScore}");
         }
 
         public void Play()
         {
             base.Resume();
             pauseMenu.SetActive(false);
+        }
+
+        public void MainMenu()
+        {
+            pauseMenu.SetActive(false);
+            startMenu.SetActive(true);
         }
 
         public void DelayPause(float time)

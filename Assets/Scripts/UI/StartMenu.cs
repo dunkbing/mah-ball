@@ -8,6 +8,8 @@ namespace UI
     {
         public GameObject startMenu;
 
+        public GameObject customizeMenu;
+
         private void Start()
         {
             startMenu.SetActive(true);
@@ -19,9 +21,10 @@ namespace UI
             startMenu.SetActive(false);
         }
 
-        public void Shop()
+        public void Customize()
         {
-            // TODO: implement later
+            startMenu.SetActive(false);
+            customizeMenu.SetActive(true);
         }
 
         public void Setting()
