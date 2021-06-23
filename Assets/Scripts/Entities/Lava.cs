@@ -1,3 +1,4 @@
+using Common;
 using UI;
 using UnityEngine;
 using Utilities;
@@ -45,8 +46,9 @@ namespace Entities
                 }
                 else
                 {
-                    HUD.Instance.SaveScore();
+                    GameStats.SaveToFile();
                     PauseMenu.Instance.Pause();
+                    Spawner.Instance.PreStart();
                 }
             }
         }

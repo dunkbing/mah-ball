@@ -247,6 +247,8 @@ MonoBehaviour:
   rb2d: {fileID: 4781474098463699842}
   lr: {fileID: 4781474098463699846}
   ps: {fileID: 5673715220207951145}
+  playerExplosion: {fileID: 54159185283248018, guid: cbc2a6ac636218445941e7fe04404c60, type: 3}
+  sr: {fileID: 4781474098463699845}
 --- !u!96 &3876918092643846238
 TrailRenderer:
   serializedVersion: 2

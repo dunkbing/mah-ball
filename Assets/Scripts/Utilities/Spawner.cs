@@ -35,10 +35,11 @@ namespace Utilities
             InvokeRepeating(nameof(SpawnObject), .1f, 2f);
         }
 
-        private void PreStart()
+        public void PreStart()
         {
-            _objectPool.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
-            _objectPool.Spawn(nameof(Platform), Vector3.zero, Quaternion.identity, go =>
+            _objectPool.RetrieveAll();
+            _objectPool.Spawn(nameof(Player), new Vector3(0, 3.5f, 0), Quaternion.identity);
+            _objectPool.Spawn(nameof(Platform), new Vector3(0, 2.5f, 0), Quaternion.identity, go =>
             {
                 go.GetComponent<Platform>().firstPlatform = true;
             }).GetComponent<Platform>().speed = 0;

@@ -1,7 +1,9 @@
 // Created by Binh Bui on 06, 23, 2021
 
-using System;
+using Common;
+using Entities;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -19,6 +21,12 @@ namespace UI
         {
             customizeMenu.SetActive(false);
             startMenu.SetActive(true);
+        }
+
+        public void SelectColor(Image image)
+        {
+            Player.Instance.SetPlayerColor(image.color);
+            GameStats.SaveToFile();
         }
     }
 }

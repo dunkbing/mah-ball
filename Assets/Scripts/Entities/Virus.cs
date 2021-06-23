@@ -38,7 +38,7 @@ namespace Entities
                 }
                 else
                 {
-                    HUD.Instance.SaveScore();
+                    GameStats.SaveToFile();
                     PauseMenu.Instance.Pause();
                 }
             }

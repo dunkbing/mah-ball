@@ -11,6 +11,7 @@ namespace Entities
         public Rigidbody2D rb2d;
         public LineRenderer lr;
         public ParticleSystem ps;
+        public SpriteRenderer sr;
 
         private Camera _cam;
         private Vector3 _startPoint;
@@ -27,8 +28,11 @@ namespace Entities
         // to increase player score every 1s
         private float _elapsedTime;
 
+        public static Player Instance { get; private set; }
+
         private void Awake()
         {
+            Instance = this;
             _cam = Camera.main;
             _originScale = transform.localScale;
 
@@ -36,9 +40,14 @@ namespace Entities
             {
                 ObjectPool.Instance.Spawn("PlayerExplosion", transform.position, Quaternion.identity, go =>
                 {
-                    go.GetComponent<ParticleSystem>().Play();
+                    var particle = go.GetComponent<ParticleSystem>();
+                    var psMain = particle.main;
+                    psMain.startColor = GameStats.PlayerColor;
+                    particle.Play();
                 });
             });
+
+            SetPlayerColor(GameStats.PlayerColor);
         }
 
         private void Start()
@@ -122,6 +131,20 @@ namespace Entities
 
             _energy -= _chargeTime;
             _chargeTime = 0;
+        }
+
+        public void SetPlayerColor(Color color)
+        {
+            GameStats.PlayerColor = color;
+            sr.color = color;
+            // set particle color
+            var psMain = ps.main;
+            psMain.startColor = color;
+            // line renderer color
+            lr.startColor = color;
+            // set explosion color
+            // var explosionMain = playerExplosion.main;
+            // explosionMain.startColor = color;
         }
 
         private void Dragging()
