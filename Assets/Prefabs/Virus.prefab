@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5034474372271332140}
   m_Layer: 0
   m_Name: Virus
-  m_TagString: Untagged
+  m_TagString: Virus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -465,5 +465,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e6c3da7f971ad40a1383ab0e65f1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 1224812086912180851, guid: 6b84344517cd44d43a36c1443ac2f2fe, type: 3}
   speed: 1.5

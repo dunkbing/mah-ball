@@ -239,7 +239,6 @@ namespace Entities
             {
                 case "PlatformSurface":
                     if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.WhitePlatScore);
-
                     Regen(Constants.WhitePlatRegenRate);
                     _onAir = false;
                     break;
@@ -252,21 +251,6 @@ namespace Entities
                     Explode();
                     break;
             }
-            // if (other.collider.CompareTag("PlatformSurface"))
-            // {
-            //     if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.WhitePlatScore);
-            //
-            //     Regen(Constants.WhitePlatRegenRate);
-            //     _onAir = false;
-            // } else if (other.collider.CompareTag("GreenPlatformSurface"))
-            // {
-            //     if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.GreenPlatScore);
-            //     Regen(Constants.GreenPlatRegenRate);
-            //     _onAir = false;
-            // } else if (other.gameObject.CompareTag("Lava"))
-            // {
-            //     Explode();
-            // }
         }
 
         private void OnCollisionExit2D(Collision2D other)
@@ -288,7 +272,7 @@ namespace Entities
             _energy = Constants.MaxEnergy;
         }
 
-        private void Regen(float amount)
+        public void Regen(float amount)
         {
             if (_energy > Constants.MaxEnergy)
             {

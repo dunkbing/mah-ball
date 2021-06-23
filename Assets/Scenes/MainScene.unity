@@ -3319,20 +3319,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolItems:
-  - tag: Platform
-    prefab: {fileID: 7613522202667568451, guid: da734a8b9ef2aea43ac9479bfd53d882, type: 3}
-    size: 10
   - tag: Player
     prefab: {fileID: 4781474098463699840, guid: bf8aba31f14207044bf762c4f73643a6, type: 3}
     size: 1
-  - tag: Heart
-    prefab: {fileID: 2612184211917214232, guid: c64ff08dc063b7a46b370562950b6c38, type: 3}
+  - tag: Platform
+    prefab: {fileID: 7613522202667568451, guid: da734a8b9ef2aea43ac9479bfd53d882, type: 3}
     size: 5
   - tag: GreenPlatform
     prefab: {fileID: 7613522202667568451, guid: a13e909c7436798478f3455db28151d5, type: 3}
     size: 5
+  - tag: Heart
+    prefab: {fileID: 2612184211917214232, guid: c64ff08dc063b7a46b370562950b6c38, type: 3}
+    size: 5
   - tag: Virus
     prefab: {fileID: 5034474372271332136, guid: 041afc1452072f24193b6904107c98fe, type: 3}
+    size: 5
+  - tag: Coin
+    prefab: {fileID: 5034474372271332136, guid: 100ad3df08699c6478cf00218297572d, type: 3}
     size: 5
   - tag: HeartExplosion
     prefab: {fileID: 6203439164233458352, guid: 1539213efff503c4db63d9ba448b44b2, type: 3}
@@ -3342,6 +3345,9 @@ MonoBehaviour:
     size: 1
   - tag: VirusExplosion
     prefab: {fileID: 1224812086912180851, guid: 6b84344517cd44d43a36c1443ac2f2fe, type: 3}
+    size: 1
+  - tag: CoinExplosion
+    prefab: {fileID: 6203439164233458352, guid: 125c5c57beb284b40a3d1c3b5d2ed789, type: 3}
     size: 1
 --- !u!1 &663456102
 GameObject:

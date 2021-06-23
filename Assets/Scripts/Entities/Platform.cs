@@ -20,7 +20,7 @@ namespace Entities
             {
                 var position = transform.position;
                 float x = Random.Range(position.x - 1.5f, position.x + 1.5f);
-                ObjectPool.Instance.Spawn(nameof(Heart), new Vector3(x, position.y + 0.8f), Quaternion.identity);
+                ObjectPool.Instance.Spawn(nameof(Reward), new Vector3(x, position.y + 0.8f), Quaternion.identity);
             }
         }
 

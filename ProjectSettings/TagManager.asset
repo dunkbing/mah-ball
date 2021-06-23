@@ -10,6 +10,9 @@ TagManager:
   - Maze
   - PlatformSurface
   - GreenPlatformSurface
+  - Coin
+  - Heart
+  - Virus
   layers:
   - Default
   - TransparentFX

@@ -13,6 +13,16 @@ namespace Entities
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+
+            OnExplode += () =>
+            {
+                AudioManager.Instance.Play("explosion");
+                ObjectPool.Instance.Spawn("VirusExplosion", transform.position, Quaternion.identity, go =>
+                {
+                    go.GetComponent<ParticleSystem>().Play();
+                });
+                GameStats.Instance.EnemyKilled += 1;
+            };
         }
 
         private void FixedUpdate()
@@ -24,13 +34,7 @@ namespace Entities
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                AudioManager.Instance.Play("explosion");
-                ObjectPool.Instance.Spawn("VirusExplosion", transform.position, Quaternion.identity, go =>
-                {
-                    go.GetComponent<ParticleSystem>().Play();
-                });
                 other.gameObject.GetComponent<Player>().Explode();
-                GameStats.Instance.EnemyKilled += 1;
                 Explode();
                 HUD.Instance.DecreaseHealth();
                 if (!HUD.Instance.IsEmptyLife())
