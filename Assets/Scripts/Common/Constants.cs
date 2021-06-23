@@ -10,10 +10,10 @@ namespace Common
         public const float SpawningHeartRate = 0.6f;
         public const float ExplosionLifeTime = 1f;
         // scoring
-        public const int NormalScore = 1;
-        public const int WhitePlatScore = 5;
-        public const int GreenPlatScore = 5;
-        public const int HeartScore = 20;
+        public const int NormalScore = 10;
+        public const int WhitePlatScore = 20;
+        public const int GreenPlatScore = 30;
+        public const int HeartScore = 50;
         // data file path
         public static readonly string DataFilePath = $"{Application.persistentDataPath}/save.txt";
     }

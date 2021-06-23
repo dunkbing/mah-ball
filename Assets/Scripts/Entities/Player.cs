@@ -42,7 +42,7 @@ namespace Entities
                 {
                     var particle = go.GetComponent<ParticleSystem>();
                     var psMain = particle.main;
-                    psMain.startColor = GameStats.PlayerColor;
+                    psMain.startColor = GameStats.Instance.PlayerColor;
                     particle.Play();
                 });
             });
@@ -53,7 +53,7 @@ namespace Entities
             HUD.Instance.SetMaxEnergy(_energy);
             HUD.Instance.SetEnergy(_energy);
             transform.localScale = _originScale;
-            SetPlayerColor(GameStats.PlayerColor);
+            SetPlayerColor(GameStats.Instance.PlayerColor);
         }
 
         private void Update()
@@ -134,7 +134,7 @@ namespace Entities
 
         public void SetPlayerColor(Color color)
         {
-            GameStats.PlayerColor = color;
+            GameStats.Instance.PlayerColor = color;
             sr.color = color;
             // set particle color
             var psMain = ps.main;

@@ -30,7 +30,7 @@ namespace UI
         {
             base.Pause();
             pauseMenu.SetActive(true);
-            highScoreTmp.SetText($"High score: {GameStats.HighScore}");
+            highScoreTmp.SetText($"High score: {GameStats.Instance.HighScore}");
         }
 
         public void Play()

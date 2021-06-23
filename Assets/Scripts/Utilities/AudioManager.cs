@@ -47,5 +47,11 @@ namespace Utilities
             var sound = Array.Find(sounds, s => s.name == name);
             sound.source.Play();
         }
+
+        public void SetVolume(string name, float volume)
+        {
+            var sound = Array.Find(sounds, s => s.name == name);
+            sound.source.volume = volume;
+        }
     }
 }

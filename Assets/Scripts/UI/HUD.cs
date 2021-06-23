@@ -68,12 +68,12 @@ namespace UI
         #region score tmp
         public void IncreaseScore(int score)
         {
-            GameStats.Score += score;
+            GameStats.Instance.Score += score;
             if (score > Constants.NormalScore)
             {
                 scoreAnim.Play("Score");
             }
-            scoreTmp.SetText($"${GameStats.Score}");
+            scoreTmp.SetText($"Score: {GameStats.Instance.Score}");
         }
         #endregion
 
@@ -108,6 +108,16 @@ namespace UI
         public bool IsEmptyLife()
         {
             return !hearts.First().activeSelf;
+        }
+        #endregion
+
+        #region Stats
+        public void ShowStats(TextMeshProUGUI tmp)
+        {
+            int highScore = GameStats.Instance.HighScore;
+            int coin = GameStats.Instance.Coin;
+            int enemyKilled = GameStats.Instance.TotalEnemyKilled;
+            tmp.SetText($"High score: {highScore}\nCoin: {coin}\nEnemy killed: {enemyKilled}");
         }
         #endregion
     }

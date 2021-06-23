@@ -30,6 +30,7 @@ namespace Entities
                     go.GetComponent<ParticleSystem>().Play();
                 });
                 other.gameObject.GetComponent<Player>().Explode();
+                GameStats.Instance.EnemyKilled += 1;
                 Explode();
                 HUD.Instance.DecreaseHealth();
                 if (!HUD.Instance.IsEmptyLife())
@@ -38,7 +39,7 @@ namespace Entities
                 }
                 else
                 {
-                    GameStats.SaveToFile();
+                    GameStats.Instance.SaveToFile();
                     PauseMenu.Instance.Pause();
                 }
             }

@@ -10,9 +10,8 @@ namespace UI
     {
         public virtual void Resume()
         {
-            AudioManager.Instance.Play("tap");
             GameStats.GameIsPaused = false;
-            HUD.Instance.IncreaseScore(-GameStats.Score);
+            HUD.Instance.IncreaseScore(-GameStats.Instance.Score);
             Spawner.Instance.StartGame();
             PpvUtils.Instance.ExitSlowMo();
         }
@@ -26,6 +25,11 @@ namespace UI
         public void Quit()
         {
             Application.Quit();
+        }
+
+        public void PlaySound()
+        {
+            AudioManager.Instance.Play("tap");
         }
     }
 }
