@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.IO;
 using Common;
 using TMPro;
 using UnityEngine;
@@ -26,18 +24,6 @@ namespace UI
         private void Start()
         {
             pauseMenu.SetActive(false);
-
-            // load high score
-            try
-            {
-                var highScoreTxt = File.ReadAllText(Constants.DataFilePath);
-                int.TryParse(highScoreTxt, out GameStats.HighScore);
-                highScoreTmp.SetText($"High score: {highScoreTxt}");
-            }
-            catch (Exception e) when(e is FileNotFoundException || e is DirectoryNotFoundException)
-            {
-                Debug.Log(e.Message);
-            }
         }
 
         public override void Pause()

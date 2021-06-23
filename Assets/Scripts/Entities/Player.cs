@@ -46,8 +46,6 @@ namespace Entities
                     particle.Play();
                 });
             });
-
-            SetPlayerColor(GameStats.PlayerColor);
         }
 
         private void Start()
@@ -55,6 +53,7 @@ namespace Entities
             HUD.Instance.SetMaxEnergy(_energy);
             HUD.Instance.SetEnergy(_energy);
             transform.localScale = _originScale;
+            SetPlayerColor(GameStats.PlayerColor);
         }
 
         private void Update()

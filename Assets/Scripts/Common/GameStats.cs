@@ -21,7 +21,6 @@ namespace Common
             try
             {
                 var highScoreTxt = File.ReadAllText(Constants.DataFilePath);
-                Debug.Log(Constants.DataFilePath);
                 var strings = Array.ConvertAll(highScoreTxt.Split('|'), float.Parse);
                 HighScore = (int) strings[0];
                 PlayerColor = new Color(strings[1], strings[2], strings[3]);
