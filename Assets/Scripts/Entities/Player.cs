@@ -8,9 +8,9 @@ namespace Entities
     public class Player : Entity, ISpawn
     {
         public float power = 5f;
-        private Rigidbody2D _rb;
-        private LineRenderer _lr;
-        private ParticleSystem _ps;
+        public Rigidbody2D rb2d;
+        public LineRenderer lr;
+        public ParticleSystem ps;
 
         private Camera _cam;
         private Vector3 _startPoint;
@@ -30,10 +30,7 @@ namespace Entities
         private void Awake()
         {
             _cam = Camera.main;
-            _rb = GetComponent<Rigidbody2D>();
-            _lr = GetComponent<LineRenderer>();
             _originScale = transform.localScale;
-            _ps = GetComponent<ParticleSystem>();
 
             OnExplode += (() =>
             {
@@ -67,7 +64,7 @@ namespace Entities
 
             if (_energy <= 0)
             {
-                _lr.positionCount = 0;
+                lr.positionCount = 0;
                 TimeManager.StopSlowMotion();
                 return;
             }
@@ -84,7 +81,7 @@ namespace Entities
             }
             else
             {
-                _lr.positionCount = 0;
+                lr.positionCount = 0;
             }
         }
 
@@ -120,8 +117,8 @@ namespace Entities
 
             ReduceVel(ref velocity, 15);
 
-            _rb.velocity = velocity;
-            _lr.positionCount = 0;
+            rb2d.velocity = velocity;
+            lr.positionCount = 0;
 
             _energy -= _chargeTime;
             _chargeTime = 0;
@@ -129,7 +126,7 @@ namespace Entities
 
         private void Dragging()
         {
-            _chargeTime += Time.deltaTime * 8;
+            _chargeTime += Time.deltaTime * 10;
             // vignette mode
             PpvUtils.Instance.EnterSlowMo();
 
@@ -150,15 +147,15 @@ namespace Entities
 
             ReduceVel(ref velocity, 15);
 
-            Vector2[] trajectory = Plot(_rb, transform.position, velocity, 400);
-            _lr.positionCount = trajectory.Length;
+            Vector2[] trajectory = Plot(rb2d, transform.position, velocity, 400);
+            lr.positionCount = trajectory.Length;
 
             Vector3[] positions = new Vector3[trajectory.Length];
             for (int i = 0; i < trajectory.Length; i++)
             {
                 positions[i] = trajectory[i];
             }
-            _lr.SetPositions(positions);
+            lr.SetPositions(positions);
         }
 
         private void DragStart()
@@ -214,7 +211,7 @@ namespace Entities
 
         private void HandleCollision(Collision2D other, bool stay = false)
         {
-            if (!stay && !GameStats.GameIsPaused) _ps.Play();
+            if (!stay && !GameStats.GameIsPaused) ps.Play();
 
             switch (other.gameObject.tag)
             {
@@ -269,7 +266,7 @@ namespace Entities
             _energy = Constants.MaxEnergy;
         }
 
-        public void Regen(float amount)
+        private void Regen(float amount)
         {
             if (_energy > Constants.MaxEnergy)
             {

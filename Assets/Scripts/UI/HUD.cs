@@ -16,6 +16,8 @@ namespace UI
         public TextMeshProUGUI scoreTmp;
         public List<GameObject> hearts;
 
+        public Animator scoreAnim;
+
         private float _deltaTime;
 
         public static HUD Instance { get; private set; }
@@ -69,6 +71,11 @@ namespace UI
         public void IncreaseScore(int score)
         {
             GameStats.Score += score;
+            if (score > Constants.NormalScore)
+            {
+                Debug.Log(scoreAnim);
+                scoreAnim.Play("Score");
+            }
             scoreTmp.SetText($"${GameStats.Score}");
         }
 
