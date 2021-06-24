@@ -13,6 +13,9 @@ TagManager:
   - Coin
   - Heart
   - Virus
+  - Cat
+  - Star
+  - Bullet
   layers:
   - Default
   - TransparentFX
