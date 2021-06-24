@@ -1,48 +1,30 @@
 // Created by Binh Bui on 06, 24, 2021
 
+using Common;
 using UnityEngine;
+using Utilities;
 
 namespace Entities
 {
-    public class Star : Entity
+    public class Star : Entity, IFalling
     {
-        public GameObject gunPivot;
-        public GameObject bullet;
-        public Transform shootPoint;
         private GameObject _target;
+        public Rigidbody2D rigidBody;
+        public float speed = 1.5f;
+        public Gun gun;
 
         private void Awake()
         {
-            InvokeRepeating(nameof(Shoot), 0.5f, 1f);
+            InvokeRepeating(nameof(Shoot), 0.5f, 0.3f);
         }
 
         private void FixedUpdate()
         {
-            Aim();
-        }
-
-        private void Aim()
-        {
             if (_target)
             {
-                var difference = _target.transform.position - gunPivot.transform.position;
-                difference.Normalize();
-                var rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-                gunPivot.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-
-                // gun on the other side of the body
-                if (rotationZ < -90 || rotationZ > 90)
-                {
-                    // facing right
-                    if (transform.eulerAngles.y == 0)
-                    {
-                        gunPivot.transform.localRotation = Quaternion.Euler(180, 0f, -rotationZ);
-                    }
-                } else if (transform.eulerAngles.y == 180)
-                {
-                    gunPivot.transform.localRotation = Quaternion.Euler(180, 180, -rotationZ);
-                }
+                gun.Aim(_target.transform);
             }
+            Fall();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -65,7 +47,7 @@ namespace Entities
 
         private void HandleTrigger(Component other)
         {
-            if (_target == null && other.CompareTag("Virus"))
+            if (_target == null && other.CompareTag("Player"))
             {
                 _target = other.gameObject;
             }
@@ -75,9 +57,14 @@ namespace Entities
         {
             if (_target)
             {
-                var rb = Instantiate(bullet, shootPoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
-                rb.AddForce(shootPoint.transform.up * 20, ForceMode2D.Impulse);
+                gun.Shoot();
             }
+        }
+
+        public void Fall()
+        {
+            if (GameStats.GameIsPaused) return;
+            rigidBody.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
         }
     }
 }

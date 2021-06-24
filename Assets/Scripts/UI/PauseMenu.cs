@@ -43,6 +43,7 @@ namespace UI
         {
             pauseMenu.SetActive(false);
             startMenu.SetActive(true);
+            Spawner.Instance.PreStart();
         }
 
         public void DelayPause(float time)

@@ -12,6 +12,7 @@ namespace Entities
         public LineRenderer lr;
         public ParticleSystem ps;
         public SpriteRenderer sr;
+        public GameObject explosion;
 
         private Camera _cam;
         private Vector3 _startPoint;
@@ -38,6 +39,7 @@ namespace Entities
 
             OnExplode += (() =>
             {
+                // Instantiate(explosion, transform.position, Quaternion.identity);
                 ObjectPool.Instance.Spawn("PlayerExplosion", transform.position, Quaternion.identity, go =>
                 {
                     var particle = go.GetComponent<ParticleSystem>();
@@ -141,9 +143,6 @@ namespace Entities
             psMain.startColor = color;
             // line renderer color
             lr.startColor = color;
-            // set explosion color
-            // var explosionMain = playerExplosion.main;
-            // explosionMain.startColor = color;
         }
 
         private void Dragging()

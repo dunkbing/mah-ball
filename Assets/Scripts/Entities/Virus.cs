@@ -45,7 +45,6 @@ namespace Entities
                 {
                     GameStats.Instance.SaveToFile();
                     PauseMenu.Instance.Pause();
-                    Spawner.Instance.PreStart();
                 }
             }
         }
