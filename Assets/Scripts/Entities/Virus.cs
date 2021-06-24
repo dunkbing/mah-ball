@@ -1,3 +1,4 @@
+using System;
 using Common;
 using UI;
 using UnityEngine;
@@ -34,8 +35,13 @@ namespace Entities
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<Player>().Explode();
-                Explode();
+                var player = other.gameObject.GetComponent<Player>();
+                if (player.HasWeapon)
+                {
+                    Explode();
+                    return;
+                }
+                player.Explode();
                 HUD.Instance.DecreaseHealth();
                 if (!HUD.Instance.IsEmptyLife())
                 {
@@ -46,6 +52,7 @@ namespace Entities
                     GameStats.Instance.SaveToFile();
                     PauseMenu.Instance.Pause();
                 }
+                Explode();
             }
         }
 

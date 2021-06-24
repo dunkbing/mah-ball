@@ -1,3 +1,4 @@
+using System;
 using Common;
 using UI;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Entities
         public LineRenderer lr;
         public ParticleSystem ps;
         public SpriteRenderer sr;
-        public GameObject explosion;
+        public Animator anim;
 
         private Camera _cam;
         private Vector3 _startPoint;
@@ -28,6 +29,8 @@ namespace Entities
 
         // to increase player score every 1s
         private float _elapsedTime;
+
+        public bool HasWeapon { get; set; } = true;
 
         public static Player Instance { get; private set; }
 
@@ -134,6 +137,11 @@ namespace Entities
             _chargeTime = 0;
         }
 
+        public void Slash()
+        {
+            anim.Play("SwordSlash");
+        }
+
         public void SetPlayerColor(Color color)
         {
             GameStats.Instance.PlayerColor = color;
@@ -228,6 +236,14 @@ namespace Entities
         private void OnCollisionEnter2D(Collision2D other)
         {
             HandleCollision(other);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Heart") || other.CompareTag("Coin") || other.CompareTag("Virus") || other.CompareTag("Star"))
+            {
+                Slash();
+            }
         }
 
         private void HandleCollision(Collision2D other, bool stay = false)

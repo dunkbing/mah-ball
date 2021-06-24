@@ -2,7 +2,6 @@
 
 using Common;
 using UnityEngine;
-using Utilities;
 
 namespace Entities
 {
