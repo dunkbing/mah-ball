@@ -26,7 +26,13 @@ namespace Entities
         }
 
         // Update is called once per frame
-        private void Update () {
+        private void Update ()
+        {
+            // Float();
+        }
+
+        private void Float()
+        {
             // Float up/down with a Sin()
             _tempPos = _posOffset;
             _tempPos.y += Mathf.Sin (Time.fixedTime * Mathf.PI * frequency) * amplitude;
