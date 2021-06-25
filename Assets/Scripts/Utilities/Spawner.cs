@@ -1,3 +1,4 @@
+using Common;
 using Entities;
 using UI;
 using UnityEngine;
@@ -27,7 +28,8 @@ namespace Utilities
             HUD.Instance.ResetLife();
             _objectPool.RetrieveAll();
             TimeManager.StopSlowMotion();
-            _objectPool.Spawn(nameof(Player), new Vector3(0, 3, 0), Quaternion.identity);
+            GameStats.Instance.CurrentPlayer = _objectPool.Spawn(GameStats.Instance.CurrentWeaponName == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
+                new Vector3(0, 3, 0), Quaternion.identity).GetComponent<Player>();
             _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
             {
                 go.GetComponent<Platform>().firstPlatform = true;
@@ -38,7 +40,8 @@ namespace Utilities
         public void PreStart()
         {
             _objectPool.RetrieveAll();
-            _objectPool.Spawn(nameof(Player), new Vector3(0, 3.5f, 0), Quaternion.identity);
+            GameStats.Instance.CurrentPlayer = _objectPool.Spawn(GameStats.Instance.CurrentWeaponName == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
+                new Vector3(0, 3.5f, 0), Quaternion.identity).GetComponent<Player>();
             _objectPool.Spawn(nameof(Platform), new Vector3(0, 2.5f, 0), Quaternion.identity, go =>
             {
                 go.GetComponent<Platform>().firstPlatform = true;

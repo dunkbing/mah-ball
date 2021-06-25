@@ -27,7 +27,7 @@ namespace Entities
 
         private void FixedUpdate()
         {
-            Spin();
+            // Spin();
             Fall();
         }
 

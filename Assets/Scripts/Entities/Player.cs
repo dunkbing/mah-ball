@@ -1,4 +1,3 @@
-using System;
 using Common;
 using UI;
 using UnityEngine;
@@ -14,6 +13,12 @@ namespace Entities
         public ParticleSystem ps;
         public SpriteRenderer sr;
         public Animator anim;
+        private Gun _gun;
+
+        // weapons
+        private GameObject _weapon;
+
+        private GameObject _shootTarget;
 
         private Camera _cam;
         private Vector3 _startPoint;
@@ -24,6 +29,8 @@ namespace Entities
         private float _chargeTime;
 
         private bool _onAir = true;
+
+        private bool _shootStarted = false;
 
         private Vector3 _originScale;
 
@@ -98,6 +105,14 @@ namespace Entities
             }
         }
 
+        private void FixedUpdate()
+        {
+            if (_shootTarget && _gun)
+            {
+                _gun.Aim(_shootTarget.transform);
+            }
+        }
+
         private void LateUpdate()
         {
             if (GameStats.GameIsPaused) return;
@@ -151,6 +166,37 @@ namespace Entities
             psMain.startColor = color;
             // line renderer color
             lr.startColor = color;
+        }
+
+        public void SelectWeapon(string wpName)
+        {
+            switch (wpName)
+            {
+                case WeaponType.Sword:
+                    CancelInvoke(nameof(Shoot));
+                    _shootStarted = false;
+                    _weapon = ObjectPool.Instance.Spawn(WeaponType.Sword, transform.position, Quaternion.identity);
+                    _weapon.transform.SetParent(gameObject.transform);
+                    break;
+                case WeaponType.Gun:
+                    _weapon = ObjectPool.Instance.Spawn(WeaponType.Gun, transform.position, Quaternion.identity);
+                    _weapon.transform.SetParent(gameObject.transform);
+                    _gun = _weapon.transform.Find("Gun").GetComponent<Gun>();
+                    if (!_shootStarted)
+                    {
+                        InvokeRepeating(nameof(Shoot), 0.5f, 0.8f);
+                        _shootStarted = true;
+                    }
+                    break;
+                case WeaponType.Spike:
+                    break;
+                case WeaponType.None:
+                    if (_weapon != null)
+                    {
+                        _weapon.transform.SetParent(null);
+                    }
+                    break;
+            }
         }
 
         private void Dragging()
@@ -242,7 +288,29 @@ namespace Entities
         {
             if (other.CompareTag("Heart") || other.CompareTag("Coin") || other.CompareTag("Virus") || other.CompareTag("Star"))
             {
-                Slash();
+                if (GameStats.Instance.CurrentWeaponName == WeaponType.Sword)
+                {
+                    Slash();
+                } else if (GameStats.Instance.CurrentWeaponName == WeaponType.Gun)
+                {
+                    _shootTarget = other.gameObject;
+                }
+            }
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (_shootTarget == null && (other.CompareTag("Heart") || other.CompareTag("Coin") || other.CompareTag("Virus") || other.CompareTag("Star")))
+            {
+                _shootTarget = other.gameObject;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (_shootTarget == other.gameObject)
+            {
+                _shootTarget = null;
             }
         }
 
@@ -278,8 +346,18 @@ namespace Entities
 
         public void Spawn()
         {
+            SelectWeapon(GameStats.Instance.CurrentWeaponName);
+
             transform.localScale = new Vector3(0.7f, 0.7f);
             ResetEnergy();
+        }
+
+        private void Shoot()
+        {
+            if (_shootTarget)
+            {
+                _gun.Shoot();
+            }
         }
 
         public void ResetEnergy()

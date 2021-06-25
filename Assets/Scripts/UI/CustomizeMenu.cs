@@ -4,6 +4,7 @@ using Common;
 using Entities;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilities;
 
 namespace UI
 {
@@ -28,7 +29,7 @@ namespace UI
 
         public void SelectColor(Image image)
         {
-            Player.Instance.SetPlayerColor(image.color);
+            GameStats.Instance.CurrentPlayer.SetPlayerColor(image.color);
             GameStats.Instance.SaveStatsToFile();
         }
 
@@ -52,7 +53,16 @@ namespace UI
 
         public void SelectWeapon(string wpName)
         {
-
+            ObjectPool.Instance.Retrieve(GameStats.Instance.CurrentWeaponName);
+            GameStats.Instance.CurrentWeaponName = wpName;
+            if (wpName == WeaponType.Spike)
+            {
+                Spawner.Instance.PreStart();
+            }
+            else
+            {
+                GameStats.Instance.CurrentPlayer.SelectWeapon(wpName);
+            }
         }
     }
 }

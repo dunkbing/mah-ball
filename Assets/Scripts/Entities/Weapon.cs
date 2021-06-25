@@ -10,6 +10,7 @@ namespace Entities
         public const string Sword = "Sword";
         public const string Gun = "Gun";
         public const string Spike = "Spike";
+        public const string None = "None";
     }
 
     [Serializable]
