@@ -41,38 +41,38 @@ namespace Utilities
             }
         }
 
-        public GameObject Spawn(string tag, Vector3 position, Quaternion rotation, Action<GameObject> callback = null)
+        public GameObject Spawn(string objName, Vector3 position, Quaternion rotation, Action<GameObject> callback = null)
         {
-            if (!_pools.ContainsKey(tag))
+            if (!_pools.ContainsKey(objName))
             {
                 return null;
             }
 
-            var go = _pools[tag].Dequeue();
+            var go = _pools[objName].Dequeue();
             callback?.Invoke(go);
             go.SetActive(true);
             go.transform.position = position;
             go.transform.rotation = rotation;
             go.GetComponent<ISpawn>()?.Spawn();
 
-            _pools[tag].Enqueue(go);
+            _pools[objName].Enqueue(go);
 
             return go;
         }
 
-        public GameObject Spawn(string tag, Action<GameObject> callback = null)
+        public GameObject Spawn(string objName, Action<GameObject> callback = null)
         {
-            if (!_pools.ContainsKey(tag))
+            if (!_pools.ContainsKey(objName))
             {
                 return null;
             }
 
-            var go = _pools[tag].Dequeue();
+            var go = _pools[objName].Dequeue();
             callback?.Invoke(go);
             go.SetActive(true);
             go.GetComponent<ISpawn>()?.Spawn();
 
-            _pools[tag].Enqueue(go);
+            _pools[objName].Enqueue(go);
 
             return go;
         }
@@ -88,9 +88,10 @@ namespace Utilities
             }
         }
 
-        public void Retrieve(string tag)
+        public void Retrieve(string objName)
         {
-            foreach (var go in _pools[tag])
+            if (!_pools.ContainsKey(objName)) return;
+            foreach (var go in _pools[objName])
             {
                 go.SetActive(false);
             }
