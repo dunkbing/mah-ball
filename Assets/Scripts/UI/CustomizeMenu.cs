@@ -26,7 +26,7 @@ namespace UI
         public void SelectColor(Image image)
         {
             Player.Instance.SetPlayerColor(image.color);
-            GameStats.Instance.SaveToFile();
+            GameStats.Instance.SaveStatsToFile();
         }
     }
 }

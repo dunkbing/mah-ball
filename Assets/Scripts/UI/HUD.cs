@@ -24,6 +24,7 @@ namespace UI
         private void Start()
         {
             Application.targetFrameRate = 60;
+            gameObject.SetActive(false);
         }
 
         private void Update()

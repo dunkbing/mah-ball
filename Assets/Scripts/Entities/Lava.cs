@@ -52,7 +52,7 @@ namespace Entities
                 }
                 else
                 {
-                    GameStats.Instance.SaveToFile();
+                    GameStats.Instance.SaveStatsToFile();
                     PauseMenu.Instance.Pause();
                 }
             }

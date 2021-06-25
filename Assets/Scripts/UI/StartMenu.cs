@@ -10,6 +10,8 @@ namespace UI
 
         public GameObject customizeMenu;
 
+        public GameObject hud;
+
         private void Start()
         {
             startMenu.SetActive(true);
@@ -19,6 +21,7 @@ namespace UI
         {
             base.Resume();
             startMenu.SetActive(false);
+            hud.SetActive(true);
         }
 
         public void Customize()

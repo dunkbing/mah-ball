@@ -1,4 +1,3 @@
-using System;
 using Common;
 using UI;
 using UnityEngine;
@@ -28,7 +27,13 @@ namespace Entities
 
         private void FixedUpdate()
         {
+            Spin();
             Fall();
+        }
+
+        private void Spin()
+        {
+            transform.Rotate(new Vector3(0, 0, 100f) * Time.fixedDeltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -49,7 +54,7 @@ namespace Entities
                 }
                 else
                 {
-                    GameStats.Instance.SaveToFile();
+                    GameStats.Instance.SaveStatsToFile();
                     PauseMenu.Instance.Pause();
                 }
                 Explode();

@@ -42,15 +42,15 @@ namespace Utilities
             Play("bgmusic");
         }
 
-        public void Play(string name)
+        public void Play(string soundName)
         {
-            var sound = Array.Find(sounds, s => s.name == name);
+            var sound = Array.Find(sounds, s => s.name == soundName);
             sound.source.Play();
         }
 
-        public void SetVolume(string name, float volume)
+        public void SetVolume(string soundName, float volume)
         {
-            var sound = Array.Find(sounds, s => s.name == name);
+            var sound = Array.Find(sounds, s => s.name == soundName);
             sound.source.volume = volume;
         }
     }

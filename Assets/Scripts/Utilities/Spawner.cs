@@ -58,7 +58,7 @@ namespace Utilities
             } else if (random >= 0.4 && random < 0.7)
             {
                 _objectPool.Spawn("Coin", new Vector3(x, 6, 0), Quaternion.identity);
-            } else if (random >= 0.7 && random < 0.8)
+            } else if (random >= 0.7f && random < 0.8f)
             {
                 _objectPool.Spawn(nameof(Star), new Vector3(x, 6, 0), Quaternion.identity);
             }

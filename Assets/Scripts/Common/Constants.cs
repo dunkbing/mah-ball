@@ -20,6 +20,17 @@ namespace Common
         public const int GreenPlatScore = 30;
         public const int HeartScore = 50;
         // data file path
-        public static readonly string DataFilePath = $"{Application.persistentDataPath}/save.txt";
+        public static readonly string StatFilePath = $"{Application.persistentDataPath}/stat.txt";
+        public static readonly string WeaponFilePath = $"{Application.persistentDataPath}/weapon.txt";
+
+        // weapon prices
+        public const int SwordPrice = 1000;
+        public const int GunPrice = 2000;
+        public const int SpikePrice = 3500;
+
+        // weapon damages
+        public const int SwordDamage = 60;
+        public const int GunDamage = 20;
+        public const int SpikeDamage = 100;
     }
 }
