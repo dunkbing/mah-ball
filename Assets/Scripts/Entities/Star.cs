@@ -1,19 +1,21 @@
 // Created by Binh Bui on 06, 24, 2021
 
+using System;
 using Common;
 using UnityEngine;
 
 namespace Entities
 {
-    public class Star : Entity, IFalling
+    public class Star : Enemy
     {
         private GameObject _target;
-        public Rigidbody2D rigidBody;
-        public float speed = 1.5f;
+
         public Gun gun;
 
         private void Awake()
         {
+            Health = 200;
+            healthBar.SetMaxHealth(Health);
             InvokeRepeating(nameof(Shoot), 0.5f, 0.3f);
         }
 
@@ -58,12 +60,6 @@ namespace Entities
             {
                 gun.Shoot();
             }
-        }
-
-        public void Fall()
-        {
-            if (GameStats.GameIsPaused) return;
-            rigidBody.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
         }
     }
 }

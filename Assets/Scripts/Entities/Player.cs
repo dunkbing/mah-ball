@@ -5,7 +5,7 @@ using Utilities;
 
 namespace Entities
 {
-    public class Player : Entity, ISpawn
+    public class Player : Entity, ISpawn, IDamageable
     {
         public float power = 5f;
         public Rigidbody2D rb2d;
@@ -13,6 +13,10 @@ namespace Entities
         public ParticleSystem ps;
         public SpriteRenderer sr;
         public Animator anim;
+        public HealthBar healthBar;
+
+        private int _health;
+
         private Gun _gun;
 
         // weapons
@@ -44,6 +48,7 @@ namespace Entities
         private void Awake()
         {
             Instance = this;
+            _health = 200;
             _cam = Camera.main;
             _originScale = transform.localScale;
 
@@ -288,10 +293,10 @@ namespace Entities
         {
             if (other.CompareTag("Heart") || other.CompareTag("Coin") || other.CompareTag("Virus") || other.CompareTag("Star"))
             {
-                if (GameStats.Instance.CurrentWeaponName == WeaponType.Sword)
+                if (GameStats.Instance.currentWeaponName == WeaponType.Sword)
                 {
                     Slash();
-                } else if (GameStats.Instance.CurrentWeaponName == WeaponType.Gun)
+                } else if (GameStats.Instance.currentWeaponName == WeaponType.Gun)
                 {
                     _shootTarget = other.gameObject;
                 }
@@ -333,6 +338,10 @@ namespace Entities
                 case "Lava":
                     Explode();
                     break;
+                case "Virus":
+                case "Star":
+                    other.gameObject.GetComponent<IDamageable>().TakeDamage(GameStats.Instance.CurrentWeapon.Damage);
+                    break;
             }
         }
 
@@ -346,7 +355,7 @@ namespace Entities
 
         public void Spawn()
         {
-            SelectWeapon(GameStats.Instance.CurrentWeaponName);
+            SelectWeapon(GameStats.Instance.currentWeaponName);
 
             transform.localScale = new Vector3(0.7f, 0.7f);
             ResetEnergy();
@@ -374,6 +383,11 @@ namespace Entities
             }
 
             _energy += amount;
+        }
+
+        public void TakeDamage(int damage)
+        {
+            _health -= damage;
         }
     }
 }

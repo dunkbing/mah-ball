@@ -5,15 +5,12 @@ using Utilities;
 
 namespace Entities
 {
-    public class Virus : Entity, IFalling
+    public class Virus : Enemy
     {
-        private Rigidbody2D _rb;
-        public float speed = 1.5f;
-
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody2D>();
-
+            Health = 100;
+            healthBar.SetMaxHealth(Health);
             OnExplode += () =>
             {
                 AudioManager.Instance.Play("explosion");
@@ -40,13 +37,7 @@ namespace Entities
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                var player = other.gameObject.GetComponent<Player>();
-                if (player.HasWeapon)
-                {
-                    Explode();
-                    return;
-                }
-                player.Explode();
+
                 HUD.Instance.DecreaseHealth();
                 if (!HUD.Instance.IsEmptyLife())
                 {
@@ -57,14 +48,11 @@ namespace Entities
                     GameStats.Instance.SaveStatsToFile();
                     PauseMenu.Instance.Pause();
                 }
-                Explode();
+                if (Health <= 0)
+                {
+                    Explode();
+                }
             }
-        }
-
-        public void Fall()
-        {
-            if (GameStats.GameIsPaused) return;
-            _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
         }
     }
 }

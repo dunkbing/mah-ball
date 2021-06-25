@@ -29,7 +29,7 @@ namespace UI
 
         public void SelectColor(Image image)
         {
-            GameStats.Instance.CurrentPlayer.SetPlayerColor(image.color);
+            GameStats.Instance.currentPlayer.SetPlayerColor(image.color);
             GameStats.Instance.SaveStatsToFile();
         }
 
@@ -53,15 +53,15 @@ namespace UI
 
         public void SelectWeapon(string wpName)
         {
-            ObjectPool.Instance.Retrieve(GameStats.Instance.CurrentWeaponName);
-            GameStats.Instance.CurrentWeaponName = wpName;
+            ObjectPool.Instance.Retrieve(GameStats.Instance.currentWeaponName);
+            GameStats.Instance.currentWeaponName = wpName;
             if (wpName == WeaponType.Spike)
             {
                 Spawner.Instance.PreStart();
             }
             else
             {
-                GameStats.Instance.CurrentPlayer.SelectWeapon(wpName);
+                GameStats.Instance.currentPlayer.SelectWeapon(wpName);
             }
         }
     }

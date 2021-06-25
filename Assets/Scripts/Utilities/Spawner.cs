@@ -28,7 +28,7 @@ namespace Utilities
             HUD.Instance.ResetLife();
             _objectPool.RetrieveAll();
             TimeManager.StopSlowMotion();
-            GameStats.Instance.CurrentPlayer = _objectPool.Spawn(GameStats.Instance.CurrentWeaponName == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
+            GameStats.Instance.currentPlayer = _objectPool.Spawn(GameStats.Instance.currentWeaponName == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
                 new Vector3(0, 3, 0), Quaternion.identity).GetComponent<Player>();
             _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
             {
@@ -40,7 +40,7 @@ namespace Utilities
         public void PreStart()
         {
             _objectPool.RetrieveAll();
-            GameStats.Instance.CurrentPlayer = _objectPool.Spawn(GameStats.Instance.CurrentWeaponName == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
+            GameStats.Instance.currentPlayer = _objectPool.Spawn(GameStats.Instance.currentWeaponName == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
                 new Vector3(0, 3.5f, 0), Quaternion.identity).GetComponent<Player>();
             _objectPool.Spawn(nameof(Platform), new Vector3(0, 2.5f, 0), Quaternion.identity, go =>
             {

@@ -256,7 +256,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1285364700035385704}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bf45afd5901e0a443b52599dbb7806df, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -353,6 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 1285364700035385707}
   speed: 1.5
+  healthBar: {fileID: 2770845531356247027}
   gun: {fileID: 9099771439217995280}
 --- !u!58 &1285364700035385710
 CircleCollider2D:
@@ -488,3 +489,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4218285513175710155, guid: 3be5aa0f5dd4e964ca33c5457927649c, type: 3}
   m_PrefabInstance: {fileID: 2089205166355811646}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2770845531356247027 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4218285513015770829, guid: 3be5aa0f5dd4e964ca33c5457927649c, type: 3}
+  m_PrefabInstance: {fileID: 2089205166355811646}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d23557a0c4c9b48a16b5a4ce7f1252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

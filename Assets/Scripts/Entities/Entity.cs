@@ -1,11 +1,11 @@
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Entities
 {
     public abstract class Entity : MonoBehaviour
     {
-        public Action OnExplode;
+        public UnityAction OnExplode;
         public void Explode()
         {
             OnExplode?.Invoke();
