@@ -11,6 +11,9 @@ namespace UI
     {
         public GameObject startMenu;
         public GameObject customizeMenu;
+        public Button swordButton;
+        public Button gunButton;
+        public Button spikeButton;
 
         private void Start()
         {
@@ -27,6 +30,29 @@ namespace UI
         {
             Player.Instance.SetPlayerColor(image.color);
             GameStats.Instance.SaveStatsToFile();
+        }
+
+        public void LoadWeapons()
+        {
+            var weapons = GameStats.Instance.Weapons;
+
+            if (weapons[WeaponType.Sword].Level > 0)
+            {
+                swordButton.interactable = true;
+            }
+            if (weapons[WeaponType.Gun].Level > 0)
+            {
+                gunButton.interactable = true;
+            }
+            if (weapons[WeaponType.Spike].Level > 0)
+            {
+                spikeButton.interactable = true;
+            }
+        }
+
+        public void SelectWeapon(string wpName)
+        {
+
         }
     }
 }

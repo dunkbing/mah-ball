@@ -17,12 +17,7 @@ namespace Common
         public int EnemyKilled { get; set; }
         public int TotalEnemyKilled { get; set; }
 
-        // public Weapon[] Weapons { get; } = {
-        //     new Weapon(){Name = WeaponType.Sword, Level = 0, Price = 0, Damage = 0},
-        //     new Weapon(){Name = WeaponType.Gun, Level = 0, Price = 0, Damage = 0},
-        //     new Weapon(){Name = WeaponType.Spike, Level = 0, Price = 0, Damage = 0},
-        // };
-        public Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
+        public readonly Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
 
         public static GameStats Instance { get; private set; }
 
@@ -121,7 +116,6 @@ namespace Common
             if (Coin > foundWeapon.Price)
             {
                 foundWeapon.Level++;
-                Debug.Log(foundWeapon.Level);
                 Coin -= foundWeapon.Price;
                 switch (wName)
                 {

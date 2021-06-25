@@ -25,21 +25,7 @@ namespace UI
         {
             GameStats.Instance.UpgradeWeapon(type);
             var weapons = GameStats.Instance.Weapons;
-            switch (type)
-            {
-                case WeaponType.Sword:
-                    levelSwordTmp.SetText($"LEVEL: {weapons[WeaponType.Sword].Level}");
-                    unlockSwordTmp.SetText($"UPGRADE: ${weapons[WeaponType.Sword].Price}");
-                    break;
-                case WeaponType.Gun:
-                    levelGunTmp.SetText($"LEVEL: {weapons[WeaponType.Gun].Level}");
-                    unlockGunTmp.SetText($"UPGRADE: ${weapons[WeaponType.Gun].Price}");
-                    break;
-                case WeaponType.Spike:
-                    levelSpikeTmp.SetText($"LEVEL: {weapons[WeaponType.Spike].Level}");
-                    unlockSpikeTmp.SetText($"UPGRADE: ${weapons[WeaponType.Spike].Price}");
-                    break;
-            }
+            LoadWeaponInfo();
             GameStats.Instance.SaveWeaponsToFile();
             GameStats.Instance.SaveStatsToFile();
         }
