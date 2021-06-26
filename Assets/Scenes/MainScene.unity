@@ -3959,6 +3959,9 @@ MonoBehaviour:
   - tag: BulletExplosion
     prefab: {fileID: 2133374600430382927, guid: f91bb7db52ca55443a08793570e27e67, type: 3}
     size: 5
+  - tag: StarExplosion
+    prefab: {fileID: 7001519979477148508, guid: 6b59082e4082b3e46a97838a742f1213, type: 3}
+    size: 1
   - tag: Sword
     prefab: {fileID: 7449121398095735628, guid: f65f36683cf71a94482db64bf67f678e, type: 3}
     size: 1

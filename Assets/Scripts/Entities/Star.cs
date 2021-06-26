@@ -2,6 +2,7 @@
 
 using Common;
 using UnityEngine;
+using Utilities;
 
 namespace Entities
 {
@@ -16,6 +17,16 @@ namespace Entities
             Health = 200;
             healthBar.SetMaxHealth(Health);
             InvokeRepeating(nameof(Shoot), 0.5f, 0.3f);
+
+            OnExplode += () =>
+            {
+                AudioManager.Instance.Play("explosion");
+                ObjectPool.Instance.Spawn("StarExplosion", transform.position, Quaternion.identity, go =>
+                {
+                    go.GetComponent<ParticleSystem>().Play();
+                });
+                GameStats.Instance.EnemyKilled += 1;
+            };
         }
 
         private void FixedUpdate()
