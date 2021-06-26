@@ -49,7 +49,7 @@ namespace Entities
             if (other.gameObject.CompareTag("Player"))
             {
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 6, ForceMode2D.Impulse);
-                other.gameObject.GetComponent<Player>().Regen(Constants.RewardRegen);
+                other.gameObject.GetComponent<Player>().RegenKi(Constants.RewardRegen);
                 Explode();
             }
         }

@@ -6,10 +6,14 @@ namespace Entities
 {
     public class Platform : Entity, ISpawn, IFalling
     {
-        private Rigidbody2D _rb;
+        public Rigidbody2D rb;
         public float speed = 1.5f;
 
         public bool firstPlatform;
+
+        public bool canSpin;
+
+        private readonly Vector3 _spinSpeed = new Vector3(0, 0, 20f);
 
         public void Spawn()
         {
@@ -24,20 +28,24 @@ namespace Entities
             }
         }
 
-        private void Awake()
-        {
-            _rb = GetComponent<Rigidbody2D>();
-        }
-
         private void FixedUpdate()
         {
-            Fall();
+            // Fall();
+            if (canSpin)
+            {
+                Spin();
+            }
+        }
+
+        private void Spin()
+        {
+            transform.Rotate(_spinSpeed * Time.fixedDeltaTime);
         }
 
         public void Fall()
         {
             if (GameStats.GameIsPaused) return;
-            _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
+            rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
 
             if (transform.position.y <= -5.5)
             {

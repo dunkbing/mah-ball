@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 5801940948418468759}
   - component: {fileID: 8423303439857867073}
   - component: {fileID: 5701029186029009064}
-  - component: {fileID: 6562994912630091763}
-  - component: {fileID: 6802107811135133736}
+  - component: {fileID: 3965779482464099445}
+  - component: {fileID: 6513490711898834302}
   m_Layer: 0
-  m_Name: Platform
-  m_TagString: PlatformSurface
+  m_Name: BluePlatform
+  m_TagString: BluePlatformSurface
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d1e24f7939a64498cefc961b86ed58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 5701029186029009064}
+  rb: {fileID: 0}
   speed: 1.5
   firstPlatform: 0
   canSpin: 0
@@ -71,7 +71,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!212 &6562994912630091763
+--- !u!212 &3965779482464099445
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.33725488, g: 0.56614184, b: 0.8666667, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,7 +122,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6802107811135133736
+--- !u!61 &6513490711898834302
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

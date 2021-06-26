@@ -4348,10 +4348,13 @@ MonoBehaviour:
     size: 1
   - tag: Platform
     prefab: {fileID: 7613522202667568451, guid: da734a8b9ef2aea43ac9479bfd53d882, type: 3}
-    size: 5
+    size: 2
   - tag: GreenPlatform
     prefab: {fileID: 7613522202667568451, guid: a13e909c7436798478f3455db28151d5, type: 3}
-    size: 5
+    size: 1
+  - tag: BluePlatform
+    prefab: {fileID: 7613522202667568451, guid: 8ce14257bcf963746ba8cee762c5e58f, type: 3}
+    size: 1
   - tag: Heart
     prefab: {fileID: 2612184211917214232, guid: c64ff08dc063b7a46b370562950b6c38, type: 3}
     size: 5

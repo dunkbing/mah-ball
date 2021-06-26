@@ -319,12 +319,17 @@ namespace Entities
             {
                 case "PlatformSurface":
                     if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.WhitePlatScore);
-                    Regen(Constants.WhitePlatRegenRate);
+                    RegenKi(Constants.WhitePlatRegenRate);
+                    _onAir = false;
+                    break;
+                case "BluePlatformSurface":
+                    if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.BluePlatScore);
+                    RegenKi(Constants.BluePlatRegenRate);
                     _onAir = false;
                     break;
                 case "GreenPlatformSurface":
                     if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.GreenPlatScore);
-                    Regen(Constants.GreenPlatRegenRate);
+                    RegenHp(Constants.GreenPlatRegenRate);
                     _onAir = false;
                     break;
                 case "Lava":
@@ -340,7 +345,7 @@ namespace Entities
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("PlatformSurface") || other.gameObject.CompareTag("GreenPlatformSurface"))
+            if (other.gameObject.CompareTag("PlatformSurface") || other.gameObject.CompareTag("GreenPlatformSurface") || other.gameObject.CompareTag("BluePlatformSurface"))
             {
                 _onAir = true;
             }
@@ -368,7 +373,7 @@ namespace Entities
             _energy = GameStats.MaxEnergy;
         }
 
-        public void Regen(float amount)
+        public void RegenKi(float amount)
         {
             if (_energy > GameStats.MaxEnergy)
             {
@@ -377,6 +382,18 @@ namespace Entities
             }
 
             _energy += amount;
+        }
+
+        public void RegenHp(float amount)
+        {
+            if (_health > GameStats.MaxHealth)
+            {
+                _health = GameStats.MaxHealth;
+                return;
+            }
+
+            _health += amount;
+            HUD.Instance.healthBar.SetHealth(_health);
         }
 
         public void TakeDamage(float damage)

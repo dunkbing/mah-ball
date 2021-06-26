@@ -22,13 +22,7 @@ namespace Entities
 
         private void FixedUpdate()
         {
-            // Spin();
             Fall();
-        }
-
-        private void Spin()
-        {
-            transform.Rotate(new Vector3(0, 0, 100f) * Time.fixedDeltaTime);
         }
 
         public void Spawn()

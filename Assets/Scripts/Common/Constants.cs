@@ -6,7 +6,8 @@ namespace Common
     {
         // energy
         public const float WhitePlatRegenRate = 0.03f;
-        public const float GreenPlatRegenRate = 0.08f;
+        public const float BluePlatRegenRate = 0.06f;
+        public const float GreenPlatRegenRate = 0.5f;
         public const float RewardRegen = 2f;
 
         public const int CoinReward = 10;
@@ -21,7 +22,8 @@ namespace Common
         // scoring
         public const int NormalScore = 10;
         public const int WhitePlatScore = 20;
-        public const int GreenPlatScore = 30;
+        public const int BluePlatScore = 30;
+        public const int GreenPlatScore = 40;
         public const int HeartScore = 50;
         // data file path
         public static readonly string StatFilePath = $"{Application.persistentDataPath}/stat.txt";

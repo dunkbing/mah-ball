@@ -20,7 +20,7 @@ namespace Utilities
 
         private void Start()
         {
-            PreStart();
+            PreStartGame();
         }
 
         public void StartGame()
@@ -29,20 +29,47 @@ namespace Utilities
             _objectPool.RetrieveAll();
             TimeManager.StopSlowMotion();
             SpawnPlayer();
-            _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
-            {
-                go.GetComponent<Platform>().firstPlatform = true;
-            });
+            // _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
+            // {
+            //     go.GetComponent<Platform>().firstPlatform = true;
+            // });
+            SpawnPlatform();
             InvokeRepeating(nameof(SpawnObject), .1f, 2f);
         }
 
-        public void PreStart()
+        private void SpawnPlatform()
+        {
+            // bottom
+            var bottom = Random.Range(1, 10) < 5;
+            _objectPool.Spawn(nameof(Platform),
+                bottom
+                    ? new Vector3(Random.Range(-7f, -3f), Random.Range(-1.5f, -1f))
+                    : new Vector3(Random.Range(3f, 7f), Random.Range(-1.5f, -1f)), Quaternion.identity, go =>
+                {
+                    go.GetComponent<Platform>().canSpin = Random.Range(1, 10) < 5;
+                });
+            // middle
+            _objectPool.Spawn("BluePlatform", new Vector3(Random.Range(-1.2f, 1.2f), Random.Range(0.5f, 1f)), Quaternion.identity);
+            // top
+            var top = Random.Range(1, 10) < 5;
+            _objectPool.Spawn("GreenPlatform",
+                top
+                    ? new Vector3(Random.Range(-7f, -3f), Random.Range(2.7f, 2.8f))
+                    : new Vector3(Random.Range(3f, 7f), Random.Range(2.7f, 2.8f)), Quaternion.identity, go =>
+                {
+                    go.GetComponent<Platform>().canSpin = Random.Range(1, 10) < 5;
+                });
+        }
+
+        public void PreStartGame()
         {
             _objectPool.RetrieveAll();
             SpawnPlayer();
             _objectPool.Spawn(nameof(Platform), new Vector3(0, 2.5f, 0), Quaternion.identity, go =>
             {
-                go.GetComponent<Platform>().firstPlatform = true;
+                var platform = go.GetComponent<Platform>();
+                platform.firstPlatform = true;
+                platform.canSpin = false;
             }).GetComponent<Platform>().speed = 0;
         }
 
@@ -65,7 +92,7 @@ namespace Utilities
             var x = Random.Range(0f, 1f) < .5f ? Random.Range(-7f, -2.5f) : Random.Range(2.5f, 7f);
             if (random < 0.2f)
             {
-                _objectPool.Spawn("GreenPlatform", new Vector3(x, 6, 0), Quaternion.identity);
+                // _objectPool.Spawn("GreenPlatform", new Vector3(x, 6, 0), Quaternion.identity);
             } else if (random >= 0.2 && random < 0.4)
             {
                 _objectPool.Spawn("Virus", new Vector3(x, 6, 0), Quaternion.identity);
@@ -76,10 +103,10 @@ namespace Utilities
             {
                 _objectPool.Spawn(nameof(Star), new Vector3(x, 6, 0), Quaternion.identity);
             }
-            else
-            {
-                _objectPool.Spawn(nameof(Platform), new Vector3(x, 6, 0), Quaternion.identity);
-            }
+            // else
+            // {
+            //     _objectPool.Spawn(nameof(Platform), new Vector3(x, 6, 0), Quaternion.identity);
+            // }
         }
 
         // ReSharper disable Unity.PerformanceAnalysis

@@ -63,12 +63,12 @@ namespace UI
             if (GameStats.Instance.currentWeaponType == WeaponType.Spike && GameStats.Instance.currentWeaponType != wpName)
             {
                 GameStats.Instance.currentWeaponType = wpName;
-                Spawner.Instance.PreStart();
+                Spawner.Instance.PreStartGame();
             }
             GameStats.Instance.currentWeaponType = wpName;
             if (wpName == WeaponType.Spike)
             {
-                Spawner.Instance.PreStart();
+                Spawner.Instance.PreStartGame();
             }
             else
             {

@@ -16,6 +16,7 @@ TagManager:
   - Cat
   - Star
   - Bullet
+  - BluePlatformSurface
   layers:
   - Default
   - TransparentFX
