@@ -2,6 +2,7 @@
 
 using Common;
 using Entities;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
@@ -15,6 +16,7 @@ namespace UI
         public Button swordButton;
         public Button gunButton;
         public Button spikeButton;
+        public TextMeshProUGUI weaponInfoTmp;
 
         private void Start()
         {
@@ -49,12 +51,13 @@ namespace UI
             {
                 spikeButton.interactable = true;
             }
+
+            weaponInfoTmp.SetText(GameStats.Instance.CurrentWeapon.Info());
         }
 
         public void SelectWeapon(string wpName)
         {
             if (wpName == GameStats.Instance.currentWeaponType) return;
-
 
             ObjectPool.Instance.Retrieve(GameStats.Instance.currentWeaponType);
             if (GameStats.Instance.currentWeaponType == WeaponType.Spike && GameStats.Instance.currentWeaponType != wpName)
@@ -71,6 +74,8 @@ namespace UI
             {
                 GameStats.Instance.currentPlayer.SelectWeapon(wpName);
             }
+
+            weaponInfoTmp.SetText(GameStats.Instance.CurrentWeapon.Info());
         }
     }
 }

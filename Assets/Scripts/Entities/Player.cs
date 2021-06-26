@@ -28,7 +28,7 @@ namespace Entities
         private Vector3 _endPoint;
 
         // on air time limit
-        private float _energy = Constants.MaxEnergy;
+        private float _energy = GameStats.MaxEnergy;
         private float _chargeTime;
 
         private bool _onAir = true;
@@ -42,7 +42,6 @@ namespace Entities
 
         private void Awake()
         {
-            _health = 200;
             _cam = Camera.main;
             _originScale = transform.localScale;
 
@@ -349,7 +348,7 @@ namespace Entities
 
         public void Spawn()
         {
-            _health = GameStats.Instance.currentWeaponType == WeaponType.Spike ? Constants.SpikePlayerHealth : Constants.PlayerHealth;
+            _health = GameStats.MaxHealth;
             HUD.Instance.healthBar.SetMaxHealth(_health);
             SelectWeapon(GameStats.Instance.currentWeaponType);
 
@@ -366,14 +365,14 @@ namespace Entities
 
         public void ResetEnergy()
         {
-            _energy = Constants.MaxEnergy;
+            _energy = GameStats.MaxEnergy;
         }
 
         public void Regen(float amount)
         {
-            if (_energy > Constants.MaxEnergy)
+            if (_energy > GameStats.MaxEnergy)
             {
-                _energy = Constants.MaxEnergy;
+                _energy = GameStats.MaxEnergy;
                 return;
             }
 

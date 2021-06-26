@@ -63,7 +63,7 @@ namespace Entities
                             TakeDamage(playerDmg);
                             break;
                         case WeaponType.None:
-                            dmg = Constants.SpikePlayerHealth;
+                            dmg = GameStats.MaxHealth;
                             player.TakeDamage(dmg);
                             break;
                     }

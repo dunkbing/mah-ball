@@ -24,9 +24,20 @@ namespace UI
         public void UpgradeWeapon(string type)
         {
             GameStats.Instance.UpgradeWeapon(type);
-            var weapons = GameStats.Instance.Weapons;
             LoadWeaponInfo();
             GameStats.Instance.SaveWeaponsToFile();
+        }
+
+        public void UpgradeStats(string type)
+        {
+            if (type == "HP")
+            {
+                GameStats.MaxHealth += 50;
+            }
+            else
+            {
+                GameStats.MaxEnergy += 5;
+            }
             GameStats.Instance.SaveStatsToFile();
         }
 

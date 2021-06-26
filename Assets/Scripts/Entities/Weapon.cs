@@ -26,6 +26,11 @@ namespace Entities
             return $"{Name}|{Level}|{Price}|{Damage}|{Defence}";
         }
 
+        public string Info()
+        {
+            return $"{Name}\nLevel: {Level}\nDamage: {Damage}\nDefence: {Defence}";
+        }
+
         public static Weapon Parse(string weaponStr)
         {
             string[] props = weaponStr.Split('|');

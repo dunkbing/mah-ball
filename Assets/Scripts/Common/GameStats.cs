@@ -11,6 +11,8 @@ namespace Common
     {
         public static bool GameIsPaused = true;
         public int Score { get; set; }
+        public static int MaxHealth { get; set; } = 200;
+        public static float MaxEnergy { get; set; } = 10f;
         public int HighScore { get; private set; }
         public Color PlayerColor { get; set; }
         public int Coin { get; set; }
@@ -45,6 +47,8 @@ namespace Common
                 Coin = Convert.ToInt32(stats[4]);
                 TotalEnemyKilled = Convert.ToInt32(stats[5]);
                 currentWeaponType = stats[6];
+                MaxHealth = Convert.ToInt32(stats[7]);
+                MaxEnergy = Convert.ToSingle(stats[8]);
             }
             catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException ||
                                       e is IndexOutOfRangeException || e is FormatException)
@@ -101,7 +105,7 @@ namespace Common
             var r = PlayerColor.r;
             var g = PlayerColor.g;
             var b = PlayerColor.b;
-            File.WriteAllText(Constants.StatFilePath, $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponType}");
+            File.WriteAllText(Constants.StatFilePath, $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponType}|{MaxHealth}|{MaxEnergy}");
         }
 
         public void SaveWeaponsToFile()
