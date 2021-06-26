@@ -329,6 +329,7 @@ namespace Entities
                     break;
                 case "GreenPlatformSurface":
                     if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.GreenPlatScore);
+                    RegenKi(Constants.WhitePlatRegenRate/2);
                     RegenHp(Constants.GreenPlatRegenRate);
                     _onAir = false;
                     break;

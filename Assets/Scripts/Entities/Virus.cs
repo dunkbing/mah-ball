@@ -8,7 +8,8 @@ namespace Entities
     {
         private void Awake()
         {
-            Name = nameof(Virus);
+            Damage = 60;
+
             OnExplode += () =>
             {
                 AudioManager.Instance.Play("explosion");

@@ -120,30 +120,34 @@ namespace Common
 
         public void UpgradeWeapon(string wName)
         {
-            var foundWeapon = Weapons[wName];
+            // get copy of a weapon to upgrade
+            var weapon = Weapons[wName];
 
-            if (Coin > foundWeapon.Price)
+            if (Coin > weapon.Price)
             {
-                foundWeapon.Level++;
-                Coin -= foundWeapon.Price;
+                Coin -= weapon.Price;
                 switch (wName)
                 {
                     case WeaponType.Sword:
-                        foundWeapon.Price += foundWeapon.Level * Constants.SwordPrice;
-                        foundWeapon.Damage += Constants.SwordDamage;
+                        weapon.Price += weapon.Level * Constants.SwordPrice;
+                        weapon.Damage += weapon.Level == 0 ? Constants.SwordDamage : Constants.SwordDamage / 2;
+                        weapon.Defence += Constants.SwordDefence;
                         break;
                     case WeaponType.Gun:
-                        foundWeapon.Price += foundWeapon.Level * Constants.GunPrice;
-                        foundWeapon.Damage += Constants.GunDamage;
+                        weapon.Price += weapon.Level * Constants.GunPrice;
+                        weapon.Damage += weapon.Level == 0 ? Constants.GunDamage : Constants.GunDamage / 2;
+                        weapon.Defence += Constants.GunDefence;
                         break;
                     case WeaponType.Spike:
-                        foundWeapon.Price += foundWeapon.Level * Constants.SpikePrice;
-                        foundWeapon.Damage += Constants.SpikeDamage;
+                        weapon.Price += weapon.Level * Constants.SpikePrice;
+                        weapon.Damage += weapon.Level == 0 ? Constants.SpikeDamage : Constants.SpikeDamage / 3;
+                        weapon.Defence += Constants.SpikeDefence / 2;
                         break;
                 }
+                weapon.Level++;
             }
 
-            Weapons[wName] = foundWeapon;
+            Weapons[wName] = weapon;
         }
     }
 }

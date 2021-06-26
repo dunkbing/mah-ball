@@ -12,7 +12,7 @@ namespace Entities
         public HealthBar healthBar;
 
         protected float Health { get; set; }
-        protected string Name { get; set; }
+        public int Damage { get; set; }
 
         public void Fall()
         {
@@ -27,8 +27,11 @@ namespace Entities
 
         public void TakeDamage(float damage)
         {
-            Health -= damage;
-            healthBar.SetHealth(Health);
+            if (healthBar)
+            {
+                Health -= damage;
+                healthBar.SetHealth(Health);
+            }
 
             if (Health <= 0)
             {
@@ -40,33 +43,13 @@ namespace Entities
         {
             var gameStats = GameStats.Instance;
             var playerDmg = gameStats.CurrentWeapon.Damage;
-            var dmg = Name == nameof(Virus) ? Constants.VirusDamage : Constants.StarDamage;
 
             switch (other.gameObject.tag)
             {
                 case "Player":
                     var player = other.gameObject.GetComponent<Player>();
-                    switch (gameStats.currentWeaponType)
-                    {
-                        case WeaponType.Sword:
-                            player.TakeDamage(dmg);
-                            TakeDamage(playerDmg);
-                            break;
-                        case WeaponType.Gun:
-                        {
-                            player.TakeDamage(dmg);
-                            TakeDamage(playerDmg);
-                            break;
-                        }
-                        case WeaponType.Spike:
-                            player.TakeDamage(dmg);
-                            TakeDamage(playerDmg);
-                            break;
-                        case WeaponType.None:
-                            dmg = GameStats.MaxHealth;
-                            player.TakeDamage(dmg);
-                            break;
-                    }
+                    player.TakeDamage(Damage);
+                    TakeDamage(playerDmg);
                     break;
                 case "Bullet":
                     if (other.gameObject.name.Contains("PlayerBullet"))

@@ -29,10 +29,6 @@ namespace Utilities
             _objectPool.RetrieveAll();
             TimeManager.StopSlowMotion();
             SpawnPlayer();
-            // _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
-            // {
-            //     go.GetComponent<Platform>().firstPlatform = true;
-            // });
             SpawnPlatform();
             InvokeRepeating(nameof(SpawnObject), .1f, 2f);
         }
@@ -78,11 +74,16 @@ namespace Utilities
             GameStats.Instance.currentPlayer = _objectPool.Spawn(GameStats.Instance.currentWeaponType == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
                 new Vector3(0, 3.5f, 0), Quaternion.identity, (go =>
                 {
+                    var currentWeapon = GameStats.Instance.currentWeaponType;
                     var rb = go.GetComponent<Rigidbody2D>();
-                    rb.constraints = GameStats.Instance.currentWeaponType == WeaponType.Gun ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.None;
+                    if (currentWeapon == WeaponType.Gun || currentWeapon == WeaponType.Sword)
+                    {
+                        rb.mass = 10;
+                    }
+                    rb.constraints = currentWeapon == WeaponType.Gun ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.None;
 
                     var tf = go.transform;
-                    tf.localScale = GameStats.Instance.currentWeaponType == WeaponType.Spike ? new Vector3(0.25f, 0.25f) : new Vector3(0.7f, 0.7f);
+                    tf.localScale = currentWeapon == WeaponType.Spike ? new Vector3(0.25f, 0.25f) : new Vector3(0.7f, 0.7f);
                 })).GetComponent<Player>();
         }
 
@@ -90,16 +91,16 @@ namespace Utilities
         {
             var random = Random.Range(0f, 1f);
             var x = Random.Range(0f, 1f) < .5f ? Random.Range(-7f, -2.5f) : Random.Range(2.5f, 7f);
-            if (random < 0.2f)
+            if (random < 0.3f)
             {
-                // _objectPool.Spawn("GreenPlatform", new Vector3(x, 6, 0), Quaternion.identity);
-            } else if (random >= 0.2 && random < 0.4)
+                _objectPool.Spawn("Circle", new Vector3(x, 6, 0), Quaternion.identity);
+            } else if (random >= 0.3 && random < 0.5)
             {
                 _objectPool.Spawn("Virus", new Vector3(x, 6, 0), Quaternion.identity);
-            } else if (random >= 0.4 && random < 0.6)
+            } else if (random >= 0.5 && random < 0.7)
             {
                 _objectPool.Spawn("Coin", new Vector3(x, 6, 0), Quaternion.identity);
-            } else if (random >= 0.6f && random < 0.8f)
+            } else if (random >= 0.7f && random < 0.8f)
             {
                 _objectPool.Spawn(nameof(Star), new Vector3(x, 6, 0), Quaternion.identity);
             }

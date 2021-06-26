@@ -35,18 +35,20 @@ namespace Common
         public const int SpikePrice = 3500;
 
         // weapon damages
+        public const int NoneDamage = 40;
         public const int SwordDamage = 60;
-        public const int GunDamage = 20;
+        public const int GunDamage = 30;
         public const int SpikeDamage = 100;
+
         // weapon defence
-        public const int SwordDefence = 15;
+        public const int SwordDefence = 10;
         public const int GunDefence = 5;
         public const int SpikeDefence = 25;
 
         // enemy damages
         public const int VirusDamage = 60;
         public const int StarDamage = 30;
-        public const int LavaDamage = 26;
+        public const int LavaDamage = 52;
         public const int BulletDamage = 30;
     }
 }

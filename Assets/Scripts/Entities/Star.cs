@@ -14,7 +14,7 @@ namespace Entities
 
         private void Awake()
         {
-            Name = nameof(Star);
+            Damage = 30;
             InvokeRepeating(nameof(Shoot), 0.5f, 0.3f);
 
             OnExplode += () =>

@@ -1,6 +1,7 @@
 // Created by Binh Bui on 06, 25, 2021
 
 using System;
+using Common;
 
 namespace Entities
 {
@@ -44,6 +45,6 @@ namespace Entities
             };
         }
 
-        public static Weapon None => new Weapon();
+        public static Weapon None => new Weapon(){Damage = Constants.NoneDamage};
     }
 }

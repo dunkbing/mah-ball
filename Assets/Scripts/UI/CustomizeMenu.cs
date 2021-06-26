@@ -52,7 +52,9 @@ namespace UI
                 spikeButton.interactable = true;
             }
 
-            weaponInfoTmp.SetText(GameStats.Instance.CurrentWeapon.Info());
+            weaponInfoTmp.SetText(GameStats.Instance.currentWeaponType != WeaponType.None
+                ? GameStats.Instance.CurrentWeapon.Info()
+                : string.Empty);
         }
 
         public void SelectWeapon(string wpName)
@@ -75,7 +77,9 @@ namespace UI
                 GameStats.Instance.currentPlayer.SelectWeapon(wpName);
             }
 
-            weaponInfoTmp.SetText(GameStats.Instance.CurrentWeapon.Info());
+            weaponInfoTmp.SetText(GameStats.Instance.currentWeaponType != WeaponType.None
+                ? GameStats.Instance.CurrentWeapon.Info()
+                : string.Empty);
         }
     }
 }
