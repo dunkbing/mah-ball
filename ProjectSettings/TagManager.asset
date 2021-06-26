@@ -17,6 +17,7 @@ TagManager:
   - Star
   - Bullet
   - BluePlatformSurface
+  - Square
   layers:
   - Default
   - TransparentFX

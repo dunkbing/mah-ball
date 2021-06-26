@@ -297,7 +297,7 @@ namespace Entities
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (_shootTarget == null && (other.CompareTag("Virus") || other.CompareTag("Star")))
+            if (_shootTarget == null && (other.CompareTag("Virus") || other.CompareTag("Star")) || other.CompareTag("Square"))
             {
                 _shootTarget = other.gameObject;
             }
