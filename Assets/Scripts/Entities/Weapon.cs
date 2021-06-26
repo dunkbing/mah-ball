@@ -17,15 +17,8 @@ namespace Entities
     public struct Weapon
     {
         public string Name { get; set; }
-        [SerializeField] private int level;
-        public int Level
-        {
-            get => level;
-            set
-            {
-                level = value;
-            }
-        }
+
+        public int Level { get; set; }
 
         public int Price { get; set; }
         public int Damage { get; set; }
@@ -45,5 +38,7 @@ namespace Entities
                 Damage = Convert.ToInt32(props[3]),
             };
         }
+
+        public static Weapon None => new Weapon();
     }
 }

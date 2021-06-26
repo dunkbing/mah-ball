@@ -48,7 +48,7 @@ namespace Entities
 
             OnExplode += (() =>
             {
-                // Instantiate(explosion, transform.position, Quaternion.identity);
+                AudioManager.Instance.Play("explosion");
                 ObjectPool.Instance.Spawn("PlayerExplosion", transform.position, Quaternion.identity, go =>
                 {
                     var particle = go.GetComponent<ParticleSystem>();
@@ -190,10 +190,7 @@ namespace Entities
                 case WeaponType.Spike:
                     break;
                 case WeaponType.None:
-                    if (_weapon != null)
-                    {
-                        _weapon.transform.SetParent(null);
-                    }
+                    _weapon?.transform.SetParent(null);
                     break;
             }
         }
@@ -386,6 +383,11 @@ namespace Entities
         {
             _health -= damage;
             HUD.Instance.healthBar.SetHealth(_health);
+
+            if (_health <= 0)
+            {
+                Explode();
+            }
         }
 
         public void CheckLife()

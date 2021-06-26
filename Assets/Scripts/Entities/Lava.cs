@@ -44,8 +44,6 @@ namespace Entities
         {
             if (other.collider.CompareTag("Player"))
             {
-                AudioManager.Instance.Play("explosion");
-
                 HUD.Instance.DecreaseHealth();
                 if (!HUD.Instance.IsEmptyLife())
                 {

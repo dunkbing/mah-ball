@@ -62,6 +62,10 @@ namespace Entities
 
                             break;
                         }
+                        case WeaponType.None:
+                            player.TakeDamage(Constants.SpikePlayerHealth);
+                            player.CheckLife();
+                            break;
                     }
                     break;
                 case "Bullet":

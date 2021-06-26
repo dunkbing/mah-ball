@@ -19,7 +19,7 @@ namespace Common
 
         public readonly Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
         public string currentWeaponType = WeaponType.None;
-        public Weapon CurrentWeapon => Weapons[currentWeaponType];
+        public Weapon CurrentWeapon => Weapons.ContainsKey(currentWeaponType) ? Weapons[currentWeaponType] : Weapon.None;
 
         public Player currentPlayer;
 
