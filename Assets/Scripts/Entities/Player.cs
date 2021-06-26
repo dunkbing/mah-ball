@@ -401,11 +401,6 @@ namespace Entities
             _health = _health - damage + GameStats.Instance.CurrentWeapon.Defence;
             HUD.Instance.healthBar.SetHealth(_health);
 
-            CheckLife();
-        }
-
-        private void CheckLife()
-        {
             if (_health > 0) return;
 
             Explode();
