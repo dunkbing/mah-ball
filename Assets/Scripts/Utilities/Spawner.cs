@@ -102,12 +102,12 @@ namespace Utilities
                 _objectPool.Spawn("Coin", new Vector3(x, 6, 0), Quaternion.identity);
             } else if (random >= 0.7f && random < 0.8f)
             {
-                _objectPool.Spawn(nameof(Star), new Vector3(x, 6, 0), Quaternion.identity);
+                _objectPool.Spawn(nameof(Shooter), new Vector3(x, 6, 0), Quaternion.identity);
             }
-            // else
-            // {
-            //     _objectPool.Spawn(nameof(Platform), new Vector3(x, 6, 0), Quaternion.identity);
-            // }
+            else
+            {
+                _objectPool.Spawn("Square", new Vector3(x, 6, 0), Quaternion.identity);
+            }
         }
 
         // ReSharper disable Unity.PerformanceAnalysis

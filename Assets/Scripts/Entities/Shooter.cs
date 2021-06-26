@@ -6,7 +6,7 @@ using Utilities;
 
 namespace Entities
 {
-    public class Star : Enemy, ISpawn
+    public class Shooter : Enemy, ISpawn
     {
         private GameObject _target;
 

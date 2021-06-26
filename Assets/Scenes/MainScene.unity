@@ -4366,6 +4366,9 @@ MonoBehaviour:
   - tag: Circle
     prefab: {fileID: 8501386384646068909, guid: bde26e21a767e3f4f968016bc787bcd3, type: 3}
     size: 5
+  - tag: Square
+    prefab: {fileID: 8569964736330108069, guid: 2e578ab55da387b4e828aa79246d41f1, type: 3}
+    size: 5
   - tag: Star
     prefab: {fileID: 1285364700035385704, guid: b1ba395846421a64c8399c3375d4fc35, type: 3}
     size: 5
