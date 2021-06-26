@@ -117,10 +117,13 @@ namespace UI
         #region Stats
         public void ShowStats(TextMeshProUGUI tmp)
         {
-            var highScore = GameStats.Instance.HighScore;
-            var coin = GameStats.Instance.Coin;
-            var enemyKilled = GameStats.Instance.TotalEnemyKilled;
-            tmp.SetText($"High score: {highScore}\nCoin: {coin}\nEnemy killed: {enemyKilled}");
+            var gameStats = GameStats.Instance;
+            var highScore = gameStats.HighScore;
+            var coin = gameStats.Coin;
+            var enemyKilled = gameStats.TotalEnemyKilled;
+            var hp = GameStats.MaxHealth;
+            var ki = GameStats.MaxEnergy;
+            tmp.SetText($"Hp: {hp}\nKi: {ki}\nHigh score: {highScore}\nCoin: {coin}\nEnemy killed: {enemyKilled}");
         }
         #endregion
     }
