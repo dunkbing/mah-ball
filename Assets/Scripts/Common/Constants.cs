@@ -13,7 +13,6 @@ namespace Common
         public const int CoinReward = 10;
 
         public const float SpawningHeartRate = 0.6f;
-        public const float ExplosionLifeTime = 1f;
 
         // health
         public const int PlayerHealth = 200;
@@ -42,6 +41,8 @@ namespace Common
 
         // enemy damages
         public const int VirusDamage = 60;
-        public const int StarDamage = 20;
+        public const int StarDamage = 30;
+        public const int LavaDamage = 26;
+        public const int BulletDamage = 30;
     }
 }

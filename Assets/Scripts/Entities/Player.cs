@@ -14,7 +14,7 @@ namespace Entities
         public SpriteRenderer sr;
         public Animator anim;
 
-        private int _health;
+        private float _health;
 
         private Gun _gun;
 
@@ -33,7 +33,7 @@ namespace Entities
 
         private bool _onAir = true;
 
-        private bool _shootStarted = false;
+        private bool _shootStarted;
 
         private Vector3 _originScale;
 
@@ -329,7 +329,9 @@ namespace Entities
                     _onAir = false;
                     break;
                 case "Lava":
-                    Explode();
+                    break;
+                case "Bullet":
+                    TakeDamage(Constants.BulletDamage);
                     break;
                 case "Virus":
                 case "Star":
@@ -351,7 +353,6 @@ namespace Entities
             HUD.Instance.healthBar.SetMaxHealth(_health);
             SelectWeapon(GameStats.Instance.currentWeaponType);
 
-            // transform.localScale = new Vector3(0.7f, 0.7f);
             ResetEnergy();
         }
 
@@ -379,32 +380,28 @@ namespace Entities
             _energy += amount;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
-            _health -= damage;
+            _health = _health - damage + GameStats.Instance.CurrentWeapon.Defence;
             HUD.Instance.healthBar.SetHealth(_health);
 
-            if (_health <= 0)
-            {
-                Explode();
-            }
+            CheckLife();
         }
 
-        public void CheckLife()
+        private void CheckLife()
         {
-            if (_health <= 0)
+            if (_health > 0) return;
+
+            Explode();
+            HUD.Instance.DecreaseHealth();
+            if (!HUD.Instance.IsEmptyLife())
             {
-                Explode();
-                HUD.Instance.DecreaseHealth();
-                if (!HUD.Instance.IsEmptyLife())
-                {
-                    ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
-                }
-                else
-                {
-                    GameStats.Instance.SaveStatsToFile();
-                    PauseMenu.Instance.Pause();
-                }
+                ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
+            }
+            else
+            {
+                GameStats.Instance.SaveStatsToFile();
+                PauseMenu.Instance.Pause();
             }
         }
     }

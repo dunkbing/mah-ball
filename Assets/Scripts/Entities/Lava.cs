@@ -1,3 +1,4 @@
+using System;
 using Common;
 using UI;
 using UnityEngine;
@@ -40,22 +41,21 @@ namespace Entities
             transform.position = _floatDir ? _tempPos : -_tempPos;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D other)
         {
-            if (other.collider.CompareTag("Player"))
-            {
-                HUD.Instance.DecreaseHealth();
-                if (!HUD.Instance.IsEmptyLife())
-                {
-                    ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
-                }
-                else
-                {
-                    GameStats.Instance.SaveStatsToFile();
-                    PauseMenu.Instance.Pause();
-                }
-            }
+            HandleCollision(other);
         }
 
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            HandleCollision(other);
+        }
+
+        private static void HandleCollision(Collision2D other)
+        {
+            if (!other.collider.CompareTag("Player")) return;
+
+            GameStats.Instance.currentPlayer.TakeDamage(Constants.LavaDamage);
+        }
     }
 }

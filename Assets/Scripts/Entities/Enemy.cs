@@ -11,7 +11,8 @@ namespace Entities
         public float speed = 1.5f;
         public HealthBar healthBar;
 
-        protected int Health { get; set; }
+        protected float Health { get; set; }
+        protected string Name { get; set; }
 
         public void Fall()
         {
@@ -24,7 +25,7 @@ namespace Entities
             }
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             Health -= damage;
             healthBar.SetHealth(Health);
@@ -38,7 +39,8 @@ namespace Entities
         private void OnCollisionEnter2D(Collision2D other)
         {
             var gameStats = GameStats.Instance;
-            var dmg = gameStats.CurrentWeapon.Damage;
+            var playerDmg = gameStats.CurrentWeapon.Damage;
+            var dmg = Name == nameof(Virus) ? Constants.VirusDamage : Constants.StarDamage;
 
             switch (other.gameObject.tag)
             {
@@ -47,29 +49,29 @@ namespace Entities
                     switch (gameStats.currentWeaponType)
                     {
                         case WeaponType.Sword:
-                            TakeDamage(dmg);
+                            player.TakeDamage(dmg);
+                            TakeDamage(playerDmg);
                             break;
                         case WeaponType.Gun:
                         {
-                            player.TakeDamage(Constants.VirusDamage);
-                            player.CheckLife();
-
-                            TakeDamage(dmg);
+                            player.TakeDamage(dmg);
+                            TakeDamage(playerDmg);
                             break;
                         }
                         case WeaponType.Spike:
-                            TakeDamage(dmg);
+                            player.TakeDamage(dmg);
+                            TakeDamage(playerDmg);
                             break;
                         case WeaponType.None:
-                            player.TakeDamage(Constants.SpikePlayerHealth);
-                            player.CheckLife();
+                            dmg = Constants.SpikePlayerHealth;
+                            player.TakeDamage(dmg);
                             break;
                     }
                     break;
                 case "Bullet":
                     if (other.gameObject.name.Contains("PlayerBullet"))
                     {
-                        TakeDamage(dmg);
+                        TakeDamage(playerDmg);
                     }
                     break;
             }

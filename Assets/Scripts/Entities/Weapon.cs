@@ -1,7 +1,6 @@
 // Created by Binh Bui on 06, 25, 2021
 
 using System;
-using UnityEngine;
 
 namespace Entities
 {
@@ -19,12 +18,12 @@ namespace Entities
         public string Name { get; set; }
 
         public int Level { get; set; }
-
         public int Price { get; set; }
         public int Damage { get; set; }
+        public int Defence { get; set; }
         public override string ToString()
         {
-            return $"{Name}|{Level}|{Price}|{Damage}";
+            return $"{Name}|{Level}|{Price}|{Damage}|{Defence}";
         }
 
         public static Weapon Parse(string weaponStr)
@@ -36,6 +35,7 @@ namespace Entities
                 Level = Convert.ToInt32(props[1]),
                 Price = Convert.ToInt32(props[2]),
                 Damage = Convert.ToInt32(props[3]),
+                Defence = Convert.ToInt32(props[4]),
             };
         }
 
