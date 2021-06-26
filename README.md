@@ -1,1 +1,1 @@
-# my first mobile games.
+# a game about your ball.
