@@ -4,7 +4,7 @@ using Utilities;
 
 namespace Entities
 {
-    public class Platform : Entity, ISpawn
+    public class Platform : Entity, ISpawn, IFalling
     {
         private Rigidbody2D _rb;
         public float speed = 1.5f;
@@ -31,8 +31,18 @@ namespace Entities
 
         private void FixedUpdate()
         {
+            Fall();
+        }
+
+        public void Fall()
+        {
             if (GameStats.GameIsPaused) return;
             _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
+
+            if (transform.position.y <= -5.5)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

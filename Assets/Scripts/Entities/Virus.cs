@@ -1,16 +1,13 @@
 using Common;
-using UI;
 using UnityEngine;
 using Utilities;
 
 namespace Entities
 {
-    public class Virus : Enemy
+    public class Virus : Enemy, ISpawn
     {
         private void Awake()
         {
-            Health = 100;
-            healthBar.SetMaxHealth(Health);
             OnExplode += () =>
             {
                 AudioManager.Instance.Play("explosion");
@@ -33,26 +30,10 @@ namespace Entities
             transform.Rotate(new Vector3(0, 0, 100f) * Time.fixedDeltaTime);
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        public void Spawn()
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-
-                HUD.Instance.DecreaseHealth();
-                if (!HUD.Instance.IsEmptyLife())
-                {
-                    ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
-                }
-                else
-                {
-                    GameStats.Instance.SaveStatsToFile();
-                    PauseMenu.Instance.Pause();
-                }
-                if (Health <= 0)
-                {
-                    Explode();
-                }
-            }
+            Health = Constants.VirusHealth;
+            healthBar.SetMaxHealth(Health);
         }
     }
 }

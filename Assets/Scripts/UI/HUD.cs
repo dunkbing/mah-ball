@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Entities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,8 @@ namespace UI
 {
     public class HUD : MonoBehaviour
     {
-        public Slider slider;
+        public Slider energyBar;
+        public HealthBar healthBar;
         public TextMeshProUGUI scoreTmp;
         public List<GameObject> hearts;
 
@@ -57,12 +59,12 @@ namespace UI
         #region energy bar
         public void SetMaxEnergy(float maxEnergy)
         {
-            slider.maxValue = maxEnergy;
+            energyBar.maxValue = maxEnergy;
         }
 
         public void SetEnergy(float energy)
         {
-            slider.value = energy;
+            energyBar.value = energy;
         }
         #endregion
 

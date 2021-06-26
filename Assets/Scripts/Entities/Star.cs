@@ -1,12 +1,11 @@
 // Created by Binh Bui on 06, 24, 2021
 
-using System;
 using Common;
 using UnityEngine;
 
 namespace Entities
 {
-    public class Star : Enemy
+    public class Star : Enemy, ISpawn
     {
         private GameObject _target;
 
@@ -60,6 +59,12 @@ namespace Entities
             {
                 gun.Shoot();
             }
+        }
+
+        public void Spawn()
+        {
+            Health = Constants.StarHealth;
+            healthBar.SetMaxHealth(Health);
         }
     }
 }

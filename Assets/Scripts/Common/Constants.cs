@@ -14,6 +14,13 @@ namespace Common
 
         public const float SpawningHeartRate = 0.6f;
         public const float ExplosionLifeTime = 1f;
+
+        // health
+        public const int PlayerHealth = 200;
+        public const int SpikePlayerHealth = 300;
+        public const int StarHealth = 200;
+        public const int VirusHealth = 150;
+
         // scoring
         public const int NormalScore = 10;
         public const int WhitePlatScore = 20;
@@ -32,5 +39,9 @@ namespace Common
         public const int SwordDamage = 60;
         public const int GunDamage = 20;
         public const int SpikeDamage = 100;
+
+        // enemy damages
+        public const int VirusDamage = 60;
+        public const int StarDamage = 20;
     }
 }

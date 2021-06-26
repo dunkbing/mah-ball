@@ -18,8 +18,8 @@ namespace Common
         public int TotalEnemyKilled { get; set; }
 
         public readonly Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
-        public string currentWeaponName = WeaponType.None;
-        public Weapon CurrentWeapon => Weapons[currentWeaponName];
+        public string currentWeaponType = WeaponType.None;
+        public Weapon CurrentWeapon => Weapons[currentWeaponType];
 
         public Player currentPlayer;
 
@@ -44,7 +44,7 @@ namespace Common
                 PlayerColor = new Color(Convert.ToSingle(stats[1]), Convert.ToSingle(stats[2]), Convert.ToSingle(stats[3]));
                 Coin = Convert.ToInt32(stats[4]);
                 TotalEnemyKilled = Convert.ToInt32(stats[5]);
-                currentWeaponName = stats[6];
+                currentWeaponType = stats[6];
             }
             catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException ||
                                       e is IndexOutOfRangeException || e is FormatException)
@@ -101,7 +101,7 @@ namespace Common
             var r = PlayerColor.r;
             var g = PlayerColor.g;
             var b = PlayerColor.b;
-            File.WriteAllText(Constants.StatFilePath, $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponName}");
+            File.WriteAllText(Constants.StatFilePath, $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponType}");
         }
 
         public void SaveWeaponsToFile()

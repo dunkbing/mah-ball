@@ -13,7 +13,6 @@ namespace Entities
         public ParticleSystem ps;
         public SpriteRenderer sr;
         public Animator anim;
-        public HealthBar healthBar;
 
         private int _health;
 
@@ -41,13 +40,8 @@ namespace Entities
         // to increase player score every 1s
         private float _elapsedTime;
 
-        public bool HasWeapon { get; set; } = true;
-
-        public static Player Instance { get; private set; }
-
         private void Awake()
         {
-            Instance = this;
             _health = 200;
             _cam = Camera.main;
             _originScale = transform.localScale;
@@ -189,7 +183,7 @@ namespace Entities
                     _gun = _weapon.transform.Find("Gun").GetComponent<Gun>();
                     if (!_shootStarted)
                     {
-                        InvokeRepeating(nameof(Shoot), 0.5f, 0.8f);
+                        InvokeRepeating(nameof(Shoot), 0.3f, 0.4f);
                         _shootStarted = true;
                     }
                     break;
@@ -227,11 +221,11 @@ namespace Entities
 
             ReduceVel(ref velocity, 15);
 
-            Vector2[] trajectory = Plot(rb2d, transform.position, velocity, 400);
+            var trajectory = Plot(rb2d, transform.position, velocity, 400);
             lr.positionCount = trajectory.Length;
 
-            Vector3[] positions = new Vector3[trajectory.Length];
-            for (int i = 0; i < trajectory.Length; i++)
+            var positions = new Vector3[trajectory.Length];
+            for (var i = 0; i < trajectory.Length; i++)
             {
                 positions[i] = trajectory[i];
             }
@@ -244,17 +238,17 @@ namespace Entities
             _startPoint.z = 15;
         }
 
-        private Vector2[] Plot(Rigidbody2D rb, Vector2 pos, Vector2 velocity, int steps)
+        private static Vector2[] Plot(Rigidbody2D rb, Vector2 pos, Vector2 velocity, int steps)
         {
-            Vector2[] result = new Vector2[steps];
+            var result = new Vector2[steps];
 
-            float timeStep = Time.fixedDeltaTime / Physics2D.velocityIterations;
-            Vector2 gravityAccel = Physics2D.gravity * (rb.gravityScale * timeStep * timeStep);
+            var timeStep = Time.fixedDeltaTime / Physics2D.velocityIterations;
+            var gravityAccel = Physics2D.gravity * (rb.gravityScale * timeStep * timeStep);
 
-            float drag = 1f - timeStep * rb.drag;
-            Vector2 moveStep = velocity * timeStep;
+            var drag = 1f - timeStep * rb.drag;
+            var moveStep = velocity * timeStep;
 
-            for (int i = 0; i < steps; i++)
+            for (var i = 0; i < steps; i++)
             {
                 moveStep += gravityAccel;
                 moveStep *= drag;
@@ -291,21 +285,23 @@ namespace Entities
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Heart") || other.CompareTag("Coin") || other.CompareTag("Virus") || other.CompareTag("Star"))
+            if (other.CompareTag("Virus") || other.CompareTag("Star"))
             {
-                if (GameStats.Instance.currentWeaponName == WeaponType.Sword)
+                switch (GameStats.Instance.currentWeaponType)
                 {
-                    Slash();
-                } else if (GameStats.Instance.currentWeaponName == WeaponType.Gun)
-                {
-                    _shootTarget = other.gameObject;
+                    case WeaponType.Sword:
+                        Slash();
+                        break;
+                    case WeaponType.Gun:
+                        _shootTarget = other.gameObject;
+                        break;
                 }
             }
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (_shootTarget == null && (other.CompareTag("Heart") || other.CompareTag("Coin") || other.CompareTag("Virus") || other.CompareTag("Star")))
+            if (_shootTarget == null && (other.CompareTag("Virus") || other.CompareTag("Star")))
             {
                 _shootTarget = other.gameObject;
             }
@@ -340,7 +336,6 @@ namespace Entities
                     break;
                 case "Virus":
                 case "Star":
-                    other.gameObject.GetComponent<IDamageable>().TakeDamage(GameStats.Instance.CurrentWeapon.Damage);
                     break;
             }
         }
@@ -355,7 +350,9 @@ namespace Entities
 
         public void Spawn()
         {
-            SelectWeapon(GameStats.Instance.currentWeaponName);
+            _health = GameStats.Instance.currentWeaponType == WeaponType.Spike ? Constants.SpikePlayerHealth : Constants.PlayerHealth;
+            HUD.Instance.healthBar.SetMaxHealth(_health);
+            SelectWeapon(GameStats.Instance.currentWeaponType);
 
             transform.localScale = new Vector3(0.7f, 0.7f);
             ResetEnergy();
@@ -388,6 +385,25 @@ namespace Entities
         public void TakeDamage(int damage)
         {
             _health -= damage;
+            HUD.Instance.healthBar.SetHealth(_health);
+        }
+
+        public void CheckLife()
+        {
+            if (_health <= 0)
+            {
+                Explode();
+                HUD.Instance.DecreaseHealth();
+                if (!HUD.Instance.IsEmptyLife())
+                {
+                    ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
+                }
+                else
+                {
+                    GameStats.Instance.SaveStatsToFile();
+                    PauseMenu.Instance.Pause();
+                }
+            }
         }
     }
 }

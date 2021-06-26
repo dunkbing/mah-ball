@@ -53,8 +53,8 @@ namespace UI
 
         public void SelectWeapon(string wpName)
         {
-            ObjectPool.Instance.Retrieve(GameStats.Instance.currentWeaponName);
-            GameStats.Instance.currentWeaponName = wpName;
+            ObjectPool.Instance.Retrieve(GameStats.Instance.currentWeaponType);
+            GameStats.Instance.currentWeaponType = wpName;
             if (wpName == WeaponType.Spike)
             {
                 Spawner.Instance.PreStart();
