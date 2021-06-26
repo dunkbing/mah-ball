@@ -52,14 +52,10 @@ namespace Utilities
                 new Vector3(0, 3.5f, 0), Quaternion.identity, (go =>
                 {
                     var rb = go.GetComponent<Rigidbody2D>();
-                    if (GameStats.Instance.currentWeaponType == WeaponType.Gun)
-                    {
-                        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                    }
-                    else
-                    {
-                        rb.constraints = RigidbodyConstraints2D.None;
-                    }
+                    rb.constraints = GameStats.Instance.currentWeaponType == WeaponType.Gun ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.None;
+
+                    var tf = go.transform;
+                    tf.localScale = GameStats.Instance.currentWeaponType == WeaponType.Spike ? new Vector3(0.25f, 0.25f) : new Vector3(0.7f, 0.7f);
                 })).GetComponent<Player>();
         }
 

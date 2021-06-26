@@ -351,7 +351,7 @@ namespace Entities
             HUD.Instance.healthBar.SetMaxHealth(_health);
             SelectWeapon(GameStats.Instance.currentWeaponType);
 
-            transform.localScale = new Vector3(0.7f, 0.7f);
+            // transform.localScale = new Vector3(0.7f, 0.7f);
             ResetEnergy();
         }
 
