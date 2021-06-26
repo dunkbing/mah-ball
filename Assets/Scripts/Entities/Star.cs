@@ -57,7 +57,7 @@ namespace Entities
         {
             if (_target)
             {
-                gun.Shoot();
+                gun.Shoot("Bullet");
             }
         }
 

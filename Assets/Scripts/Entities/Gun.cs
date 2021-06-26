@@ -32,9 +32,9 @@ namespace Entities
             }
         }
 
-        public void Shoot()
+        public void Shoot(string bulletName)
         {
-            var rb = ObjectPool.Instance.Spawn("Bullet", shootPoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+            var rb = ObjectPool.Instance.Spawn(bulletName, shootPoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
             rb.AddForce(shootPoint.transform.up * _bulletForce, ForceMode2D.Impulse);
         }
     }

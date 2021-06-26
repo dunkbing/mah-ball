@@ -69,7 +69,10 @@ namespace Entities
                     }
                     break;
                 case "Bullet":
-                    TakeDamage(dmg);
+                    if (other.gameObject.name.Contains("PlayerBullet"))
+                    {
+                        TakeDamage(dmg);
+                    }
                     break;
             }
         }

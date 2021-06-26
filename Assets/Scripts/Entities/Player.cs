@@ -359,7 +359,7 @@ namespace Entities
         {
             if (_shootTarget)
             {
-                _gun.Shoot();
+                _gun.Shoot("PlayerBullet");
             }
         }
 
