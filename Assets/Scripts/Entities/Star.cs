@@ -14,8 +14,6 @@ namespace Entities
 
         private void Awake()
         {
-            Health = 200;
-            healthBar.SetMaxHealth(Health);
             InvokeRepeating(nameof(Shoot), 0.5f, 0.3f);
 
             OnExplode += () =>

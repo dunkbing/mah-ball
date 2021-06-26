@@ -55,13 +55,11 @@ namespace Entities
                             player.CheckLife();
 
                             TakeDamage(dmg);
-                            if (Health <= 0)
-                            {
-                                Explode();
-                            }
-
                             break;
                         }
+                        case WeaponType.Spike:
+                            TakeDamage(dmg);
+                            break;
                         case WeaponType.None:
                             player.TakeDamage(Constants.SpikePlayerHealth);
                             player.CheckLife();

@@ -18,8 +18,8 @@ namespace Common
         // health
         public const int PlayerHealth = 200;
         public const int SpikePlayerHealth = 300;
-        public const int StarHealth = 200;
-        public const int VirusHealth = 150;
+        public const int StarHealth = 500;
+        public const int VirusHealth = 450;
 
         // scoring
         public const int NormalScore = 10;
