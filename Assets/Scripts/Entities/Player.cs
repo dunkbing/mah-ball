@@ -12,7 +12,6 @@ namespace Entities
         public LineRenderer lr;
         public ParticleSystem ps;
         public SpriteRenderer sr;
-        public Animator anim;
 
         private float _health;
 
@@ -150,11 +149,6 @@ namespace Entities
             _chargeTime = 0;
         }
 
-        public void Slash()
-        {
-            anim.Play("SwordSlash");
-        }
-
         public void SetPlayerColor(Color color)
         {
             GameStats.Instance.PlayerColor = color;
@@ -286,7 +280,6 @@ namespace Entities
                 switch (GameStats.Instance.currentWeaponType)
                 {
                     case WeaponType.Sword:
-                        Slash();
                         break;
                     case WeaponType.Gun:
                         _shootTarget = other.gameObject;

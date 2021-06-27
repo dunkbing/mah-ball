@@ -124,6 +124,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7567792401718131867}
+  - component: {fileID: 2083164306719957222}
+  - component: {fileID: 793882149777515619}
+  - component: {fileID: 2169245089876137776}
   m_Layer: 0
   m_Name: SwordPivot
   m_TagString: Untagged
@@ -146,6 +149,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2083164306719957222
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449121398095735628}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d923dae77bee0624e8b27c5cb1234b2b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &793882149777515619
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449121398095735628}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!114 &2169245089876137776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449121398095735628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6394d21a37754577acb2a09b754c8b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2083164306719957222}
 --- !u!1 &8029155756305042819
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +410,7 @@ TrailRenderer:
   m_Time: 0.2
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -374,7 +425,7 @@ TrailRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.29782617
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -386,8 +437,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8520043, g: 0.9056604, b: 0.8492702, a: 1}
-      key1: {r: 0.16575289, g: 0.80996805, b: 0.9056604, a: 1}
+      key0: {r: 0.18665004, g: 0.83352834, b: 0.9245283, a: 1}
+      key1: {r: 0.90224284, g: 0.92993444, b: 0.9339623, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
