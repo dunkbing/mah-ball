@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 5673715220207951145}
   - component: {fileID: 4817776634787026053}
   - component: {fileID: 5833075828475442613}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -267,7 +267,6 @@ MonoBehaviour:
   lr: {fileID: 4781474098463699846}
   ps: {fileID: 5673715220207951145}
   sr: {fileID: 4781474098463699845}
-  anim: {fileID: 4817776634787026053}
 --- !u!96 &3876918092643846238
 TrailRenderer:
   serializedVersion: 2

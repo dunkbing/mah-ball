@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5673715220207951145}
   - component: {fileID: 4817776634787026053}
   - component: {fileID: 8311414455876025775}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpikePlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -233,7 +233,6 @@ MonoBehaviour:
   lr: {fileID: 4781474098463699846}
   ps: {fileID: 5673715220207951145}
   sr: {fileID: 4781474098463699845}
-  anim: {fileID: 4817776634787026053}
 --- !u!96 &3876918092643846238
 TrailRenderer:
   serializedVersion: 2
@@ -5207,7 +5206,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.97, y: 3.75}
+    oldSize: {x: 3.9699998, y: 3.7528906}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

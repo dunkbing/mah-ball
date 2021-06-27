@@ -1,3 +1,4 @@
+using System;
 using Common;
 using UI;
 using UnityEngine;
@@ -271,6 +272,14 @@ namespace Entities
         private void OnCollisionEnter2D(Collision2D other)
         {
             HandleCollision(other);
+        }
+
+        private void OnParticleCollision(GameObject other)
+        {
+            if (other.CompareTag("Virus"))
+            {
+                TakeDamage(Constants.VirusDamage/15f);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
