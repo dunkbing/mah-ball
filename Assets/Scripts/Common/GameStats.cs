@@ -146,8 +146,26 @@ namespace Common
                 }
                 weapon.Level++;
             }
-
             Weapons[wName] = weapon;
+
+            SaveWeaponsToFile();
+        }
+
+        public void UpgradeStats(string type)
+        {
+            switch (type)
+            {
+                case "HP" when Coin >= Constants.HpPrice:
+                    MaxHealth += 50;
+                    Coin -= Constants.HpPrice;
+                    break;
+                case "KI" when Coin >= Constants.KiPrice:
+                    MaxEnergy += 5;
+                    Coin -= Constants.KiPrice;
+                    break;
+            }
+
+            Instance.SaveStatsToFile();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace UI
 
         // score ui
         public TextMeshProUGUI highScoreTmp;
+        public TextMeshProUGUI coinTmp;
 
         private void Awake()
         {
@@ -31,6 +32,7 @@ namespace UI
             base.Pause();
             pauseMenu.SetActive(true);
             highScoreTmp.SetText($"High score: {GameStats.Instance.HighScore}");
+            coinTmp.SetText($"Coin: {GameStats.Instance.Coin}");
         }
 
         public void Play()

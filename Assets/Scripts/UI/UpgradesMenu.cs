@@ -3,7 +3,6 @@
 using Common;
 using Entities;
 using TMPro;
-using UnityEngine;
 
 namespace UI
 {
@@ -15,6 +14,7 @@ namespace UI
         public TextMeshProUGUI unlockGunTmp;
         public TextMeshProUGUI levelSpikeTmp;
         public TextMeshProUGUI unlockSpikeTmp;
+        public TextMeshProUGUI coinTmp;
 
         private void Start()
         {
@@ -25,20 +25,12 @@ namespace UI
         {
             GameStats.Instance.UpgradeWeapon(type);
             LoadWeaponInfo();
-            GameStats.Instance.SaveWeaponsToFile();
         }
 
         public void UpgradeStats(string type)
         {
-            if (type == "HP")
-            {
-                GameStats.MaxHealth += 50;
-            }
-            else
-            {
-                GameStats.MaxEnergy += 5;
-            }
-            GameStats.Instance.SaveStatsToFile();
+            GameStats.Instance.UpgradeStats(type);
+            LoadWeaponInfo();
         }
 
         public void LoadWeaponInfo()
@@ -73,6 +65,9 @@ namespace UI
                 levelSpikeTmp.SetText("LEVEL: 0");
                 unlockSpikeTmp.SetText($"UNLOCK: ${weapons[WeaponType.Spike].Price}");
             }
+
+            // coin
+            coinTmp.SetText($"${GameStats.Instance.Coin}");
         }
     }
 }

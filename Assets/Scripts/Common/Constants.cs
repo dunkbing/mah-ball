@@ -34,6 +34,10 @@ namespace Common
         public const int GunPrice = 2000;
         public const int SpikePrice = 3500;
 
+        // stats prices
+        public const int HpPrice = 1000;
+        public const int KiPrice = 1000;
+
         // weapon damages
         public const int NoneDamage = 40;
         public const int SwordDamage = 60;
