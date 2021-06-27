@@ -18,6 +18,7 @@ namespace Common
         public int Coin { get; set; }
         public int EnemyKilled { get; set; }
         public int TotalEnemyKilled { get; set; }
+        public float Power { get; private set; } = 10;
 
         public readonly Dictionary<string, Weapon> Weapons = new Dictionary<string, Weapon>();
         public string currentWeaponType = WeaponType.None;
@@ -49,6 +50,7 @@ namespace Common
                 currentWeaponType = stats[6];
                 MaxHealth = Convert.ToInt32(stats[7]);
                 MaxEnergy = Convert.ToSingle(stats[8]);
+                Power = Convert.ToSingle(stats[9]);
             }
             catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException ||
                                       e is IndexOutOfRangeException || e is FormatException)
@@ -105,7 +107,7 @@ namespace Common
             var r = PlayerColor.r;
             var g = PlayerColor.g;
             var b = PlayerColor.b;
-            File.WriteAllText(Constants.StatFilePath, $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponType}|{MaxHealth}|{MaxEnergy}");
+            File.WriteAllText(Constants.StatFilePath, $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponType}|{MaxHealth}|{MaxEnergy}|{Power}");
         }
 
         public void SaveWeaponsToFile()
@@ -164,6 +166,13 @@ namespace Common
                 case "KI" when Coin >= Constants.KiPrice:
                     MaxEnergy += 5;
                     Coin -= Constants.KiPrice;
+                    break;
+                case "Power" when Coin >= Constants.PowerPrice:
+                    if (Power < 25)
+                    {
+                        Power += 2;
+                        Coin -= Constants.PowerPrice;
+                    }
                     break;
             }
 

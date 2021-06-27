@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5183e98ccb9438478729e7e57e04c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 3
+  power: 5
   rb2d: {fileID: 4781474098463699842}
   lr: {fileID: 4781474098463699846}
   ps: {fileID: 5673715220207951145}

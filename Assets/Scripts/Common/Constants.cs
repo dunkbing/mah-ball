@@ -37,6 +37,7 @@ namespace Common
         // stats prices
         public const int HpPrice = 1000;
         public const int KiPrice = 1000;
+        public const int PowerPrice = 1000;
 
         // weapon damages
         public const int NoneDamage = 50;

@@ -145,7 +145,7 @@ namespace Entities
             transform.up = velocity.normalized;
             transform.localScale = _originScale;
 
-            ReduceVel(ref velocity, 15);
+            ReduceVel(ref velocity, GameStats.Instance.Power);
 
             rb2d.velocity = velocity;
             lr.positionCount = 0;
@@ -214,7 +214,7 @@ namespace Entities
                 transform.localScale -= new Vector3(0, 0.01f);
             }
 
-            ReduceVel(ref velocity, 15);
+            ReduceVel(ref velocity, GameStats.Instance.Power);
 
             var trajectory = Plot(rb2d, transform.position, velocity, 400);
             lr.positionCount = trajectory.Length;
