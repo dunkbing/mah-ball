@@ -10,14 +10,14 @@ namespace Common
         public const float GreenPlatRegenRate = 0.5f;
         public const float RewardRegen = 2f;
 
-        public const int CoinReward = 10;
+        public const int CoinReward = 30;
 
         public const float SpawningHeartRate = 0.6f;
 
         // health
 
-        public const int StarHealth = 500;
-        public const int VirusHealth = 450;
+        public const int StarHealth = 350;
+        public const int VirusHealth = 400;
 
         // scoring
         public const int NormalScore = 10;
@@ -39,20 +39,23 @@ namespace Common
         public const int KiPrice = 1000;
 
         // weapon damages
-        public const int NoneDamage = 40;
+        public const int NoneDamage = 50;
         public const int SwordDamage = 60;
-        public const int GunDamage = 30;
+        public const int GunDamage = 40;
         public const int SpikeDamage = 100;
 
         // weapon defence
-        public const int SwordDefence = 10;
-        public const int GunDefence = 5;
-        public const int SpikeDefence = 25;
+        public const int NoneDefence = 50;
+        public const int SwordDefence = 55;
+        public const int GunDefence = 10;
+        public const int SpikeDefence = 60;
+
+        public const int WeaponMaxLevel = 5;
 
         // enemy damages
         public const int VirusDamage = 60;
         public const int StarDamage = 30;
-        public const int LavaDamage = 52;
-        public const int BulletDamage = 30;
+        public const int LavaDamage = 62;
+        public const int BulletDamage = 65;
     }
 }

@@ -3,6 +3,7 @@
 using Common;
 using Entities;
 using TMPro;
+using UnityEngine;
 
 namespace UI
 {
@@ -46,15 +47,15 @@ namespace UI
                 unlockSwordTmp.SetText($"UNLOCK: ${weapons[WeaponType.Sword].Price}");
             }
 
-            if (weapons[WeaponType.Gun].Level > 0)
-            {
-                levelGunTmp.SetText($"LEVEL: {weapons[WeaponType.Gun].Level}");
-                unlockGunTmp.SetText($"UPGRADE: ${weapons[WeaponType.Gun].Price}");
-            } else
-            {
-                levelGunTmp.SetText("LEVEL: 0");
-                unlockGunTmp.SetText($"UNLOCK: ${weapons[WeaponType.Gun].Price}");
-            }
+            // if (weapons[WeaponType.Gun].Level > 0)
+            // {
+            //     levelGunTmp.SetText($"LEVEL: {weapons[WeaponType.Gun].Level}");
+            //     unlockGunTmp.SetText($"UPGRADE: ${weapons[WeaponType.Gun].Price}");
+            // } else
+            // {
+            //     levelGunTmp.SetText("LEVEL: 0");
+            //     unlockGunTmp.SetText($"UNLOCK: ${weapons[WeaponType.Gun].Price}");
+            // }
 
             if (weapons[WeaponType.Spike].Level > 0)
             {

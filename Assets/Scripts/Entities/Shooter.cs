@@ -14,13 +14,13 @@ namespace Entities
 
         private void Awake()
         {
-            Damage = 30;
-            InvokeRepeating(nameof(Shoot), 0.5f, 0.3f);
+            Damage = 35;
+            InvokeRepeating(nameof(Shoot), 0.5f, 0.5f);
 
             OnExplode += () =>
             {
                 AudioManager.Instance.Play("explosion");
-                ObjectPool.Instance.Spawn("StarExplosion", transform.position, Quaternion.identity, go =>
+                ObjectPool.Instance.Spawn(gameObject.CompareTag("Star") ? "StarExplosion" : "SquareExplosion", transform.position, Quaternion.identity, go =>
                 {
                     go.GetComponent<ParticleSystem>().Play();
                 });

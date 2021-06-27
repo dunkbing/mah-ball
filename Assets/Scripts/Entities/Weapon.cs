@@ -45,6 +45,6 @@ namespace Entities
             };
         }
 
-        public static Weapon None => new Weapon(){Damage = Constants.NoneDamage};
+        public static Weapon None => new Weapon(){Damage = Constants.NoneDamage, Defence = Constants.NoneDefence};
     }
 }

@@ -64,7 +64,7 @@ namespace Common
                 // load weapons
                 var weaponsText = File.ReadAllText(Constants.WeaponFilePath);
                 var weapons = weaponsText.Split('\n');
-                if (weapons.Length == 3)
+                if (weapons.Length == 2)
                 {
                     foreach (var wStr in weapons)
                     {
@@ -75,7 +75,7 @@ namespace Common
                 else
                 {
                     Weapons[WeaponType.Sword] = new Weapon(){Name = WeaponType.Sword, Level = 0, Price = Constants.SwordPrice, Damage = 0};
-                    Weapons[WeaponType.Gun] = new Weapon(){Name = WeaponType.Gun, Level = 0, Price = Constants.GunPrice, Damage = 0};
+                    // Weapons[WeaponType.Gun] = new Weapon(){Name = WeaponType.Gun, Level = 0, Price = Constants.GunPrice, Damage = 0};
                     Weapons[WeaponType.Spike] = new Weapon(){Name = WeaponType.Spike, Level = 0, Price = Constants.SpikeDamage, Damage = 0};
                 }
             }
@@ -84,7 +84,7 @@ namespace Common
             {
                 Debug.Log(e.Message);
                 Weapons[WeaponType.Sword] = new Weapon(){Name = WeaponType.Sword, Level = 0, Price = Constants.SwordPrice, Damage = 0};
-                Weapons[WeaponType.Gun] = new Weapon(){Name = WeaponType.Gun, Level = 0, Price = Constants.GunPrice, Damage = 0};
+                // Weapons[WeaponType.Gun] = new Weapon(){Name = WeaponType.Gun, Level = 0, Price = Constants.GunPrice, Damage = 0};
                 Weapons[WeaponType.Spike] = new Weapon(){Name = WeaponType.Spike, Level = 0, Price = Constants.SpikePrice, Damage = 0};
             }
         }
@@ -123,25 +123,27 @@ namespace Common
             // get copy of a weapon to upgrade
             var weapon = Weapons[wName];
 
+            if (weapon.Level >= Constants.WeaponMaxLevel) return;
+
             if (Coin > weapon.Price)
             {
                 Coin -= weapon.Price;
                 switch (wName)
                 {
                     case WeaponType.Sword:
-                        weapon.Price += weapon.Level * Constants.SwordPrice;
-                        weapon.Damage += weapon.Level == 0 ? Constants.SwordDamage : Constants.SwordDamage / 2;
-                        weapon.Defence += Constants.SwordDefence;
+                        weapon.Price += Constants.SwordPrice / 2;
+                        weapon.Damage += weapon.Level < 1 ? Constants.SwordDamage : Constants.SwordDamage / 2;
+                        weapon.Defence = Constants.SwordDefence;
                         break;
-                    case WeaponType.Gun:
-                        weapon.Price += weapon.Level * Constants.GunPrice;
-                        weapon.Damage += weapon.Level == 0 ? Constants.GunDamage : Constants.GunDamage / 2;
-                        weapon.Defence += Constants.GunDefence;
-                        break;
+                    // case WeaponType.Gun:
+                    //     weapon.Price += Constants.GunPrice / 2;
+                    //     weapon.Damage += weapon.Level == 0 ? Constants.GunDamage : Constants.GunDamage / 2;
+                    //     weapon.Defence += Constants.GunDefence;
+                    //     break;
                     case WeaponType.Spike:
-                        weapon.Price += weapon.Level * Constants.SpikePrice;
+                        weapon.Price += Constants.SpikePrice / 2;
                         weapon.Damage += weapon.Level == 0 ? Constants.SpikeDamage : Constants.SpikeDamage / 3;
-                        weapon.Defence += Constants.SpikeDefence / 2;
+                        weapon.Defence = Constants.SpikeDefence;
                         break;
                 }
                 weapon.Level++;

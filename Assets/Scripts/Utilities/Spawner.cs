@@ -76,9 +76,15 @@ namespace Utilities
                 {
                     var currentWeapon = GameStats.Instance.currentWeaponType;
                     var rb = go.GetComponent<Rigidbody2D>();
-                    if (currentWeapon == WeaponType.Gun || currentWeapon == WeaponType.Sword)
+                    switch (currentWeapon)
                     {
-                        rb.mass = 10;
+                        case WeaponType.Gun:
+                        case WeaponType.Sword:
+                            rb.mass = 22;
+                            break;
+                        case WeaponType.None:
+                            rb.mass = 16;
+                            break;
                     }
                     rb.constraints = currentWeapon == WeaponType.Gun ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.None;
 
@@ -89,24 +95,55 @@ namespace Utilities
 
         private void SpawnObject()
         {
-            var random = Random.Range(0f, 1f);
-            var x = Random.Range(0f, 1f) < .5f ? Random.Range(-7f, -2.5f) : Random.Range(2.5f, 7f);
-            if (random < 0.3f)
+            if (GameStats.Instance.currentPlayer.timer <= 20)
             {
-                _objectPool.Spawn("Circle", new Vector3(x, 6, 0), Quaternion.identity);
-            } else if (random >= 0.3 && random < 0.5)
-            {
-                _objectPool.Spawn("Virus", new Vector3(x, 6, 0), Quaternion.identity);
-            } else if (random >= 0.5 && random < 0.7)
-            {
-                _objectPool.Spawn("Coin", new Vector3(x, 6, 0), Quaternion.identity);
-            } else if (random >= 0.7f && random < 0.8f)
-            {
-                _objectPool.Spawn(nameof(Shooter), new Vector3(x, 6, 0), Quaternion.identity);
+                SpawnReward();
             }
             else
             {
+                var random = Random.Range(0f, 1f);
+                if (random <= 0.4)
+                {
+                    SpawnReward();
+                }
+                else
+                {
+                    SpawnEnemy();
+                }
+            }
+        }
+
+        private void SpawnEnemy()
+        {
+            var random = Random.Range(0f, 1f);
+            var x = Random.Range(0f, 1f) < .5f ? Random.Range(-7f, -2.5f) : Random.Range(2.5f, 7f);
+
+            if (random < 0.3f)
+            {
+                _objectPool.Spawn("Virus", new Vector3(x, 6, 0), Quaternion.identity);
+            } else if (random >= 0.3f && random < 0.6f)
+            {
+                _objectPool.Spawn("Star", new Vector3(x, 6, 0), Quaternion.identity);
+            } else if (random >= 0.6f && random < 0.9)
+            {
                 _objectPool.Spawn("Square", new Vector3(x, 6, 0), Quaternion.identity);
+            }
+        }
+
+        private void SpawnReward()
+        {
+            var random = Random.Range(0f, 1f);
+            var x = Random.Range(0f, 1f) < .5f ? Random.Range(-7f, -2.5f) : Random.Range(2.5f, 7f);
+
+            if (random < 0.3f)
+            {
+                _objectPool.Spawn("Circle", new Vector3(x, 6, 0), Quaternion.identity);
+            } else if (random >= 0.3f && random < 0.6f)
+            {
+                _objectPool.Spawn("Coin", new Vector3(x, 6, 0), Quaternion.identity);
+            } else if (random >= 0.6f && random < 0.9)
+            {
+                _objectPool.Spawn("Heart", new Vector3(x, 6, 0), Quaternion.identity);
             }
         }
 

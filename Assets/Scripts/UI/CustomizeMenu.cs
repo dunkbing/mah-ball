@@ -43,10 +43,10 @@ namespace UI
             {
                 swordButton.interactable = true;
             }
-            if (weapons[WeaponType.Gun].Level > 0)
-            {
-                gunButton.interactable = true;
-            }
+            // if (weapons[WeaponType.Gun].Level > 0)
+            // {
+            //     gunButton.interactable = true;
+            // }
             if (weapons[WeaponType.Spike].Level > 0)
             {
                 spikeButton.interactable = true;

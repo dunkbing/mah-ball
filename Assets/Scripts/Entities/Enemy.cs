@@ -25,7 +25,7 @@ namespace Entities
             }
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, float defence)
         {
             if (healthBar)
             {
@@ -48,13 +48,13 @@ namespace Entities
             {
                 case "Player":
                     var player = other.gameObject.GetComponent<Player>();
-                    player.TakeDamage(Damage);
-                    TakeDamage(playerDmg);
+                    player.TakeDamage(Damage, GameStats.Instance.CurrentWeapon.Defence);
+                    TakeDamage(playerDmg, 0);
                     break;
                 case "Bullet":
                     if (other.gameObject.name.Contains("PlayerBullet"))
                     {
-                        TakeDamage(playerDmg);
+                        TakeDamage(playerDmg, 0);
                     }
                     break;
             }

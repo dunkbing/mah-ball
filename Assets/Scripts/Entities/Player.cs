@@ -27,6 +27,8 @@ namespace Entities
         private Vector3 _startPoint;
         private Vector3 _endPoint;
 
+        public float timer;
+
         // on air time limit
         private float _energy = GameStats.MaxEnergy;
         private float _chargeTime;
@@ -68,6 +70,8 @@ namespace Entities
 
         private void Update()
         {
+            timer += Time.deltaTime;
+
             if (_onAir)
             {
                 _energy -= Time.deltaTime;
@@ -177,7 +181,7 @@ namespace Entities
                     _gun = _weapon.transform.Find("Gun").GetComponent<Gun>();
                     if (!_shootStarted)
                     {
-                        InvokeRepeating(nameof(Shoot), 0.3f, 0.4f);
+                        InvokeRepeating(nameof(Shoot), 0.2f, 0.2f);
                         _shootStarted = true;
                     }
                     break;
@@ -278,7 +282,7 @@ namespace Entities
         {
             if (other.CompareTag("Virus"))
             {
-                TakeDamage(Constants.VirusDamage/15f);
+                TakeDamage(Constants.VirusDamage/20f, GameStats.Instance.currentWeaponType == WeaponType.None ? 0 : GameStats.Instance.CurrentWeapon.Defence);
             }
         }
 
@@ -338,10 +342,11 @@ namespace Entities
                 case "Lava":
                     break;
                 case "Bullet":
-                    TakeDamage(Constants.BulletDamage);
+                    TakeDamage(Constants.BulletDamage, GameStats.Instance.CurrentWeapon.Defence);
                     break;
                 case "Virus":
                 case "Star":
+                    RegenHp(25);
                     break;
             }
         }
@@ -399,9 +404,9 @@ namespace Entities
             HUD.Instance.healthBar.SetHealth(_health);
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, float defence)
         {
-            _health = _health - damage + GameStats.Instance.CurrentWeapon.Defence;
+            _health = _health - damage + defence;
             HUD.Instance.healthBar.SetHealth(_health);
 
             if (_health > 0) return;
@@ -410,10 +415,11 @@ namespace Entities
             HUD.Instance.DecreaseHealth();
             if (!HUD.Instance.IsEmptyLife())
             {
-                ObjectPool.Instance.Spawn(nameof(Player), new Vector3(0, 1, 0), Quaternion.identity);
+                ObjectPool.Instance.Spawn(GameStats.Instance.currentWeaponType == WeaponType.Spike ? "SpikePlayer" : nameof(Player), new Vector3(0, 1.5f, 0), Quaternion.identity);
             }
             else
             {
+                timer = 0;
                 GameStats.Instance.SaveStatsToFile();
                 PauseMenu.Instance.Pause();
             }
