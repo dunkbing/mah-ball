@@ -24,9 +24,9 @@ namespace Entities
         }
 
         // Update is called once per frame
-        private void Update ()
+        private void FixedUpdate ()
         {
-            // Float();
+            Float();
         }
 
         private void Float()

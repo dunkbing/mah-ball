@@ -77,6 +77,7 @@ namespace UI
                 GameStats.Instance.currentPlayer.SelectWeapon(wpName);
             }
 
+            GameStats.Instance.SaveStatsToFile();
             weaponInfoTmp.SetText(GameStats.Instance.currentWeaponType != WeaponType.None
                 ? GameStats.Instance.CurrentWeapon.Info()
                 : string.Empty);

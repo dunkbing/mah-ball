@@ -10,6 +10,7 @@ namespace UI
     {
         public GameObject pauseMenu;
         public GameObject startMenu;
+        public Animator animator;
 
         public static PauseMenu Instance { get; private set; }
 
@@ -19,7 +20,7 @@ namespace UI
 
         private void Awake()
         {
-            Instance = this;
+            Instance ??= this;
         }
 
         private void Start()
@@ -60,6 +61,17 @@ namespace UI
 
             yield return new WaitForSeconds(time);
             Pause();
+        }
+
+        public void RequestAdsReward()
+        {
+            AdsManager.Instance.ShowReward();
+            AdsManager.Instance.OnEarnedReward += () =>
+            {
+                animator.Play("RewardAd");
+                GameStats.Instance.Coin += 2000;
+                coinTmp.SetText($"Coin: {GameStats.Instance.Coin}");
+            };
         }
     }
 }

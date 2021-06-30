@@ -30,11 +30,11 @@ namespace Entities
 
         private void FixedUpdate()
         {
-            // Fall();
-            if (canSpin)
-            {
-                Spin();
-            }
+            Fall();
+            // if (canSpin)
+            // {
+            //     Spin();
+            // }
         }
 
         private void Spin()

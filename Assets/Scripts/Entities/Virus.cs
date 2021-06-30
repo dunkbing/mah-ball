@@ -6,6 +6,8 @@ namespace Entities
 {
     public class Virus : Enemy, ISpawn
     {
+        public SpriteRenderer sr;
+
         private void Awake()
         {
             Damage = 60;
@@ -15,7 +17,10 @@ namespace Entities
                 AudioManager.Instance.Play("explosion");
                 ObjectPool.Instance.Spawn("VirusExplosion", transform.position, Quaternion.identity, go =>
                 {
-                    go.GetComponent<ParticleSystem>().Play();
+                    var ps = go.GetComponent<ParticleSystem>();
+                    var psMain = ps.main;
+                    psMain.startColor = sr.color;
+                    ps.Play();
                 });
                 GameStats.Instance.EnemyKilled += 1;
             };

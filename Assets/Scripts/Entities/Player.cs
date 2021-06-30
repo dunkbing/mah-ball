@@ -346,7 +346,9 @@ namespace Entities
                     break;
                 case "Virus":
                 case "Star":
+                case "Square":
                     RegenHp(25);
+                    RegenKi(3);
                     break;
             }
         }
@@ -376,31 +378,30 @@ namespace Entities
             }
         }
 
-        public void ResetEnergy()
+        private void ResetEnergy()
         {
             _energy = GameStats.MaxEnergy;
         }
 
         public void RegenKi(float amount)
         {
+            _energy += amount;
+
             if (_energy > GameStats.MaxEnergy)
             {
                 _energy = GameStats.MaxEnergy;
-                return;
             }
-
-            _energy += amount;
         }
 
         public void RegenHp(float amount)
         {
+            _health += amount;
+
             if (_health > GameStats.MaxHealth)
             {
                 _health = GameStats.MaxHealth;
-                return;
             }
 
-            _health += amount;
             HUD.Instance.healthBar.SetHealth(_health);
         }
 

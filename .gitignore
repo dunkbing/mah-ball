@@ -64,3 +64,31 @@ crashlytics-build.properties
 
 # TextMesh Pro files
 [Aa]ssets/TextMesh*Pro/
+
+# Google Mobile Ads Unity Plugin files
+/Assets/GoogleMobileAds
+/Assets/GoogleMobileAds.meta
+/Assets/Plugins/Android/*.aar
+/Assets/Plugins/Android/*.aar.meta
+/Assets/Plugins/Android/*.jar
+/Assets/Plugins/Android/*.jar.meta
+/Assets/Plugins/Android.meta
+/Assets/Plugins/Android/GoogleMobileAdsPlugin
+/Assets/Plugins/Android/GoogleMobileAdsPlugin.meta
+/Assets/Plugins/iOS/GADU*.*
+/Assets/Plugins/iOS.meta
+
+# Play Services Resolver settings
+/ProjectSettings/AndroidResolverDependencies.xml
+/ProjectSettings/GvhProjectSettings.xml
+
+# Generated Ads Manifest file
+/Assets/Plugins/Android/GoogleMobileAdsManifest.plugin/AndroidManifest.xml
+/Assets/Plugins/Android/GoogleMobileAdsManifest.plugin/AndroidManifest.xml.meta
+
+/Assets/ExternalDependencyManager/
+/Assets/Plugins/Android
+/Assets/ExternalDependencyManager.meta
+/Assets/Plugins.meta
+/Assets/Plugins/iOS/unity-plugin-library.a
+/Assets/Plugins/iOS/unity-plugin-library.a.meta

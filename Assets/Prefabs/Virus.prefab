@@ -471,6 +471,7 @@ MonoBehaviour:
   rigidBody: {fileID: 5034474372271332141}
   speed: 1.5
   healthBar: {fileID: 4285567117713633865}
+  sr: {fileID: 5034474372271332138}
 --- !u!198 &2754052691895156949
 ParticleSystem:
   m_ObjectHideFlags: 0

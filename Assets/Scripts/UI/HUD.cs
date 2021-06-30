@@ -53,7 +53,7 @@ namespace UI
 
         private void Awake()
         {
-            Instance = this;
+            Instance ??= this;
         }
 
         #region energy bar
@@ -123,7 +123,8 @@ namespace UI
             var enemyKilled = gameStats.TotalEnemyKilled;
             var hp = GameStats.MaxHealth;
             var ki = GameStats.MaxEnergy;
-            tmp.SetText($"Hp: {hp}\nKi: {ki}\nHigh score: {highScore}\nCoin: {coin}\nEnemy killed: {enemyKilled}");
+            var power = gameStats.Power;
+            tmp.SetText($"Hp: {hp}\nKi: {ki}\nPower: {power}\nHigh score: {highScore}\nCoin: {coin}\nEnemy killed: {enemyKilled}");
         }
         #endregion
     }

@@ -57,6 +57,6 @@ namespace Common
         public const int VirusDamage = 60;
         public const int StarDamage = 30;
         public const int LavaDamage = 62;
-        public const int BulletDamage = 65;
+        public const int BulletDamage = 70;
     }
 }

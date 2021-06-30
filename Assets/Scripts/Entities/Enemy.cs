@@ -42,7 +42,7 @@ namespace Entities
         private void OnCollisionEnter2D(Collision2D other)
         {
             var gameStats = GameStats.Instance;
-            var playerDmg = gameStats.CurrentWeapon.Damage;
+            var playerDmg = gameStats.CurrentWeapon.Damage + GameStats.Instance.Power;
 
             switch (other.gameObject.tag)
             {

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d1e24f7939a64498cefc961b86ed58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  rb: {fileID: 5701029186029009064}
   speed: 1.5
   firstPlatform: 0
   canSpin: 0
