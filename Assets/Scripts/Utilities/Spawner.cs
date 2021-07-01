@@ -28,7 +28,7 @@ namespace Utilities
             HUD.Instance.ResetLife();
             _objectPool.RetrieveAll();
             TimeManager.StopSlowMotion();
-            SpawnPlayer();
+            SpawnPlayer();                      
             _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
             {
                 go.GetComponent<Platform>().firstPlatform = true;

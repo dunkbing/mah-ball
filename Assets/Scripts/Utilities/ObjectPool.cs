@@ -24,11 +24,11 @@ namespace Utilities
 
         private void Awake()
         {
-            Instance = this;
+            Instance ??= this;
             _pools = new Dictionary<string, Queue<GameObject>>();
             foreach (var poolItem in poolItems)
             {
-                Queue<GameObject> objectPool = new Queue<GameObject>();
+                var objectPool = new Queue<GameObject>();
 
                 for (var i = 0; i < poolItem.size; i++)
                 {
@@ -91,6 +91,7 @@ namespace Utilities
         public void Retrieve(string objName)
         {
             if (!_pools.ContainsKey(objName)) return;
+
             foreach (var go in _pools[objName])
             {
                 go.SetActive(false);

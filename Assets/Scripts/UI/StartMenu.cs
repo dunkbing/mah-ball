@@ -1,5 +1,6 @@
 // Created by Binh Bui on 06, 22, 2021
 
+using Common;
 using UnityEngine;
 
 namespace UI
@@ -22,6 +23,7 @@ namespace UI
             base.Resume();
             startMenu.SetActive(false);
             hud.SetActive(true);
+            GameStats.Instance.StartIncreasingScore();
         }
 
         public void Customize()

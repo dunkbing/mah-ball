@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Utilities
@@ -44,8 +45,9 @@ namespace Utilities
 
         public void Play(string soundName)
         {
-            var sound = Array.Find(sounds, s => s.name == soundName);
-            sound.source.Play();
+            var sound = sounds.Where(s => s.name == soundName).DefaultIfEmpty(null).First();
+            // var sound = Array.Find(sounds, s => s.name == soundName);
+            sound?.source?.Play();
         }
 
         public void SetVolume(string soundName, float volume)

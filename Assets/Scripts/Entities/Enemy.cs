@@ -25,7 +25,7 @@ namespace Entities
             }
         }
 
-        public void TakeDamage(float damage, float defence)
+        public void TakeDamage(float damage, float defense)
         {
             if (healthBar)
             {

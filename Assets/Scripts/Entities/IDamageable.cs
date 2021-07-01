@@ -4,6 +4,6 @@ namespace Entities
 {
     public interface IDamageable
     {
-        void TakeDamage(float damage, float defence);
+        void TakeDamage(float damage, float defense);
     }
 }

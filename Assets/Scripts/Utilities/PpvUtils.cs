@@ -5,9 +5,8 @@ namespace Utilities
 {
     public class PpvUtils : MonoBehaviour
     {
-
         // post processing
-        private PostProcessVolume _pp;
+        public PostProcessVolume volume;
         private Bloom _ppbl;
         private Vignette _ppvg;
         private ChromaticAberration _ppca;
@@ -16,26 +15,25 @@ namespace Utilities
 
         private void Awake()
         {
-            Instance = this;
+            Instance ??= this;
 
-            _pp = GetComponent<PostProcessVolume>();
-            _ppbl = _pp.profile.GetSetting<Bloom>();
-            _ppvg = _pp.profile.GetSetting<Vignette>();
-            _ppca = _pp.profile.GetSetting<ChromaticAberration>();
+            _ppbl = volume.profile.GetSetting<Bloom>();
+            _ppvg = volume.profile.GetSetting<Vignette>();
+            _ppca = volume.profile.GetSetting<ChromaticAberration>();
         }
 
         private void Start()
         {
-            ExitSlowMo();
+            Disable();
         }
 
-        public void EnterSlowMo()
+        public void Activate()
         {
             _ppvg.enabled.value = true;
             _ppca.enabled.value = true;
         }
 
-        public void ExitSlowMo()
+        public void Disable()
         {
             _ppvg.enabled.value = false;
             _ppca.enabled.value = false;
@@ -43,7 +41,7 @@ namespace Utilities
 
         public void DisablePp()
         {
-            foreach (var setting in _pp.profile.settings)
+            foreach (var setting in volume.profile.settings)
             {
                 setting.enabled.value = false;
             }

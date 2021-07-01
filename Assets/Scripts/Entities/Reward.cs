@@ -56,6 +56,7 @@ namespace Entities
         public void Fall()
         {
             if (GameStats.GameIsPaused) return;
+
             _rb.MovePosition(Vector3.down * (speed * Time.fixedDeltaTime) + transform.position);
 
             if (transform.position.y <= -5.5)

@@ -1,4 +1,3 @@
-using System;
 using Common;
 using UI;
 using UnityEngine;
@@ -8,7 +7,6 @@ namespace Entities
 {
     public class Player : Entity, ISpawn, IDamageable
     {
-        public float power = 5f;
         public Rigidbody2D rb2d;
         public LineRenderer lr;
         public ParticleSystem ps;
@@ -16,18 +14,13 @@ namespace Entities
 
         private float _health;
 
-        private Gun _gun;
-
         // weapons
         private GameObject _weapon;
 
-        private GameObject _shootTarget;
 
         private Camera _cam;
         private Vector3 _startPoint;
         private Vector3 _endPoint;
-
-        public float timer;
 
         // on air time limit
         private float _energy = GameStats.MaxEnergy;
@@ -35,12 +28,7 @@ namespace Entities
 
         private bool _onAir = true;
 
-        private bool _shootStarted;
-
         private Vector3 _originScale;
-
-        // to increase player score every 1s
-        private float _elapsedTime;
 
         private void Awake()
         {
@@ -57,6 +45,7 @@ namespace Entities
                     psMain.startColor = GameStats.Instance.PlayerColor;
                     particle.Play();
                 });
+                GameStats.Instance.StopIncreasingScore();
             });
         }
 
@@ -70,8 +59,6 @@ namespace Entities
 
         private void Update()
         {
-            timer += Time.deltaTime;
-
             if (_onAir)
             {
                 _energy -= Time.deltaTime;
@@ -107,40 +94,17 @@ namespace Entities
             }
         }
 
-        private void FixedUpdate()
-        {
-            if (_shootTarget && _gun)
-            {
-                _gun.Aim(_shootTarget.transform);
-            }
-        }
-
-        private void LateUpdate()
-        {
-            if (GameStats.GameIsPaused) return;
-
-            if (_elapsedTime < 1)
-            {
-                _elapsedTime += Time.deltaTime;
-            }
-            else
-            {
-                HUD.Instance.IncreaseScore(Constants.NormalScore);
-                _elapsedTime = 0;
-            }
-        }
-
         private void DragRelease()
         {
             AudioManager.Instance.Play("shoot");
-            PpvUtils.Instance.ExitSlowMo();
+            PpvUtils.Instance.Disable();
 
             TimeManager.StopSlowMotion();
 
             _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
             _endPoint.z = 15;
 
-            Vector2 velocity = (_startPoint - _endPoint) * power;
+            Vector2 velocity = (_startPoint - _endPoint) * GameStats.Instance.Power;
 
             transform.up = velocity.normalized;
             transform.localScale = _originScale;
@@ -170,20 +134,8 @@ namespace Entities
             switch (wpName)
             {
                 case WeaponType.Sword:
-                    CancelInvoke(nameof(Shoot));
-                    _shootStarted = false;
                     _weapon = ObjectPool.Instance.Spawn(WeaponType.Sword, transform.position, Quaternion.identity);
                     _weapon.transform.SetParent(gameObject.transform);
-                    break;
-                case WeaponType.Gun:
-                    _weapon = ObjectPool.Instance.Spawn(WeaponType.Gun, transform.position, Quaternion.identity);
-                    _weapon.transform.SetParent(gameObject.transform);
-                    _gun = _weapon.transform.Find("Gun").GetComponent<Gun>();
-                    if (!_shootStarted)
-                    {
-                        InvokeRepeating(nameof(Shoot), 0.2f, 0.2f);
-                        _shootStarted = true;
-                    }
                     break;
                 case WeaponType.Spike:
                     break;
@@ -196,8 +148,9 @@ namespace Entities
         private void Dragging()
         {
             _chargeTime += Time.deltaTime * 10;
-            // vignette mode
-            PpvUtils.Instance.EnterSlowMo();
+
+            // use effects
+            PpvUtils.Instance.Activate();
 
             // slow down
             TimeManager.DoSlowMotion();
@@ -205,7 +158,7 @@ namespace Entities
             _endPoint = _cam.ScreenToWorldPoint(Input.mousePosition);
             _endPoint.z = 15;
 
-            Vector2 velocity = (_startPoint - _endPoint) * power;
+            Vector2 velocity = (_startPoint - _endPoint) * GameStats.Instance.Power;
 
             // set rotation toward velocity and squeeze the ball by y
             transform.up = velocity.normalized;
@@ -218,13 +171,7 @@ namespace Entities
 
             var trajectory = Plot(rb2d, transform.position, velocity, 400);
             lr.positionCount = trajectory.Length;
-
-            var positions = new Vector3[trajectory.Length];
-            for (var i = 0; i < trajectory.Length; i++)
-            {
-                positions[i] = trajectory[i];
-            }
-            lr.SetPositions(positions);
+            lr.SetPositions(trajectory);
         }
 
         private void DragStart()
@@ -233,9 +180,9 @@ namespace Entities
             _startPoint.z = 15;
         }
 
-        private static Vector2[] Plot(Rigidbody2D rb, Vector2 pos, Vector2 velocity, int steps)
+        private static Vector3[] Plot(Rigidbody2D rb, Vector2 pos, Vector2 velocity, int steps)
         {
-            var result = new Vector2[steps];
+            var result = new Vector3[steps];
 
             var timeStep = Time.fixedDeltaTime / Physics2D.velocityIterations;
             var gravityAccel = Physics2D.gravity * (rb.gravityScale * timeStep * timeStep);
@@ -261,11 +208,10 @@ namespace Entities
         /// <param name="maxMag"></param>
         private void ReduceVel(ref Vector2 velocity, float maxMag)
         {
-            if (velocity.magnitude > maxMag)
-            {
-                velocity.Normalize();
-                velocity *= maxMag;
-            }
+            if (!(velocity.magnitude > maxMag)) return;
+
+            velocity.Normalize();
+            velocity *= maxMag;
         }
 
         private void OnCollisionStay2D(Collision2D other)
@@ -283,37 +229,6 @@ namespace Entities
             if (other.CompareTag("Virus"))
             {
                 TakeDamage(Constants.VirusDamage/20f, GameStats.Instance.currentWeaponType == WeaponType.None ? 0 : GameStats.Instance.CurrentWeapon.Defence);
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("Virus") || other.CompareTag("Star"))
-            {
-                switch (GameStats.Instance.currentWeaponType)
-                {
-                    case WeaponType.Sword:
-                        break;
-                    case WeaponType.Gun:
-                        _shootTarget = other.gameObject;
-                        break;
-                }
-            }
-        }
-
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            if (_shootTarget == null && (other.CompareTag("Virus") || other.CompareTag("Star")) || other.CompareTag("Square"))
-            {
-                _shootTarget = other.gameObject;
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (_shootTarget == other.gameObject)
-            {
-                _shootTarget = null;
             }
         }
 
@@ -370,14 +285,6 @@ namespace Entities
             ResetEnergy();
         }
 
-        private void Shoot()
-        {
-            if (_shootTarget)
-            {
-                _gun.Shoot("PlayerBullet");
-            }
-        }
-
         private void ResetEnergy()
         {
             _energy = GameStats.MaxEnergy;
@@ -405,9 +312,9 @@ namespace Entities
             HUD.Instance.healthBar.SetHealth(_health);
         }
 
-        public void TakeDamage(float damage, float defence)
+        public void TakeDamage(float damage, float defense)
         {
-            _health = _health - damage + defence;
+            _health = _health - damage + defense;
             HUD.Instance.healthBar.SetHealth(_health);
 
             if (_health > 0) return;
@@ -420,7 +327,8 @@ namespace Entities
             }
             else
             {
-                timer = 0;
+                TimeManager.StopSlowMotion();
+                lr.positionCount = 0;
                 GameStats.Instance.SaveStatsToFile();
                 PauseMenu.Instance.Pause();
             }

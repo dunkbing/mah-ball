@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Entities;
+using UI;
 using UnityEngine;
 
 namespace Common
@@ -177,6 +179,25 @@ namespace Common
             }
 
             Instance.SaveStatsToFile();
+        }
+
+        public void StartIncreasingScore()
+        {
+            StartCoroutine(nameof(IncreaseScore));
+        }
+
+        public void StopIncreasingScore()
+        {
+            StopCoroutine(nameof(IncreaseScore));
+        }
+
+        private IEnumerator IncreaseScore()
+        {
+            while (true)
+            {
+                yield return new WaitForSecondsRealtime(1f);
+                HUD.Instance.IncreaseScore(Constants.NormalScore);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace UI
             GameStats.GameIsPaused = false;
             HUD.Instance.IncreaseScore(-GameStats.Instance.Score);
             Spawner.Instance.StartGame();
-            PpvUtils.Instance.ExitSlowMo();
+            PpvUtils.Instance.Disable();
         }
 
         public virtual void Pause()
