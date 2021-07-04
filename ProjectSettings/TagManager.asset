@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Bound
+  - Lava
+  - Platform
+  - Maze
+  - PlatformSurface
+  - GreenPlatformSurface
+  - Coin
+  - Heart
+  - Virus
+  - Cat
+  - Star
+  - Bullet
+  - BluePlatformSurface
+  - Square
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Post Processing
+  - Player
+  - Wall
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 863059513
+    locked: 0
+  - name: Background2
+    uniqueID: 2705882315
+    locked: 0
+  - name: Midground
+    uniqueID: 3571211067
+    locked: 0
+  - name: Foreground
+    uniqueID: 3785095011
+    locked: 0
+  - name: Foreground2
+    uniqueID: 2702440163
+    locked: 0
