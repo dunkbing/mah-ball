@@ -26,7 +26,7 @@ namespace Common
         public string currentWeaponType = WeaponType.None;
         public Weapon CurrentWeapon => Weapons.ContainsKey(currentWeaponType) ? Weapons[currentWeaponType] : Weapon.None;
 
-        public Player currentPlayer;
+        public Ball currentBall;
 
         public static GameStats Instance { get; private set; }
 

@@ -50,7 +50,7 @@ namespace Entities
         {
             if (!other.collider.CompareTag("Player")) return;
 
-            GameStats.Instance.currentPlayer.TakeDamage(Constants.LavaDamage, 0);
+            GameStats.Instance.currentBall.TakeDamage(Constants.LavaDamage, 0);
         }
     }
 }

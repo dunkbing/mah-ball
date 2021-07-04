@@ -44,8 +44,8 @@ namespace Entities
             if (!other.gameObject.CompareTag("Player")) return;
 
             GameStats.Instance.Coin += Constants.CoinReward/2;
-            GameStats.Instance.currentPlayer.RegenHp(Health);
-            GameStats.Instance.currentPlayer.RegenKi(Health/3);
+            GameStats.Instance.currentBall.RegenHp(Health);
+            GameStats.Instance.currentBall.RegenKi(Health/3);
             Explode();
         }
     }

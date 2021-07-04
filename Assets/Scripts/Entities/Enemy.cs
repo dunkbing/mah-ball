@@ -47,7 +47,7 @@ namespace Entities
             switch (other.gameObject.tag)
             {
                 case "Player":
-                    var player = other.gameObject.GetComponent<Player>();
+                    var player = other.gameObject.GetComponent<NormalBall>();
                     player.TakeDamage(Damage, GameStats.Instance.CurrentWeapon.Defence);
                     TakeDamage(playerDmg, 0);
                     break;

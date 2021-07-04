@@ -25,6 +25,10 @@ namespace Utilities
         private void Awake()
         {
             Instance ??= this;
+        }
+
+        private void Start()
+        {
             _pools = new Dictionary<string, Queue<GameObject>>();
             foreach (var poolItem in poolItems)
             {
@@ -33,6 +37,8 @@ namespace Utilities
                 for (var i = 0; i < poolItem.size; i++)
                 {
                     var go = Instantiate(poolItem.prefab);
+                    // var go = Instantiate(Resources.Load($"Prefabs/{poolItem.tag}") as GameObject);
+
                     go.SetActive(false);
                     objectPool.Enqueue(go);
                 }
@@ -43,7 +49,7 @@ namespace Utilities
 
         public GameObject Spawn(string objName, Vector3 position, Quaternion rotation, Action<GameObject> callback = null)
         {
-            if (!_pools.ContainsKey(objName))
+            if (!_pools.ContainsKey(objName) || _pools[objName].Count == 0)
             {
                 return null;
             }
@@ -62,7 +68,7 @@ namespace Utilities
 
         public GameObject Spawn(string objName, Action<GameObject> callback = null)
         {
-            if (!_pools.ContainsKey(objName))
+            if (!_pools.ContainsKey(objName) || _pools[objName].Count == 0)
             {
                 return null;
             }

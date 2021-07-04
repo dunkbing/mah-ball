@@ -31,7 +31,7 @@ namespace UI
 
         public void SelectColor(Image image)
         {
-            GameStats.Instance.currentPlayer.SetPlayerColor(image.color);
+            GameStats.Instance.currentBall.SetPlayerColor(image.color);
             GameStats.Instance.SaveStatsToFile();
         }
 
@@ -74,7 +74,7 @@ namespace UI
             }
             else
             {
-                GameStats.Instance.currentPlayer.SelectWeapon(wpName);
+                GameStats.Instance.currentBall.SelectWeapon(wpName);
             }
 
             GameStats.Instance.SaveStatsToFile();

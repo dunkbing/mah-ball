@@ -8,7 +8,7 @@ namespace UI
 {
     public class Menu: MonoBehaviour
     {
-        public virtual void Resume()
+        protected void Resume()
         {
             GameStats.GameIsPaused = false;
             HUD.Instance.IncreaseScore(-GameStats.Instance.Score);

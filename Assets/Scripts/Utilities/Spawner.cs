@@ -14,12 +14,12 @@ namespace Utilities
 
         private void Awake()
         {
-            Instance = this;
-            _objectPool = ObjectPool.Instance;
+            Instance ??= this;
         }
 
         private void Start()
         {
+            _objectPool = ObjectPool.Instance;
             PreStartGame();
         }
 
@@ -28,7 +28,7 @@ namespace Utilities
             HUD.Instance.ResetLife();
             _objectPool.RetrieveAll();
             TimeManager.StopSlowMotion();
-            SpawnPlayer();                      
+            SpawnPlayer();
             _objectPool.Spawn(nameof(Platform), Vector3.up * 2, Quaternion.identity, go =>
             {
                 go.GetComponent<Platform>().firstPlatform = true;
@@ -40,7 +40,7 @@ namespace Utilities
         {
             _objectPool.RetrieveAll();
             SpawnPlayer();
-            _objectPool.Spawn(nameof(Platform), new Vector3(0, 2.5f, 0), Quaternion.identity, go =>
+            _objectPool.Spawn("Platform", new Vector3(0, 2.5f, 0), Quaternion.identity, go =>
             {
                 go.GetComponent<Platform>().firstPlatform = true;
             }).GetComponent<Platform>().speed = 0;
@@ -48,7 +48,7 @@ namespace Utilities
 
         private void SpawnPlayer()
         {
-            GameStats.Instance.currentPlayer = _objectPool.Spawn(GameStats.Instance.currentWeaponType == WeaponType.Spike ? "SpikePlayer" : nameof(Player),
+            GameStats.Instance.currentBall = _objectPool.Spawn(GameStats.Instance.currentWeaponType == WeaponType.Spike ? "SpikePlayer" : nameof(NormalBall),
                 new Vector3(0, 3.5f, 0), Quaternion.identity, (go =>
                 {
                     var currentWeapon = GameStats.Instance.currentWeaponType;
@@ -67,7 +67,7 @@ namespace Utilities
 
                     var tf = go.transform;
                     tf.localScale = currentWeapon == WeaponType.Spike ? new Vector3(0.25f, 0.25f) : new Vector3(0.7f, 0.7f);
-                })).GetComponent<Player>();
+                })).GetComponent<NormalBall>();
         }
 
         private void SpawnObject()
