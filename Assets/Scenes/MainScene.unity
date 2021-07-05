@@ -11629,6 +11629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 914584183}
   - component: {fileID: 914584181}
+  - component: {fileID: 914584182}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -11650,6 +11651,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeaponType: None
   currentBall: {fileID: 0}
+--- !u!114 &914584182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914584180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fdc64a51a4dd880d2c42d3000624c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &914584183
 Transform:
   m_ObjectHideFlags: 0

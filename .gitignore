@@ -92,3 +92,5 @@ crashlytics-build.properties
 /Assets/Plugins.meta
 /Assets/Plugins/iOS/unity-plugin-library.a
 /Assets/Plugins/iOS/unity-plugin-library.a.meta
+
+*.keystore
