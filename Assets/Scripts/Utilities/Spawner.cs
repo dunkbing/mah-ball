@@ -75,6 +75,7 @@ namespace Utilities
                             break;
                         case WeaponType.None:
                             rb.mass = 16;
+                            tf.localScale = new Vector3(0.7f, 0.7f);
                             break;
                         case WeaponType.Spike:
                             tf.localScale = new Vector3(0.25f, 0.25f);

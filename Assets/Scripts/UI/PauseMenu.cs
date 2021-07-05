@@ -10,6 +10,7 @@ namespace UI
     {
         public GameObject pauseMenu;
         public GameObject startMenu;
+        public GameObject adsButton;
         public Animator animator;
 
         public static PauseMenu Instance { get; private set; }
@@ -32,6 +33,8 @@ namespace UI
         {
             base.Pause();
             pauseMenu.SetActive(true);
+            // randomly show ads button
+            adsButton.SetActive(Random.Range(0, 1f) < 0.8);
             highScoreTmp.SetText($"High score: {GameStats.Instance.HighScore}");
             coinTmp.SetText($"Coin: {GameStats.Instance.Coin}");
         }

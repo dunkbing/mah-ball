@@ -1181,7 +1181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.4, y: 55}
+  m_AnchoredPosition: {x: 5.4, y: 63.2}
   m_SizeDelta: {x: 427.2561, y: 47.4321}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &227704166
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -12969,6 +12969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1138380191}
   startMenu: {fileID: 1898756037}
+  adsButton: {fileID: 429111065}
   animator: {fileID: 1138380196}
   highScoreTmp: {fileID: 1756359657}
   coinTmp: {fileID: 227704167}
