@@ -8,7 +8,7 @@ namespace Entities
     public struct WeaponType
     {
         public const string Sword = "Sword";
-        public const string Gun = "Gun";
+        public const string BLob = "Blob";
         public const string Spike = "Spike";
         public const string None = "None";
     }

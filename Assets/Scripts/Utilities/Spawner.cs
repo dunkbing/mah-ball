@@ -1,3 +1,4 @@
+using System;
 using Common;
 using Entities;
 using UI;
@@ -48,25 +49,37 @@ namespace Utilities
 
         private void SpawnPlayer()
         {
-            GameStats.Instance.currentBall = _objectPool.Spawn(GameStats.Instance.currentWeaponType == WeaponType.Spike ? "SpikePlayer" : nameof(NormalBall),
+            var playerType = GameStats.Instance.currentWeaponType switch
+            {
+                WeaponType.None => nameof(NormalBall),
+                WeaponType.BLob => nameof(BlobBall),
+                WeaponType.Spike => "SpikePlayer",
+                _ => nameof(NormalBall),
+            };
+
+            GameStats.Instance.currentBall = _objectPool.Spawn(playerType,
                 new Vector3(0, 3.5f, 0), Quaternion.identity, (go =>
                 {
                     var currentWeapon = GameStats.Instance.currentWeaponType;
                     var rb = go.GetComponent<Rigidbody2D>();
+                    var tf = go.transform;
+
                     switch (currentWeapon)
                     {
-                        case WeaponType.Gun:
+                        case WeaponType.BLob:
+                            tf.localScale = new Vector3(0.2f, 0.2f);
+                            break;
                         case WeaponType.Sword:
                             rb.mass = 22;
+                            tf.localScale = new Vector3(0.7f, 0.7f);
                             break;
                         case WeaponType.None:
                             rb.mass = 16;
                             break;
+                        case WeaponType.Spike:
+                            tf.localScale = new Vector3(0.25f, 0.25f);
+                            break;
                     }
-                    // rb.constraints = currentWeapon == WeaponType.Gun ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.None;
-
-                    var tf = go.transform;
-                    tf.localScale = currentWeapon == WeaponType.Spike ? new Vector3(0.25f, 0.25f) : new Vector3(0.7f, 0.7f);
                 })).GetComponent<NormalBall>();
         }
 

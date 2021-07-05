@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Entities;
 using UI;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Common
@@ -34,6 +36,7 @@ namespace Common
         {
             Instance = this;
             PlayerColor  = new Color(98, 238, 164);
+
             LoadStatsFromFile();
             LoadWeaponsFromFile();
         }
@@ -46,7 +49,8 @@ namespace Common
                 var highScoreTxt = File.ReadAllText(Constants.StatFilePath);
                 var stats = highScoreTxt.Split('|');
                 HighScore = Convert.ToInt32(stats[0]);
-                PlayerColor = new Color(Convert.ToSingle(stats[1]), Convert.ToSingle(stats[2]), Convert.ToSingle(stats[3]));
+                PlayerColor = new Color(Convert.ToSingle(stats[1]), Convert.ToSingle(stats[2]),
+                    Convert.ToSingle(stats[3]));
                 Coin = Convert.ToInt32(stats[4]);
                 TotalEnemyKilled = Convert.ToInt32(stats[5]);
                 currentWeaponType = stats[6];
@@ -78,18 +82,22 @@ namespace Common
                 }
                 else
                 {
-                    Weapons[WeaponType.Sword] = new Weapon(){Name = WeaponType.Sword, Level = 0, Price = Constants.SwordPrice, Damage = 0};
+                    Weapons[WeaponType.Sword] = new Weapon()
+                        { Name = WeaponType.Sword, Level = 0, Price = Constants.SwordPrice, Damage = 0 };
                     // Weapons[WeaponType.Gun] = new Weapon(){Name = WeaponType.Gun, Level = 0, Price = Constants.GunPrice, Damage = 0};
-                    Weapons[WeaponType.Spike] = new Weapon(){Name = WeaponType.Spike, Level = 0, Price = Constants.SpikeDamage, Damage = 0};
+                    Weapons[WeaponType.Spike] = new Weapon()
+                        { Name = WeaponType.Spike, Level = 0, Price = Constants.SpikeDamage, Damage = 0 };
                 }
             }
             catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException ||
                                       e is IndexOutOfRangeException || e is FormatException)
             {
                 Debug.Log(e.Message);
-                Weapons[WeaponType.Sword] = new Weapon(){Name = WeaponType.Sword, Level = 0, Price = Constants.SwordPrice, Damage = 0};
+                Weapons[WeaponType.Sword] = new Weapon()
+                    { Name = WeaponType.Sword, Level = 0, Price = Constants.SwordPrice, Damage = 0 };
                 // Weapons[WeaponType.Gun] = new Weapon(){Name = WeaponType.Gun, Level = 0, Price = Constants.GunPrice, Damage = 0};
-                Weapons[WeaponType.Spike] = new Weapon(){Name = WeaponType.Spike, Level = 0, Price = Constants.SpikePrice, Damage = 0};
+                Weapons[WeaponType.Spike] = new Weapon()
+                    { Name = WeaponType.Spike, Level = 0, Price = Constants.SpikePrice, Damage = 0 };
             }
         }
 
@@ -109,7 +117,8 @@ namespace Common
             var r = PlayerColor.r;
             var g = PlayerColor.g;
             var b = PlayerColor.b;
-            File.WriteAllText(Constants.StatFilePath, $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponType}|{MaxHealth}|{MaxEnergy}|{Power}");
+            File.WriteAllText(Constants.StatFilePath,
+                $"{HighScore}|{r}|{g}|{b}|{Coin}|{TotalEnemyKilled}|{currentWeaponType}|{MaxHealth}|{MaxEnergy}|{Power}");
         }
 
         public void SaveWeaponsToFile()
@@ -139,11 +148,6 @@ namespace Common
                         weapon.Damage += weapon.Level < 1 ? Constants.SwordDamage : Constants.SwordDamage / 2;
                         weapon.Defence = Constants.SwordDefence;
                         break;
-                    // case WeaponType.Gun:
-                    //     weapon.Price += Constants.GunPrice / 2;
-                    //     weapon.Damage += weapon.Level == 0 ? Constants.GunDamage : Constants.GunDamage / 2;
-                    //     weapon.Defence += Constants.GunDefence;
-                    //     break;
                     case WeaponType.Spike:
                         weapon.Price += Constants.SpikePrice / 2;
                         weapon.Damage += weapon.Level == 0 ? Constants.SpikeDamage : Constants.SpikeDamage / 3;

@@ -36,7 +36,7 @@ namespace Entities
             _cam = Camera.main;
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
             if (onAir)
             {
@@ -98,7 +98,7 @@ namespace Entities
 
         protected virtual void Dragging()
         {
-            _chargeTime += Time.deltaTime * 10;
+            _chargeTime += Time.deltaTime * 15;
 
             // use effects
             PpvUtils.Instance.Activate();
@@ -247,6 +247,44 @@ namespace Entities
             }
 
             HUD.Instance.healthBar.SetHealth(_health);
+        }
+
+        protected void HandleCollision(Collision2D other, bool stay = false)
+        {
+            if (!stay && !GameStats.GameIsPaused) ps.Play();
+
+            switch (other.gameObject.tag)
+            {
+                case "PlatformSurface":
+                    if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.WhitePlatScore);
+                    RegenKi(Constants.WhitePlatRegenRate);
+                    onAir = false;
+                    break;
+                case "BluePlatformSurface":
+                    if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.BluePlatScore);
+                    RegenKi(Constants.BluePlatRegenRate);
+                    onAir = false;
+                    break;
+                case "GreenPlatformSurface":
+                    if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.GreenPlatScore);
+                    RegenKi(Constants.WhitePlatRegenRate / 2);
+                    RegenHp(Constants.GreenPlatRegenRate);
+                    onAir = false;
+                    break;
+                case "Lava":
+                    break;
+                case "Bound":
+                    break;
+                case "Bullet":
+                    TakeDamage(Constants.BulletDamage, GameStats.Instance.CurrentWeapon.Defence);
+                    break;
+                case "Virus":
+                case "Star":
+                case "Square":
+                    RegenHp(25);
+                    RegenKi(3);
+                    break;
+            }
         }
     }
 }

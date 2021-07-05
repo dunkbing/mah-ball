@@ -16,11 +16,13 @@ namespace Entities
 
         protected override void Awake()
         {
+            base.Awake();
             UpdateVertices();
         }
 
-        private new void Update()
+        protected override void Update()
         {
+            base.Update();
             UpdateVertices();
         }
 

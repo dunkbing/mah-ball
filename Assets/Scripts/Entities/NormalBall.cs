@@ -72,42 +72,6 @@ namespace Entities
             }
         }
 
-        private void HandleCollision(Collision2D other, bool stay = false)
-        {
-            if (!stay && !GameStats.GameIsPaused) ps.Play();
-
-            switch (other.gameObject.tag)
-            {
-                case "PlatformSurface":
-                    if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.WhitePlatScore);
-                    RegenKi(Constants.WhitePlatRegenRate);
-                    onAir = false;
-                    break;
-                case "BluePlatformSurface":
-                    if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.BluePlatScore);
-                    RegenKi(Constants.BluePlatRegenRate);
-                    onAir = false;
-                    break;
-                case "GreenPlatformSurface":
-                    if (!stay && !GameStats.GameIsPaused) HUD.Instance.IncreaseScore(Constants.GreenPlatScore);
-                    RegenKi(Constants.WhitePlatRegenRate/2);
-                    RegenHp(Constants.GreenPlatRegenRate);
-                    onAir = false;
-                    break;
-                case "Lava":
-                    break;
-                case "Bullet":
-                    TakeDamage(Constants.BulletDamage, GameStats.Instance.CurrentWeapon.Defence);
-                    break;
-                case "Virus":
-                case "Star":
-                case "Square":
-                    RegenHp(25);
-                    RegenKi(3);
-                    break;
-            }
-        }
-
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("PlatformSurface") || other.gameObject.CompareTag("GreenPlatformSurface") || other.gameObject.CompareTag("BluePlatformSurface"))

@@ -77,10 +77,10 @@ namespace UI
                 GameStats.Instance.currentBall.SelectWeapon(wpName);
             }
 
-            GameStats.Instance.SaveStatsToFile();
             weaponInfoTmp.SetText(GameStats.Instance.currentWeaponType != WeaponType.None
                 ? GameStats.Instance.CurrentWeapon.Info()
                 : string.Empty);
+            GameStats.Instance.SaveStatsToFile();
         }
     }
 }

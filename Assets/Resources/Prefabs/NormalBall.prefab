@@ -79,7 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -723756229
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.38239586, g: 0.9339623, b: 0.6419565, a: 1}
@@ -183,7 +183,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -509872285
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Positions: []
   m_Parameters:
@@ -262,12 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5183e98ccb9438478729e7e57e04c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 5
-  rb2d: {fileID: 4781474098463699842}
   lr: {fileID: 4781474098463699846}
   ps: {fileID: 5673715220207951145}
   sr: {fileID: 4781474098463699845}
-  timer: 0
+  rb2d: {fileID: 4781474098463699842}
 --- !u!96 &3876918092643846238
 TrailRenderer:
   serializedVersion: 2
@@ -307,7 +305,7 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -509872285
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Time: 0.25
   m_Parameters:
@@ -693,8 +691,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
-      minScalar: 0.05
+      scalar: 0.15
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1384,7 +1382,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 10
         minScalar: 30
         maxCurve:
           serializedVersion: 2
