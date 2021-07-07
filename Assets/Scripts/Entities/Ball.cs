@@ -205,7 +205,7 @@ namespace Entities
             ResetEnergy();
         }
 
-        public void TakeDamage(float damage, float defense)
+        public void TakeDamage(float damage, float defense = 0)
         {
             _health = _health - damage + defense;
             HUD.Instance.healthBar.SetHealth(_health);
@@ -272,6 +272,13 @@ namespace Entities
                     onAir = false;
                     break;
                 case "Lava":
+                    TakeDamage(Constants.LavaDamage);
+                    break;
+                case "Spike":
+                    if (!stay)
+                    {
+                        TakeDamage(50);
+                    }
                     break;
                 case "Bound":
                     break;
