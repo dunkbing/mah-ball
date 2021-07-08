@@ -68,14 +68,14 @@ namespace UI
 
         public void RequestAdsReward()
         {
-            AdsManager.Instance.ShowReward();
-            AdsManager.Instance.OnEarnedReward += () =>
-            {
-                animator.Play("RewardAd");
-                GameStats.Instance.Coin += 2000;
-                coinTmp.SetText($"Coin: {GameStats.Instance.Coin}");
-                GameStats.Instance.SaveStatsToFile();
-            };
+            //AdsManager.Instance.ShowReward();
+            //AdsManager.Instance.OnEarnedReward += () =>
+            //{
+            //    animator.Play("RewardAd");
+            //    GameStats.Instance.Coin += 2000;
+            //    coinTmp.SetText($"Coin: {GameStats.Instance.Coin}");
+            //    GameStats.Instance.SaveStatsToFile();
+            //};
         }
     }
 }
